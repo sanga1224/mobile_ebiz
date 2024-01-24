@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/schedule.dart';
 import 'package:mobile_ebiz/popup/port_list.dart';
@@ -160,11 +161,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => PortList(
-                                            gb: 'D',
-                                            func: setPort,
-                                            initNation: (_pod != ''
-                                                ? _pod.substring(0, 2)
-                                                : '')),
+                                          gb: 'D',
+                                          func: setPort,
+                                          initNation: (_pod != ''
+                                              ? _pod.substring(0, 2)
+                                              : ''),
+                                        ),
                                         fullscreenDialog: true,
                                       ));
                                 },
@@ -223,12 +225,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   ElevatedButton.icon(
                     onPressed: search,
                     icon: const Icon(Icons.search_outlined),
-                    label: const Text('스케쥴 조회'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).iconTheme.color,
-                      foregroundColor: Colors.white.withOpacity(0.8),
-                      textStyle: Theme.of(context).textTheme.labelMedium,
-                    ),
+                    label: Text('${'schedule'.tr()} ${'search'.tr()}'),
+                    style: Theme.of(context).elevatedButtonTheme.style,
                   ),
                 ],
               ),
@@ -261,7 +259,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   } else {
                     return Center(
                       child: Text(
-                        'No Data',
+                        '',
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                     );

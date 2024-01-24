@@ -23,6 +23,7 @@ class _PortListState extends State<PortList> {
   final Future<List<Port>> ports = ApiPort.getPortList();
 
   int _selectedIndex = 0, nationCount = 0;
+  bool firstSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +75,10 @@ class _PortListState extends State<PortList> {
               if (compareStr != port.nation) {
                 nationWidgets.add(SideNavigationBarItem(
                     icon: Icons.control_point, label: port.nation));
-                if (port.nation == widget.initNation) {
+                if (port.nation == widget.initNation &&
+                    firstSelected == false) {
                   _selectedIndex = nationCount;
+                  firstSelected = true;
                 }
                 nationCount++;
                 compareStr = port.nation;

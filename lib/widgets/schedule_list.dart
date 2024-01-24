@@ -10,9 +10,21 @@ class ScheduleList extends StatelessWidget {
     List<Widget> popupButtons(String avail) {
       List<Widget> lst = [];
       if (avail == 'Y') {
-        lst.add(TextButton(onPressed: () {}, child: const Text('예약')));
+        lst.add(TextButton(
+            onPressed: () {},
+            child: Text(
+              '예약',
+              style: Theme.of(context).textTheme.displayMedium,
+            )));
       }
-      lst.add(TextButton(onPressed: () {}, child: const Text('취소')));
+      lst.add(TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            '취소',
+            style: Theme.of(context).textTheme.displayMedium,
+          )));
       return lst;
     }
 
