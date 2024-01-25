@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_ebiz/screens/account_screen.dart';
-import 'package:mobile_ebiz/screens/home_screen.dart';
-import 'package:mobile_ebiz/screens/list_screen.dart';
-import 'package:mobile_ebiz/screens/schedule_screen.dart';
-import 'package:mobile_ebiz/screens/search_screen.dart';
+import 'package:mobile_ebiz/screens/main_screen.dart';
+import 'package:mobile_ebiz/screens/splash_screen.dart';
 import 'package:mobile_ebiz/themes/theme.dart';
 import 'package:mobile_ebiz/themes/theme_provider.dart';
-import 'package:mobile_ebiz/widgets/appbar_home.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -47,7 +43,7 @@ void main() async {
 
       //startLocale을 지정하면 초기 언어가 설정한 언어로 변경됨
       //만일 이 설정을 하지 않으면 OS 언어를 따라 기본 언어가 설정됨
-      startLocale: const Locale('ko', 'KR'),
+      //startLocale: const Locale('ko', 'KR'),
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -67,22 +63,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<Widget> _widgetList = [
-    const ScheduleScreen(),
-    const SearchScreen(),
-    const HomeScreen(),
-    const ListScreen(),
-    const AccountScreen(),
-  ];
-
-  int _selectedIndex = 2;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -93,42 +73,27 @@ class _MyAppState extends State<MyApp> {
       locale: context.locale,
       title: 'Flutter Demo',
       theme: Provider.of<ThemeProvider>(context).themeData,
-      home: Scaffold(
-        appBar: const AppBarHome(),
-        body: SafeArea(
-          child: _widgetList.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.calendar_month_outlined),
-              label: 'schedule'.tr(),
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.search_outlined),
-              label: 'search'.tr(),
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.home_outlined),
-              label: 'home'.tr(),
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.list_outlined),
-              label: 'list'.tr(),
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
-              label: 'MY',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor:
-              Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-          unselectedItemColor:
-              Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
-          onTap: _onItemTapped,
-        ),
+      home: FutureBuilder(
+        future: Future.delayed(const Duration(seconds: 3), () {
+          return 'Splash Complated.';
+        }),
+        builder: (context, snapshot) {
+          return AnimatedSwitcher(
+            duration: const Duration(microseconds: 1000),
+            child: _splashLoadingWidget(snapshot),
+          );
+        },
       ),
     );
+  }
+}
+
+Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
+  if (snapshot.hasError) {
+    return const Text('Error');
+  } else if (snapshot.hasData) {
+    return const MainScreen();
+  } else {
+    return const SplashScreen();
   }
 }

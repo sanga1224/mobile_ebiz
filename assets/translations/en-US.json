@@ -3,5 +3,8 @@
     "schedule": "Schedule",
     "home": "Home",
     "list": "List",
-    "account": "Account"
+    "account": "Account",
+    "id": "ID",
+    "password": "Password",
+    "login": "LogIn"
 }

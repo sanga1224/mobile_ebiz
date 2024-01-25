@@ -23,6 +23,11 @@ ThemeData lightMode = ThemeData(
     primaryContainer: const Color.fromRGBO(0, 84, 166, 1),
   ),
   textTheme: TextTheme(
+    headlineLarge: const TextStyle(
+      color: Color.fromRGBO(0, 84, 166, 1),
+      fontSize: 50,
+      fontWeight: FontWeight.w800,
+    ),
     displayLarge: TextStyle(
       color: Colors.black.withOpacity(1.0),
       fontSize: 30,
@@ -51,6 +56,10 @@ ThemeData lightMode = ThemeData(
       color: Colors.black.withOpacity(0.6),
       fontSize: 14,
     ),
+    bodySmall: TextStyle(
+      color: Colors.black.withOpacity(1.0),
+      fontSize: 14,
+    ),
   ),
   iconTheme: const IconThemeData(
     color: Color.fromRGBO(0, 84, 166, 1),
@@ -69,6 +78,17 @@ ThemeData lightMode = ThemeData(
         fontWeight: FontWeight.bold,
       ),
     ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    labelStyle: TextStyle(
+      color: const Color.fromRGBO(0, 84, 166, 1).withOpacity(0.8),
+      fontSize: 15,
+    ),
+    enabledBorder: OutlineInputBorder(
+      // width: 0.0 produces a thin "hairline" border
+      borderSide: BorderSide(color: Colors.black.withOpacity(0.8), width: 0.0),
+    ),
+    border: const OutlineInputBorder(),
   ),
 );
 
@@ -96,6 +116,11 @@ ThemeData darkMode = ThemeData(
     primaryContainer: Colors.white70,
   ),
   textTheme: TextTheme(
+    headlineLarge: const TextStyle(
+      color: Color.fromRGBO(61, 129, 197, 1),
+      fontSize: 50,
+      fontWeight: FontWeight.w800,
+    ),
     displayLarge: TextStyle(
       color: Colors.white.withOpacity(1.0),
       fontSize: 30,
@@ -126,6 +151,10 @@ ThemeData darkMode = ThemeData(
       color: Colors.white.withOpacity(0.6),
       fontSize: 14,
     ),
+    bodySmall: TextStyle(
+      color: Colors.white.withOpacity(1.0),
+      fontSize: 14,
+    ),
   ),
   iconTheme: const IconThemeData(
     color: Colors.white70,
@@ -145,5 +174,16 @@ ThemeData darkMode = ThemeData(
         fontWeight: FontWeight.bold,
       ),
     ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    labelStyle: TextStyle(
+      color: Colors.white.withOpacity(0.8),
+      fontSize: 15,
+    ),
+    enabledBorder: OutlineInputBorder(
+      // width: 0.0 produces a thin "hairline" border
+      borderSide: BorderSide(color: Colors.white.withOpacity(0.8), width: 0.0),
+    ),
+    border: const OutlineInputBorder(),
   ),
 );

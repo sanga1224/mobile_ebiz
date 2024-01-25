@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,19 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
             context.read<ThemeProvider>().toggleTheme();
           },
           icon: const Icon(Icons.refresh_outlined),
+        ),
+        IconButton(
+          onPressed: () {
+            if (EasyLocalization.of(context)!
+                .locale
+                .toString()
+                .contains('ko')) {
+              EasyLocalization.of(context)!.setLocale(const Locale('en', 'US'));
+            } else {
+              EasyLocalization.of(context)!.setLocale(const Locale('ko', 'KR'));
+            }
+          },
+          icon: const Icon(Icons.language_outlined),
         ),
         IconButton(
           onPressed: () {},

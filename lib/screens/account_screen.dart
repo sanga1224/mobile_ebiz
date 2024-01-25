@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebiz/widgets/login.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Account',
-        style: Theme.of(context).textTheme.displayLarge,
-      ),
+    return const Center(
+      child: Login(),
     );
   }
 }
