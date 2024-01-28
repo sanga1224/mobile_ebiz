@@ -6,5 +6,9 @@
     "account": "Account",
     "id": "ID",
     "password": "Password",
-    "login": "LogIn"
+    "login": "LogIn",
+    "Input_ID_PWD": "Input the ID and Password.",
+    "Login_Error1": "There is no ID.",
+    "Login_Error2": "Password is not matched.",
+    "Login_Error3": "ID is not approved yet."
 }
