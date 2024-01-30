@@ -16,17 +16,24 @@ class SettingWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.grey),
-                  color: Theme.of(context).colorScheme.background,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.person,
-                  size: 50,
-                  color: Colors.grey,
+                padding: const EdgeInsets.only(top: 50),
+                child: const CircleAvatar(
+                  radius: 100,
+                  backgroundImage: AssetImage('images/profiles/1.svg'),
                 ),
               ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     border: Border.all(width: 2, color: Colors.grey),
+              //     color: Theme.of(context).colorScheme.background,
+              //     shape: BoxShape.circle,
+              //   ),
+              //   child: const Icon(
+              //     Icons.person,
+              //     size: 50,
+              //     color: Colors.grey,
+              //   ),
+              // ),
               const SizedBox(
                 width: 10,
               ),
