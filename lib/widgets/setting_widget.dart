@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SettingWidget extends StatelessWidget {
   const SettingWidget({super.key});
@@ -15,25 +16,25 @@ class SettingWidget extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 50),
-                child: const CircleAvatar(
-                  radius: 100,
-                  backgroundImage: AssetImage('images/profiles/1.svg'),
-                ),
-              ),
               // Container(
-              //   decoration: BoxDecoration(
-              //     border: Border.all(width: 2, color: Colors.grey),
-              //     color: Theme.of(context).colorScheme.background,
-              //     shape: BoxShape.circle,
-              //   ),
-              //   child: const Icon(
-              //     Icons.person,
-              //     size: 50,
-              //     color: Colors.grey,
+              //   padding: const EdgeInsets.only(top: 50),
+              //   child: const CircleAvatar(
+              //     radius: 100,
+              //     backgroundImage: AssetImage('images/profiles/1.svg'),
               //   ),
               // ),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.grey),
+                  color: Theme.of(context).colorScheme.background,
+                  shape: BoxShape.circle,
+                ),
+                child: SvgPicture.asset(
+                  'assets/images/profiles/1.svg',
+                  width: 100,
+                  height: 100,
+                ),
+              ),
               const SizedBox(
                 width: 10,
               ),

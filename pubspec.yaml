@@ -33,6 +33,7 @@ dependencies:
   easy_localization: ^3.0.0
   flutter:
     sdk: flutter
+  flutter_svg: ^2.0.9
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   side_navigation: ^1.0.4
