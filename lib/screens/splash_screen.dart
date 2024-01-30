@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -7,22 +8,30 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Center(
-          child: Row(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Image(
-            image: AssetImage('assets/images/logo_41px.png'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Image(
+                image: AssetImage('assets/images/logo_41px.png'),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'SINOKOR',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+            ],
           ),
           const SizedBox(
-            width: 10,
+            height: 20,
           ),
-          Text(
-            'SINOKOR',
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
+          Text('chkingLogin'.tr())
         ],
-      )),
+      ),
     );
   }
 }

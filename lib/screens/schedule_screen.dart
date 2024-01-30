@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/schedule.dart';
 import 'package:mobile_ebiz/popup/port_list.dart';
 import 'package:mobile_ebiz/services/api_schedule.dart';
-import 'package:mobile_ebiz/widgets/schedule_list.dart';
+import 'package:mobile_ebiz/widgets/schedule_widget.dart';
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});

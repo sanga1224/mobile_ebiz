@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/services/api_loging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class LoginWidget extends StatelessWidget {
+  const LoginWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,11 @@ class Login extends StatelessWidget {
       if (result.status == 'N') {
         showSnackBar(context, Text("Login_${result.msg}".tr()));
       } else {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('login_token', result.msg);
+        if (!context.mounted) {
+          return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+        }
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(

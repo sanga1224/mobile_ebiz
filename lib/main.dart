@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/screens/splash_screen.dart';
+import 'package:mobile_ebiz/services/api_loging.dart';
 import 'package:mobile_ebiz/themes/theme.dart';
 import 'package:mobile_ebiz/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -63,6 +65,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Future chkLogIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? loginToken = prefs.getString('login_token');
+
+    if (loginToken != null) {
+      StatusMsg result = await ApiLogIn.chkLogIn(loginToken);
+      if (result.status == "Y") {
+        return 'Completed';
+      } else {
+        prefs.setString('login_token', '');
+        return 'Log-out';
+      }
+    } else {
+      return '';
+    }
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -74,9 +93,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: Provider.of<ThemeProvider>(context).themeData,
       home: FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 3), () {
-          return 'Splash Complated.';
-        }),
+        future: Future.delayed(const Duration(seconds: 3), chkLogIn),
         builder: (context, snapshot) {
           return AnimatedSwitcher(
             duration: const Duration(microseconds: 1000),

@@ -10,5 +10,6 @@
     "Input_ID_PWD": "Input the ID and Password.",
     "Login_Error1": "There is no ID.",
     "Login_Error2": "Password is not matched.",
-    "Login_Error3": "ID is not approved yet."
+    "Login_Error3": "ID is not approved yet.",
+    "chkingLogin": "Checking login information..."
 }
