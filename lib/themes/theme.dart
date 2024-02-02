@@ -34,7 +34,7 @@ ThemeData lightMode = ThemeData(
       fontWeight: FontWeight.w800,
     ),
     displayMedium: TextStyle(
-      color: Colors.black.withOpacity(1.0),
+      color: Colors.black.withOpacity(0.8),
       fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
@@ -48,7 +48,7 @@ ThemeData lightMode = ThemeData(
       fontWeight: FontWeight.w800,
     ),
     labelMedium: TextStyle(
-      color: Colors.black.withOpacity(1.0),
+      color: Colors.black.withOpacity(0.8),
       fontSize: 16,
       fontWeight: FontWeight.w600,
     ),
@@ -127,7 +127,7 @@ ThemeData darkMode = ThemeData(
       fontWeight: FontWeight.w800,
     ),
     displayMedium: TextStyle(
-      color: Colors.white.withOpacity(1.0),
+      color: Colors.white.withOpacity(0.8),
       fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
@@ -142,7 +142,7 @@ ThemeData darkMode = ThemeData(
       fontWeight: FontWeight.w800,
     ),
     labelMedium: TextStyle(
-      color: Colors.black.withOpacity(1.0),
+      color: Colors.white.withOpacity(0.8),
       fontSize: 16,
       fontWeight: FontWeight.w600,
     ),

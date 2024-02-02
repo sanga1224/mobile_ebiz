@@ -28,12 +28,15 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  android_id: ^0.3.6
   cupertino_icons: ^1.0.2
+  device_info_plus: ^9.1.2
   dio: ^5.4.0
   easy_localization: ^3.0.0
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.9
+  loading_animation_widget: ^1.2.0+4
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   side_navigation: ^1.0.4
@@ -58,6 +61,7 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/
+    - assets/images/profiles/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

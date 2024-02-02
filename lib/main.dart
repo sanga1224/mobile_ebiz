@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/screens/splash_screen.dart';
-import 'package:mobile_ebiz/services/api_loging.dart';
+import 'package:mobile_ebiz/services/api_login.dart';
 import 'package:mobile_ebiz/themes/theme.dart';
 import 'package:mobile_ebiz/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
     final String? loginToken = prefs.getString('login_token');
 
     if (loginToken != null) {
-      StatusMsg result = await ApiLogIn.chkLogIn(loginToken);
+      StatusMsg result = await ApiLogIn.chkLogIn();
       if (result.status == "Y") {
         return 'Completed';
       } else {

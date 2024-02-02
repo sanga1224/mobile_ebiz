@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
-import 'package:mobile_ebiz/services/api_loging.dart';
+import 'package:mobile_ebiz/services/api_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginWidget extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:mobile_ebiz/screens/home_screen.dart';
 import 'package:mobile_ebiz/screens/list_screen.dart';
 import 'package:mobile_ebiz/screens/schedule_screen.dart';
 import 'package:mobile_ebiz/screens/search_screen.dart';
-import 'package:mobile_ebiz/widgets/appbar_home.dart';
+import 'package:mobile_ebiz/widgets/appbar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

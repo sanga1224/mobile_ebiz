@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
-import 'package:mobile_ebiz/services/api_loging.dart';
-import 'package:mobile_ebiz/widgets/login_widget.dart';
-import 'package:mobile_ebiz/widgets/setting_widget.dart';
+import 'package:mobile_ebiz/services/api_login.dart';
+import 'package:mobile_ebiz/widgets/account/login_widget.dart';
+import 'package:mobile_ebiz/widgets/account/setting_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ class AccountScreen extends StatelessWidget {
       final String? loginToken = prefs.getString('login_token');
 
       if (loginToken != null) {
-        StatusMsg result = await ApiLogIn.chkLogIn(loginToken);
+        StatusMsg result = await ApiLogIn.chkLogIn();
         if (result.status == "Y") {
           return true;
         } else {
