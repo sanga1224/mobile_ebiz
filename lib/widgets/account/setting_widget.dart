@@ -1,198 +1,144 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:mobile_ebiz/models/profile.dart';
-import 'package:mobile_ebiz/popup/account/profile_info.dart';
-import 'package:mobile_ebiz/services/api_login.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:mobile_ebiz/themes/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingWidget extends StatefulWidget {
-  const SettingWidget({super.key});
+  const SettingWidget(
+      {super.key, required this.savedThemeMode, required this.curLocale});
+  final String savedThemeMode, curLocale;
 
   @override
   State<SettingWidget> createState() => _SettingWidgetState();
 }
 
 class _SettingWidgetState extends State<SettingWidget> {
-  Future<Profile> _profile = ApiLogIn.getProfile(0);
+  ValueNotifier<bool> _darkModeSwitch = ValueNotifier<bool>(false);
+  bool _darkModeChecked = false;
+  List<String> lstLanguage = <String>['ENG', 'KOR'];
+  String? _selectedLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.curLocale.contains('ko')) {
+      _selectedLanguage = 'KOR';
+    } else {
+      _selectedLanguage = 'ENG';
+    }
+
+    if (widget.savedThemeMode == 'light') {
+      _darkModeChecked = false;
+    } else {
+      _darkModeChecked = true;
+    }
+    _darkModeSwitch = ValueNotifier<bool>(_darkModeChecked);
+
+    _darkModeSwitch.addListener(() {
+      setState(() {
+        context.read<ThemeProvider>().toggleTheme();
+        _darkModeSwitch = ValueNotifier<bool>(_darkModeChecked);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    Future getUserInfo() async {
-      setState(() {
-        _profile = ApiLogIn.getProfile(0);
-      });
-    }
-
-    return FutureBuilder(
-      future: _profile,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+    debugPrint(widget.savedThemeMode);
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 2, //AppBar 음영 크기
+        foregroundColor: Theme.of(context).appBarTheme.titleTextStyle!.color,
+        title: Text(
+          'setting'.tr(),
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
             child: Column(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProfileInfo(
-                            initSeq: snapshot.data!.seq,
-                            func: getUserInfo,
-                          ),
-                          fullscreenDialog: true,
-                        ));
-                  },
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 2, color: Colors.grey),
-                              color: Theme.of(context).colorScheme.background,
-                              shape: BoxShape.circle,
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/images/profiles/${snapshot.data!.icon.toString()}.svg',
-                              width: 40,
-                              height: 40,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Text(
-                              snapshot.data!.nickname,
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.chevron_right),
-                      ),
-                    ],
-                  ),
-                ),
-                Divider(
-                  color: Theme.of(context).colorScheme.outline,
-                  thickness: 1,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.plus_one_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
                       Text(
-                        'onetouchbk'.tr(),
+                        'dark_mode'.tr(),
                         style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      AdvancedSwitch(
+                        controller: _darkModeSwitch,
                       ),
                     ],
                   ),
                 ),
                 Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Divider(
+                    color: Theme.of(context).colorScheme.outline,
+                    thickness: 1,
+                  ),
+                ),
+                Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(Icons.my_library_add_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
                       Text(
-                        'mybl'.tr(),
+                        'language'.tr(),
                         style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      DropdownButton(
+                        items: lstLanguage
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        value: _selectedLanguage,
+                        onChanged: (String? value) {
+                          if (value == 'KOR') {
+                            setState(() {
+                              _selectedLanguage = value ?? '';
+                              EasyLocalization.of(context)!
+                                  .setLocale(const Locale('ko', 'KR'));
+                            });
+                          } else {
+                            setState(() {
+                              _selectedLanguage = value ?? '';
+                              EasyLocalization.of(context)!
+                                  .setLocale(const Locale('en', 'US'));
+                            });
+                          }
+                        },
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.speaker_notes_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'notice'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.headphones_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'csteam'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.settings_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'setting'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.logout_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'logout'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Divider(
+                    color: Theme.of(context).colorScheme.outline,
+                    thickness: 1,
                   ),
                 ),
               ],
             ),
-          );
-        } else {
-          return Center(
-            child: LoadingAnimationWidget.staggeredDotsWave(
-              color: Theme.of(context).colorScheme.outline,
-              size: 50,
-            ),
-          );
-        }
-      },
+          ),
+        ),
+      ),
     );
   }
 }

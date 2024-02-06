@@ -142,6 +142,24 @@ class ApiLogIn {
     throw Error();
   }
 
+  static Future<StatusMsg> deleteProfile(int seq) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('login_token')!;
+    String detailUrl = 'deleteProfile/deleteProfile';
+    var param = {'token': token, 'seq': seq};
+    final response = await Dio().post(
+      '$baseUrl/$detailUrl',
+      queryParameters: param,
+    );
+    if (response.statusCode == 200) {
+      List<dynamic> responseMap = response.data['ResultData'];
+      StatusMsg result =
+          responseMap.map((e) => StatusMsg.fromJson(e)).toList()[0];
+      return result;
+    }
+    throw Error();
+  }
+
   static Future<StatusMsg> setProfile(int seq) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('login_token')!;

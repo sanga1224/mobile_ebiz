@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_ebiz/models/common_function.dart';
 import 'package:mobile_ebiz/models/schedule.dart';
 import 'package:mobile_ebiz/popup/schedule/port_list.dart';
 import 'package:mobile_ebiz/services/api_schedule.dart';
@@ -57,20 +58,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         (end.day.toString().length == 1 ? '0${end.day}' : end.day.toString());
 
     Future search() async {
-      if (_pol == '' || _pod == '') {
-        final snackBar = SnackBar(
-          duration: const Duration(seconds: 2),
-          content: Text(
-            '출발지와 도착지를 모두 선택하세요.',
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          action: SnackBarAction(
-            label: '확인',
-            onPressed: () {},
-          ),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (_pol == '') {
+        CommonFunction.showSnackBar(context, 'Input_POL'.tr(), false);
+      }
+      if (_pod == '') {
+        CommonFunction.showSnackBar(context, 'Input_POD'.tr(), false);
       } else {
         setState(() {
           _schedules = ApiSchedule.getList(

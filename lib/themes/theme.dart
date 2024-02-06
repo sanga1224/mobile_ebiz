@@ -30,7 +30,7 @@ ThemeData lightMode = ThemeData(
     ),
     displayLarge: TextStyle(
       color: Colors.black.withOpacity(1.0),
-      fontSize: 30,
+      fontSize: 28,
       fontWeight: FontWeight.w800,
     ),
     displayMedium: TextStyle(
@@ -40,21 +40,21 @@ ThemeData lightMode = ThemeData(
     ),
     displaySmall: TextStyle(
       color: Colors.black.withOpacity(0.6),
-      fontSize: 16,
+      fontSize: 15,
     ),
-    labelLarge: TextStyle(
-      color: Colors.black.withOpacity(1.0),
+    labelLarge: const TextStyle(
+      color: Color.fromRGBO(0, 84, 166, 1),
       fontSize: 28,
       fontWeight: FontWeight.w800,
     ),
-    labelMedium: TextStyle(
-      color: Colors.black.withOpacity(0.8),
-      fontSize: 16,
+    labelMedium: const TextStyle(
+      color: Color.fromRGBO(0, 84, 166, 1),
+      fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
-    labelSmall: TextStyle(
-      color: Colors.black.withOpacity(0.6),
-      fontSize: 14,
+    labelSmall: const TextStyle(
+      color: Color.fromRGBO(0, 84, 166, 1),
+      fontSize: 15,
     ),
     bodySmall: TextStyle(
       color: Colors.black.withOpacity(1.0),
@@ -123,17 +123,17 @@ ThemeData darkMode = ThemeData(
     ),
     displayLarge: TextStyle(
       color: Colors.white.withOpacity(1.0),
-      fontSize: 30,
+      fontSize: 28,
       fontWeight: FontWeight.w800,
     ),
     displayMedium: TextStyle(
-      color: Colors.white.withOpacity(0.8),
+      color: Colors.white.withOpacity(0.9),
       fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
     displaySmall: TextStyle(
-      color: Colors.white.withOpacity(0.6),
-      fontSize: 16,
+      color: Colors.white.withOpacity(0.8),
+      fontSize: 15,
     ),
     //Snack bar button(action) text
     labelLarge: TextStyle(
@@ -141,15 +141,15 @@ ThemeData darkMode = ThemeData(
       fontSize: 28,
       fontWeight: FontWeight.w800,
     ),
-    labelMedium: TextStyle(
-      color: Colors.white.withOpacity(0.8),
-      fontSize: 16,
+    labelMedium: const TextStyle(
+      color: Colors.white,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
     //Snack bar message
-    labelSmall: TextStyle(
-      color: Colors.white.withOpacity(0.6),
-      fontSize: 14,
+    labelSmall: const TextStyle(
+      color: Colors.white,
+      fontSize: 15,
     ),
     bodySmall: TextStyle(
       color: Colors.white.withOpacity(1.0),

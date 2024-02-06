@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
 import 'package:mobile_ebiz/widgets/account/login_widget.dart';
-import 'package:mobile_ebiz/widgets/account/setting_widget.dart';
+import 'package:mobile_ebiz/widgets/account/myinfo_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -43,7 +43,7 @@ Widget _loadingWidget(AsyncSnapshot<Object?> snapshot) {
     return const Text('Error');
   } else if (snapshot.hasData) {
     if (snapshot.data == true) {
-      return const SettingWidget();
+      return const MyInfoWidget();
     } else {
       return const LoginWidget();
     }

@@ -23,6 +23,8 @@ class _ProfileInfoState extends State<ProfileInfo> {
   Widget build(BuildContext context) {
     Future<List<Profile>>? profiles = ApiLogIn.getProfiles();
 
+    _seq = _seq == 0 ? widget.initSeq : _seq;
+
     Future select() async {
       StatusMsg result = await ApiLogIn.setProfile(_seq);
       if (!context.mounted) {
@@ -34,11 +36,17 @@ class _ProfileInfoState extends State<ProfileInfo> {
 
     void setSeq(int seq) {
       if (seq == 0) {
-        return;
+        setState(() {
+          _seq = 1;
+        }); //추가한 프로필 Refresh로 보여주기 위함.
+      } else {
+        setState(() {
+          profiles = ApiLogIn.getProfiles();
+        });
+        setState(() {
+          _seq = seq;
+        });
       }
-      setState(() {
-        _seq = seq;
-      });
     }
 
     void prev(int curSeq) {
@@ -92,6 +100,9 @@ class _ProfileInfoState extends State<ProfileInfo> {
         future: profiles,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            if (_seq >= snapshot.data!.length) {
+              _seq = snapshot.data!.length;
+            }
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -103,17 +114,11 @@ class _ProfileInfoState extends State<ProfileInfo> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        snapshot.data![(_seq == 0 ? widget.initSeq : _seq) - 1]
-                                    .seq ==
-                                1
+                        snapshot.data![_seq - 1].seq == 1
                             ? const Text('           ')
                             : GestureDetector(
                                 onTap: () {
-                                  prev(snapshot
-                                      .data![
-                                          (_seq == 0 ? widget.initSeq : _seq) -
-                                              1]
-                                      .seq);
+                                  prev(snapshot.data![_seq - 1].seq);
                                 },
                                 child: const Icon(
                                   Icons.chevron_left,
@@ -127,25 +132,17 @@ class _ProfileInfoState extends State<ProfileInfo> {
                             shape: BoxShape.circle,
                           ),
                           child: SvgPicture.asset(
-                            'assets/images/profiles/${snapshot.data![(_seq == 0 ? widget.initSeq : _seq) - 1].icon}.svg',
+                            'assets/images/profiles/${snapshot.data![_seq - 1].icon}.svg',
                             width: 150,
                             height: 150,
                           ),
                         ),
-                        snapshot.data![(_seq == 0 ? widget.initSeq : _seq) - 1]
-                                    .seq ==
-                                snapshot
-                                    .data![
-                                        (_seq == 0 ? widget.initSeq : _seq) - 1]
-                                    .maxseq
+                        snapshot.data![_seq - 1].seq ==
+                                snapshot.data![_seq - 1].maxseq
                             ? const Text('           ')
                             : GestureDetector(
                                 onTap: () {
-                                  next(snapshot
-                                      .data![
-                                          (_seq == 0 ? widget.initSeq : _seq) -
-                                              1]
-                                      .seq);
+                                  next(snapshot.data![_seq - 1].seq);
                                 },
                                 child: const Icon(
                                   Icons.chevron_right,
@@ -170,9 +167,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
-                            snapshot
-                                .data![(_seq == 0 ? widget.initSeq : _seq) - 1]
-                                .nickname,
+                            snapshot.data![_seq - 1].nickname,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ),
@@ -194,9 +189,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
-                            snapshot
-                                .data![(_seq == 0 ? widget.initSeq : _seq) - 1]
-                                .name,
+                            snapshot.data![_seq - 1].name,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ),
@@ -218,9 +211,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
-                            snapshot
-                                .data![(_seq == 0 ? widget.initSeq : _seq) - 1]
-                                .cellno,
+                            snapshot.data![_seq - 1].cellno,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ),
@@ -242,9 +233,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
-                            snapshot
-                                .data![(_seq == 0 ? widget.initSeq : _seq) - 1]
-                                .email,
+                            snapshot.data![_seq - 1].email,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ),
@@ -266,9 +255,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
-                            snapshot
-                                .data![(_seq == 0 ? widget.initSeq : _seq) - 1]
-                                .telno,
+                            snapshot.data![_seq - 1].telno,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ),
@@ -290,9 +277,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
-                            snapshot
-                                .data![(_seq == 0 ? widget.initSeq : _seq) - 1]
-                                .faxno,
+                            snapshot.data![_seq - 1].faxno,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ),

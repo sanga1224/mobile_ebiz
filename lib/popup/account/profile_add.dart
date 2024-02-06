@@ -1,6 +1,8 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mobile_ebiz/models/common_function.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
 
@@ -46,30 +48,20 @@ class _ProfileAddState extends State<ProfileAdd> {
       iconSeq = widget.icon == 0 ? 1 : widget.icon;
     }
 
-    void showSnackBar(BuildContext context, Text text) {
-      final snackBar = SnackBar(
-        content: text,
-        backgroundColor: const Color.fromARGB(255, 112, 48, 48),
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-
     Future save() async {
-      debugPrint('save');
       if (txtNickName.text == '') {
-        showSnackBar(context, Text('Input_NickName'.tr()));
+        CommonFunction.showSnackBar(context, 'Input_NickName'.tr(), false);
       } else if (txtName.text == '') {
-        showSnackBar(context, Text('Input_Name'.tr()));
+        CommonFunction.showSnackBar(context, 'Input_Name'.tr(), false);
       } else if (txtEmail.text == '') {
-        showSnackBar(context, Text('Input_Email'.tr()));
+        CommonFunction.showSnackBar(context, 'Input_Email'.tr(), false);
       } else if (RegExp(
                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
               .hasMatch(txtEmail.text) ==
           false) {
-        showSnackBar(context, Text('InValid_Email'.tr()));
+        CommonFunction.showSnackBar(context, 'InValid_Email'.tr(), false);
       } else if (txtTelNo.text == '') {
-        showSnackBar(context, Text('Input_TelNo'.tr()));
+        CommonFunction.showSnackBar(context, 'Input_TelNo'.tr(), false);
       } else {
         StatusMsg result = await ApiLogIn.saveProfile(
             widget.seq,
@@ -84,15 +76,32 @@ class _ProfileAddState extends State<ProfileAdd> {
           return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
         }
         if (result.status == 'N') {
-          showSnackBar(context, Text("ProfileAdd_Error".tr()));
+          CommonFunction.showSnackBar(context, "ProfileAdd_Error".tr(), false);
         } else {
           if (!context.mounted) {
             return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
           }
           widget.func(int.parse(result.msg));
-          showSnackBar(context, Text('Save_Completed'.tr()));
+          CommonFunction.showSnackBar(context, 'Save_Completed'.tr(), true);
           Navigator.pop(context);
         }
+      }
+    }
+
+    Future delete() async {
+      StatusMsg result = await ApiLogIn.deleteProfile(widget.seq);
+      if (!context.mounted) {
+        return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+      }
+      if (result.status == 'N') {
+        CommonFunction.showSnackBar(context, result.msg, false);
+      } else {
+        if (!context.mounted) {
+          return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+        }
+        widget.func(int.parse(result.msg));
+        CommonFunction.showSnackBar(context, 'Delete_Completed'.tr(), true);
+        Navigator.pop(context);
       }
     }
 
@@ -246,6 +255,32 @@ class _ProfileAddState extends State<ProfileAdd> {
                   ),
                 ),
               ),
+              SizedBox(
+                  child: widget.icon > 0
+                      ? ElevatedButton.icon(
+                          onPressed: () async {
+                            CoolAlert.show(
+                              context: context,
+                              type: CoolAlertType.confirm,
+                              title: '',
+                              text: 'delete?'.tr(),
+                              confirmBtnText: 'yes'.tr(),
+                              cancelBtnText: 'no'.tr(),
+                              onConfirmBtnTap: delete,
+                            );
+                          },
+                          icon: const Icon(Icons.delete_outline),
+                          label: Text('delete'.tr()),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            textStyle: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      : const Text(''))
             ],
           ),
         ),

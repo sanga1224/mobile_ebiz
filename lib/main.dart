@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      title: 'Flutter Demo',
+      title: 'Sinokor App',
       theme: Provider.of<ThemeProvider>(context).themeData,
       home: FutureBuilder(
         future: Future.delayed(const Duration(seconds: 3), chkLogIn),
