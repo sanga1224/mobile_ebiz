@@ -1,4 +1,4 @@
-import 'package:mobile_ebiz/models/schedule_detail.dart';
+import 'package:mobile_ebiz/models/schedule/schedule_detail.dart';
 
 class Schedule {
   late String loadingPortCode,
@@ -12,8 +12,6 @@ class Schedule {
       availableForBooking;
   late String mrn, tsPortCode, tsPortName, callSign;
   List<ScheduleDetail> vesselInformation = [];
-
-  Schedule();
 
   Schedule.fromJson(Map<String, dynamic> json)
       : loadingPortCode = json['LoadingPortCode'],

@@ -3,9 +3,9 @@ import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mobile_ebiz/models/profile.dart';
+import 'package:mobile_ebiz/models/account/profile.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
-import 'package:mobile_ebiz/models/user.dart';
+import 'package:mobile_ebiz/models/account/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiLogIn {

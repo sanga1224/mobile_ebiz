@@ -32,8 +32,10 @@ class LoginWidget extends StatelessWidget {
       if (result.status == 'N') {
         showSnackBar(context, Text("Login_${result.msg}".tr()));
       } else {
+        List<String> resultInfo = result.msg.split('|');
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('login_token', result.msg);
+        await prefs.setString('userNacd', resultInfo[0]);
+        await prefs.setString('login_token', resultInfo[1]);
         if (!context.mounted) {
           return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
         }

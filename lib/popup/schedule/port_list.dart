@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_ebiz/models/port.dart';
+import 'package:mobile_ebiz/models/schedule/port.dart';
 import 'package:mobile_ebiz/services/api_port.dart';
 import 'package:side_navigation/side_navigation.dart';
 

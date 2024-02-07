@@ -17,9 +17,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final List<Widget> _widgetList = [
     const ScheduleScreen(),
-    const SearchScreen(),
-    const HomeScreen(),
     const ListScreen(),
+    const HomeScreen(),
+    const SearchScreen(),
     const AccountScreen(),
   ];
 
@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedIndex == 4 ? null : const AppBarHome(),
+      appBar: _selectedIndex > 2 ? null : const AppBarHome(),
       body: SafeArea(
         child: _widgetList.elementAt(_selectedIndex),
       ),
@@ -45,16 +45,16 @@ class _MainScreenState extends State<MainScreen> {
             label: 'schedule'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.search_outlined),
-            label: 'search'.tr(),
+            icon: const Icon(Icons.list_outlined),
+            label: 'list'.tr(),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.home_outlined),
             label: 'home'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.list_outlined),
-            label: 'list'.tr(),
+            icon: const Icon(Icons.search_outlined),
+            label: 'search'.tr(),
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),

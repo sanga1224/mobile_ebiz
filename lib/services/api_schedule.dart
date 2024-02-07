@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mobile_ebiz/models/schedule.dart';
+import 'package:mobile_ebiz/models/schedule/schedule.dart';
 
 class ApiSchedule {
   static const String baseUrl = 'http://fastapi.sinokor.co.kr:8000';

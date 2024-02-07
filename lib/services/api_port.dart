@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mobile_ebiz/models/port.dart';
+import 'package:mobile_ebiz/models/schedule/port.dart';
 
 class ApiPort {
   static const String baseUrl = 'http://fastapi.sinokor.co.kr:8000';

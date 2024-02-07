@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_ebiz/models/schedule.dart';
-import 'package:mobile_ebiz/models/schedule_detail.dart';
+import 'package:mobile_ebiz/models/schedule/schedule.dart';
+import 'package:mobile_ebiz/models/schedule/schedule_detail.dart';
 
 class ScheduleList extends StatelessWidget {
   final Schedule schedule;
@@ -39,7 +39,9 @@ class ScheduleList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${vslinfo.vesselName} / ${vslinfo.voyageNumber}',
+                vslinfo.voyageNumber == ''
+                    ? vslinfo.vesselName
+                    : '${vslinfo.vesselName} / ${vslinfo.voyageNumber}',
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               Flexible(
@@ -84,6 +86,221 @@ class ScheduleList extends StatelessWidget {
       return result;
     }
 
+    List<Widget> getPopupContents() {
+      bool displayDetail = false;
+      List<Widget> result = [];
+      int i = 0;
+      for (ScheduleDetail vslinfo in schedule.vesselInformation) {
+        if (vslinfo.vesselCode == '') {
+          result.add(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  child: Text(
+                    vslinfo.vesselName,
+                    style: Theme.of(context).textTheme.displayMedium,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          );
+          result.add(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  '${vslinfo.loadingPortCode}   ',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                Text(
+                  '-',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+          result.add(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  '${vslinfo.dischargingPortCode}   ',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                Text(
+                  '-',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+        } else {
+          result.add(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  child: Text(
+                    '${vslinfo.vesselName} / ${vslinfo.voyageNumber}',
+                    style: Theme.of(context).textTheme.displayMedium,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          );
+          result.add(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  '${vslinfo.loadingPortCode}   ',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                Text(
+                  vslinfo.departureDate,
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+          result.add(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  '${vslinfo.dischargingPortCode}   ',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                Text(
+                  vslinfo.arrivalDate,
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+          if (displayDetail == false) {
+            result.add(
+              const SizedBox(
+                height: 10,
+              ),
+            );
+            result.add(
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Text(
+                  '${'l_tml'.tr()}   ',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                Flexible(
+                  child: Text(
+                    vslinfo.loadingTerminalName,
+                    style: Theme.of(context).textTheme.displaySmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ]),
+            );
+            result.add(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${'d_tml'.tr()}   ',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  Flexible(
+                    child: Text(
+                      vslinfo.dischargingTerminalName,
+                      style: Theme.of(context).textTheme.displaySmall,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            );
+            result.add(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${'docu_cut'.tr()} ',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  Text(
+                    schedule.documentCutOffTime,
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                ],
+              ),
+            );
+            result.add(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${'cntr_cut'.tr()} ',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  Text(
+                    schedule.cargoCutOffTime,
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                ],
+              ),
+            );
+            result.add(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${'callsgn'.tr()} ',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  Text(
+                    schedule.callSign,
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                ],
+              ),
+            );
+            result.add(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'MRN ',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  Text(
+                    schedule.mrn,
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                ],
+              ),
+            );
+            result.add(
+              const SizedBox(
+                height: 10,
+              ),
+            );
+            displayDetail = true;
+          }
+        }
+        if (i < schedule.vesselInformation.length - 1) {
+          result.add(
+            Divider(
+              color: Theme.of(context).colorScheme.outline,
+              thickness: 1,
+            ),
+          );
+        }
+        i++;
+      }
+      return result;
+    }
+
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -111,134 +328,7 @@ class ScheduleList extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${schedule.vesselInformation[0].vesselName} / ${schedule.vesselInformation[0].voyageNumber}',
-                                  style:
-                                      Theme.of(context).textTheme.displayMedium,
-                                ),
-                              ]),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'ETD   ',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              Text(
-                                schedule.vesselInformation[0].departureDate,
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'ETA   ',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              Text(
-                                schedule.vesselInformation[0].arrivalDate,
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '${'l_tml'.tr()}   ',
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                                Flexible(
-                                  child: Text(
-                                    schedule.vesselInformation[0]
-                                        .loadingTerminalName,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ]),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${'d_tml'.tr()}   ',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  schedule.vesselInformation[0]
-                                      .dischargingTerminalName,
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${'docu_cut'.tr()} ',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              Text(
-                                schedule.documentCutOffTime,
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${'cntr_cut'.tr()} ',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              Text(
-                                schedule.cargoCutOffTime,
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${'callsgn'.tr()} ',
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              Text(
-                                schedule.callSign,
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'MRN ',
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                              Text(
-                                schedule.mrn,
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            ],
-                          ),
-                        ],
+                        children: getPopupContents(),
                       ),
                     ),
                   ),

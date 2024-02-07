@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:mobile_ebiz/models/profile.dart';
+import 'package:mobile_ebiz/models/account/profile.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/popup/account/profile_add.dart';
 import 'package:mobile_ebiz/services/api_login.dart';

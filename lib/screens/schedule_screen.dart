@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/common_function.dart';
-import 'package:mobile_ebiz/models/schedule.dart';
+import 'package:mobile_ebiz/models/schedule/schedule.dart';
 import 'package:mobile_ebiz/popup/schedule/port_list.dart';
 import 'package:mobile_ebiz/services/api_schedule.dart';
 import 'package:mobile_ebiz/widgets/schedule/schedule_widget.dart';

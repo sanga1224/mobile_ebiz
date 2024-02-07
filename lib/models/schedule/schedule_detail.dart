@@ -13,18 +13,18 @@ class ScheduleDetail {
 
   ScheduleDetail.fromJson(Map<String, dynamic> json)
       : vesselSequence = json['VesselSequence'],
-        serviceCode = json['ServiceCode'],
-        vesselCode = json['VesselCode'],
+        serviceCode = json['ServiceCode'] ?? '',
+        vesselCode = json['VesselCode'] ?? '',
         vesselName = json['VesselName'],
-        voyageNumber = json['VoyageNumber'],
+        voyageNumber = json['VoyageNumber'] ?? '',
         loadingPortCode = json['LoadingPortCode'],
         loadingPortName = json['LoadingPortName'],
-        loadingTerminalCode = json['LoadingTerminalCode'],
-        loadingTerminalName = json['LoadingTerminalName'],
+        loadingTerminalCode = json['LoadingTerminalCode'] ?? '',
+        loadingTerminalName = json['LoadingTerminalName'] ?? '',
         dischargingPortCode = json['DischargingPortCode'],
         dischargingPortName = json['DischargingPortName'],
-        dischargingTerminalCode = json['DischargingTerminalCode'],
-        dischargingTerminalName = json['DischargingTerminalName'],
-        departureDate = json['DepartureDate'],
-        arrivalDate = json['ArrivalDate'];
+        dischargingTerminalCode = json['DischargingTerminalCode'] ?? '',
+        dischargingTerminalName = json['DischargingTerminalName'] ?? '',
+        departureDate = json['DepartureDate'] ?? '',
+        arrivalDate = json['ArrivalDate'] ?? '';
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mobile_ebiz/models/common_function.dart';
-import 'package:mobile_ebiz/models/profile.dart';
+import 'package:mobile_ebiz/models/account/profile.dart';
 import 'package:mobile_ebiz/popup/account/profile_info.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
@@ -102,7 +102,7 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                         ],
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: getUserInfo,
                         icon: const Icon(Icons.chevron_right),
                       ),
                     ],
