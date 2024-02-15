@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedIndex > 2 ? null : const AppBarHome(),
+      appBar: _selectedIndex == 4 ? null : const AppBarHome(),
       body: SafeArea(
         child: _widgetList.elementAt(_selectedIndex),
       ),

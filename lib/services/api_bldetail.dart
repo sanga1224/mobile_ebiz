@@ -3,13 +3,13 @@ import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mobile_ebiz/models/bldetail/schedule.dart';
+import 'package:mobile_ebiz/models/bldetail/bldetail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiBLDetail {
   static const String baseUrl = 'http://fastapi.sinokor.co.kr:8000';
 
-  static Future<List<BookingSchedule>> getSchedule(String blno) async {
+  static Future<BLDetail> getBLDetail(String blno) async {
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     String? deviceId;
     if (kIsWeb) {
@@ -33,11 +33,10 @@ class ApiBLDetail {
       deviceId = macOsInfo.systemGUID;
     }
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String nacd = prefs.getString('userNacd')!;
+    String nacd = prefs.getString('userNacd') ?? 'EN';
 
-    String portlistUrl = 'getBlSchedule/getBlSchedule';
+    String portlistUrl = 'getBlDetail/getBlDetail';
     var param = {'deviceId': deviceId, 'nacd': nacd, 'blno': blno};
-    List<BookingSchedule> instances = [];
     //final url = Uri.parse('$baseUrl/$portlistUrl');
     final response = await Dio().post(
       '$baseUrl/$portlistUrl',
@@ -47,7 +46,8 @@ class ApiBLDetail {
     );
     if (response.statusCode == 200) {
       List<dynamic> responseMap = response.data['ResultData'];
-      instances = responseMap.map((e) => BookingSchedule.fromJson(e)).toList();
+      BLDetail instances =
+          responseMap.map((e) => BLDetail.fromJson(e)).toList()[0];
       return instances;
     }
     throw Error();

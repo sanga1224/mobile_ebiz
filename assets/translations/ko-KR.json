@@ -58,5 +58,7 @@
     "kor": "한국어",
     "eng": "영어",
     "detailinfo": "상세내역",
-    "tracking": "화물추적"
+    "tracking": "화물추적",
+    "cntrinfo": "컨테이너정보",
+    "map": "지도"
 }

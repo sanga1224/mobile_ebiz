@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_ebiz/widgets/bldetail/search_widget.dart';
+import 'package:mobile_ebiz/widgets/bldetail/bldetail_main_widget.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -13,7 +13,9 @@ class SearchScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: TextField(
           controller: txtBlNo,
-          onChanged: (value) => value.toUpperCase(),
+          onChanged: (value) {
+            txtBlNo.text = txtBlNo.text.toUpperCase();
+          },
           decoration: InputDecoration(
             labelText: 'B/L No.',
             suffix: InkWell(
@@ -38,7 +40,8 @@ class SearchScreen extends StatelessWidget {
             ),
           ),
           keyboardType: TextInputType.text,
-          style: Theme.of(context).textTheme.bodySmall,
+          style: Theme.of(context).textTheme.bodyLarge,
+          textAlignVertical: TextAlignVertical.top,
         ),
       ),
     );

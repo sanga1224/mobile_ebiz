@@ -58,5 +58,7 @@
     "kor": "KOR",
     "eng": "ENG",
     "detailinfo": "Detail",
-    "tracking": "Tracking"
+    "tracking": "Tracking",
+    "cntrinfo": "CNTR Info.",
+    "map": "Map"
 }

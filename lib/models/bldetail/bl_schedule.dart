@@ -1,4 +1,4 @@
-class BookingSchedule {
+class BLSchedule {
   String gb,
       svc,
       vsl,
@@ -31,7 +31,7 @@ class BookingSchedule {
       tmlremark;
   int mainempgender, subempgender;
 
-  BookingSchedule.fromJson(Map<String, dynamic> json)
+  BLSchedule.fromJson(Map<String, dynamic> json)
       : gb = json['GB'] ?? '',
         svc = json['SVC'] ?? '',
         vsl = json['VSL'] ?? '',
