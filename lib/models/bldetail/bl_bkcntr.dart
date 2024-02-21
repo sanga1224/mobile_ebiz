@@ -1,6 +1,7 @@
 class BLBkCntr {
-  int seq, qty;
-  String tpsz,
+  int qty;
+  String seq,
+      tpsz,
       soc,
       empty,
       dg,
@@ -16,7 +17,7 @@ class BLBkCntr {
   double wgt;
 
   BLBkCntr.fromJson(Map<String, dynamic> json)
-      : seq = json['seq'],
+      : seq = json['seq'] ?? '',
         tpsz = json['tpsz'] ?? '',
         qty = json['qty'],
         soc = json['soc'] ?? '',
@@ -31,5 +32,5 @@ class BLBkCntr {
         awk_x = json['awk_x'] ?? '',
         awk_y = json['awk_y'] ?? '',
         awk_z = json['awk_z'] ?? '',
-        wgt = json['wgt'];
+        wgt = json['wgt'] ?? 0;
 }

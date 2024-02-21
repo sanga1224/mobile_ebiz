@@ -1,10 +1,10 @@
 class BLBlCntr {
-  int seq, pkg, vgm;
-  String cntrNo, tpsz, sealNo, soc, vgmType, vgmSign, vgmCert;
+  int pkg, vgm;
+  String seq, cntrNo, tpsz, sealNo, soc, vgmType, vgmSign, vgmCert;
   double wgt, cbm;
 
   BLBlCntr.fromJson(Map<String, dynamic> json)
-      : seq = json['seq'],
+      : seq = json['seq'] ?? '',
         tpsz = json['tpsz'] ?? '',
         cntrNo = json['cntrNo'] ?? '',
         sealNo = json['sealNo'] ?? '',

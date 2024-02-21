@@ -1,8 +1,7 @@
 class BLMark {
-  int seq;
-  String txt;
+  String seq, txt;
 
   BLMark.fromJson(Map<String, dynamic> json)
-      : seq = json['seq'],
+      : seq = json['seq'] ?? '',
         txt = json['txt'] ?? '';
 }

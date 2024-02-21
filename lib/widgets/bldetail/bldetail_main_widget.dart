@@ -4,6 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mobile_ebiz/models/bldetail/bldetail.dart';
 import 'package:mobile_ebiz/services/api_bldetail.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail1_widget.dart';
+import 'package:mobile_ebiz/widgets/bldetail/bldetail2_widget.dart';
 
 class SearchWidget extends StatefulWidget {
   const SearchWidget({super.key, required this.blno});
@@ -77,7 +78,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   bottom: TabBar(
                     isScrollable: true,
                     tabs: [
-                      Tab(child: Text('${'schedule'.tr()}&${'tracking'.tr()}')),
+                      Tab(child: Text('basicInfo'.tr())),
                       Tab(child: Text('detailinfo'.tr())),
                       Tab(child: Text('cntrinfo'.tr())),
                     ],
@@ -95,8 +96,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                         children: [
                           BLDetail1Widget(
                             blno: widget.blno,
-                            schedules: snapshot.data!.schedules,
-                            trackings: snapshot.data!.trackings,
+                            blInfo: snapshot.data!,
                           ),
                         ],
                       );
@@ -110,8 +110,27 @@ class _SearchWidgetState extends State<SearchWidget> {
                     }
                   },
                 ),
-                const Center(
-                  child: Text('Detail'),
+                FutureBuilder(
+                  future: bldetail,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView(
+                        children: [
+                          BLDetail2Widget(
+                            blno: widget.blno,
+                            blInfo: snapshot.data!,
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: Theme.of(context).colorScheme.outline,
+                          size: 50,
+                        ),
+                      );
+                    }
+                  },
                 ),
                 const Center(
                   child: Text('Tracking'),

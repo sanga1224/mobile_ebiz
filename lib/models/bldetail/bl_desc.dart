@@ -1,8 +1,7 @@
 class BLDesc {
-  int seq;
-  String txt;
+  String seq, txt;
 
   BLDesc.fromJson(Map<String, dynamic> json)
-      : seq = json['seq'],
+      : seq = json['seq'] ?? '',
         txt = json['txt'] ?? '';
 }

@@ -1,19 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_schedule.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_tracking.dart';
+import 'package:mobile_ebiz/models/bldetail/bldetail.dart';
 import 'package:mobile_ebiz/widgets/map/trackingmap_widget.dart';
 import 'dart:math' as math;
 
 class BLDetail1Widget extends StatelessWidget {
-  const BLDetail1Widget(
-      {super.key,
-      required this.blno,
-      required this.schedules,
-      required this.trackings});
+  const BLDetail1Widget({super.key, required this.blno, required this.blInfo});
   final String blno;
-  final List<BLSchedule> schedules;
-  final List<BLTracking> trackings;
+  final BLDetail blInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +16,7 @@ class BLDetail1Widget extends StatelessWidget {
       List<Widget> result = [];
       int i = 0;
 
-      for (BLSchedule schedule in schedules) {
+      for (BLSchedule schedule in blInfo.schedules) {
         result.add(
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -100,7 +95,7 @@ class BLDetail1Widget extends StatelessWidget {
             ),
           );
         }
-        if (i < schedules.length - 1) {
+        if (i < blInfo.schedules.length - 1) {
           result.add(
             Divider(
               color: Theme.of(context).colorScheme.outline,
@@ -285,15 +280,15 @@ class BLDetail1Widget extends StatelessWidget {
       List<Widget> popups = [];
       String event = '', location = '', datetime = '';
 
-      for (int i = 0; i <= trackings.length; i++) {
-        if (i == trackings.length) {
+      for (int i = 0; i <= blInfo.trackings.length; i++) {
+        if (i == blInfo.trackings.length) {
           result.add(addResult(event, location, datetime, List.from(popups)));
           popups.clear();
-        } else if (i == 0 || trackings[i].event == event) {
-          event = trackings[i].event;
-          location = trackings[i].location;
+        } else if (i == 0 || blInfo.trackings[i].event == event) {
+          event = blInfo.trackings[i].event;
+          location = blInfo.trackings[i].location;
           datetime =
-              '${trackings[i].eventDate.substring(0, trackings[i].eventDate.indexOf(' '))} ${trackings[i].eventTime}';
+              '${blInfo.trackings[i].eventDate.substring(0, blInfo.trackings[i].eventDate.indexOf(' '))} ${blInfo.trackings[i].eventTime}';
           if (popups.isEmpty == false) {
             popups.add(
               Divider(
@@ -309,7 +304,7 @@ class BLDetail1Widget extends StatelessWidget {
           );
           popups.add(
             Text(
-              trackings[i].unit,
+              blInfo.trackings[i].unit,
               style: Theme.of(context).textTheme.labelSmall,
               overflow: TextOverflow.ellipsis,
             ),
@@ -333,13 +328,13 @@ class BLDetail1Widget extends StatelessWidget {
               height: 5,
             ),
           );
-        } else if (trackings[i].event != event) {
+        } else if (blInfo.trackings[i].event != event) {
           result.add(addResult(event, location, datetime, List.from(popups)));
           popups.clear();
-          event = trackings[i].event;
-          location = trackings[i].location;
+          event = blInfo.trackings[i].event;
+          location = blInfo.trackings[i].location;
           datetime =
-              '${trackings[i].eventDate.substring(0, trackings[i].eventDate.indexOf(' '))} ${trackings[i].eventTime}';
+              '${blInfo.trackings[i].eventDate.substring(0, blInfo.trackings[i].eventDate.indexOf(' '))} ${blInfo.trackings[i].eventTime}';
           if (popups.isEmpty == false) {
             popups.add(
               Divider(
@@ -355,7 +350,7 @@ class BLDetail1Widget extends StatelessWidget {
           );
           popups.add(
             Text(
-              trackings[i].unit,
+              blInfo.trackings[i].unit,
               style: Theme.of(context).textTheme.labelSmall,
               overflow: TextOverflow.ellipsis,
             ),
@@ -421,39 +416,140 @@ class BLDetail1Widget extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              const Icon(
-                Icons.local_shipping_outlined,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                'tracking'.tr(),
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-            ],
-          ),
-          Divider(
-            color: Theme.of(context).colorScheme.outline,
-            thickness: 1,
-          ),
-          Container(
-            clipBehavior: Clip.hardEdge, //Overflow 된 부분 잘라내기
-            decoration: const BoxDecoration(),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 0, left: 15, right: 15, bottom: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: getTracking(),
-              ),
+          if (blInfo.blIssueType != '')
+            Column(
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.directions_boat_outlined,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'issuedInfo'.tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Theme.of(context).colorScheme.outline,
+                  thickness: 1,
+                ),
+                Container(
+                  clipBehavior: Clip.hardEdge, //Overflow 된 부분 잘라내기
+                  decoration: const BoxDecoration(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 0, left: 15, right: 15, bottom: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'issuedType'.tr(),
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                                Text(
+                                  'receiptType'.tr(),
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  blInfo.blIssueType,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                                Text(
+                                  blInfo.blReceiptType,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  'issuedDate'.tr(),
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                                Text(
+                                  'On Board',
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  blInfo.blIssueDate,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                                Text(
+                                  blInfo.onBoardDate,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
+          if (blInfo.trackings.isNotEmpty)
+            Column(
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.local_shipping_outlined,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'tracking'.tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: Theme.of(context).colorScheme.outline,
+                  thickness: 1,
+                ),
+                Container(
+                  clipBehavior: Clip.hardEdge, //Overflow 된 부분 잘라내기
+                  decoration: const BoxDecoration(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 0, left: 15, right: 15, bottom: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: getTracking(),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           Row(
             children: [
               const Icon(

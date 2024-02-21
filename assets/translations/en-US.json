@@ -60,5 +60,21 @@
     "detailinfo": "Detail",
     "tracking": "Tracking",
     "cntrinfo": "CNTR Info.",
-    "map": "Map"
+    "map": "Map",
+    "basicInfo": "Basic Info.",
+    "issuedInfo": "Issue Info.",
+    "issuedDate": "Issue Date",
+    "issuedType": "Issue Type",
+    "issuedArea": "Issue Area",
+    "receiptType": "Receipt Type",
+    "receiptArea": "Receipt Area",
+    "vslvyg": "VSL/VYG",
+    "receipt": "Receipt",
+    "loading": "Loading",
+    "discharging": "Discharge",
+    "delivery": "Delivery",
+    "finalDest": "F.Dest",
+    "cargoType": "Cargo Type",
+    "forwarder": "Forwarder",
+    "orgShipper": "Shipper"
 }

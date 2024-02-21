@@ -1,3 +1,8 @@
+import 'package:mobile_ebiz/models/bldetail/bl_bkcntr.dart';
+import 'package:mobile_ebiz/models/bldetail/bl_blcntr.dart';
+import 'package:mobile_ebiz/models/bldetail/bl_desc.dart';
+import 'package:mobile_ebiz/models/bldetail/bl_dgspecial.dart';
+import 'package:mobile_ebiz/models/bldetail/bl_mark.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_schedule.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_tracking.dart';
 
@@ -69,8 +74,8 @@ class BLDetail {
       docuPicInfo,
       salesPicInfo,
       vslMainPicInfo,
-      vslSubPicInfo;
-  int bkPicGender,
+      vslSubPicInfo,
+      bkPicGender,
       docuPicGender,
       salesPicGender,
       vslMainPicGender,
@@ -113,6 +118,11 @@ class BLDetail {
       docDate;
   List<BLSchedule> schedules = [];
   List<BLTracking> trackings = [];
+  List<BLMark> marks = [];
+  List<BLDesc> descs = [];
+  List<BLBkCntr> bkCntrs = [];
+  List<BLBlCntr> blCntrs = [];
+  List<BLDgSpecial> dgSpecials = [];
 
   BLDetail.fromJson(Map<String, dynamic> json)
       : refNo = json['refNo'] ?? '',
@@ -229,5 +239,14 @@ class BLDetail {
             .toList(),
         trackings = (json['trackings'] as List)
             .map((i) => BLTracking.fromJson(i))
+            .toList(),
+        marks = (json['marks'] as List).map((i) => BLMark.fromJson(i)).toList(),
+        descs = (json['descs'] as List).map((i) => BLDesc.fromJson(i)).toList(),
+        bkCntrs =
+            (json['bkCntrs'] as List).map((i) => BLBkCntr.fromJson(i)).toList(),
+        blCntrs =
+            (json['blCntrs'] as List).map((i) => BLBlCntr.fromJson(i)).toList(),
+        dgSpecials = (json['dgSpecials'] as List)
+            .map((i) => BLDgSpecial.fromJson(i))
             .toList();
 }

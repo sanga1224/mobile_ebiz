@@ -60,5 +60,21 @@
     "detailinfo": "상세내역",
     "tracking": "화물추적",
     "cntrinfo": "컨테이너정보",
-    "map": "지도"
+    "map": "지도",
+    "basicInfo": "기본정보",
+    "issuedInfo": "발행정보",
+    "issuedDate": "발행일자",
+    "issuedType": "발행종류",
+    "issuedArea": "발행지역",
+    "receiptType": "수취종류",
+    "receiptArea": "수취지역",
+    "vslvyg": "선명/항차",
+    "receipt": "수령",
+    "loading": "출항",
+    "discharging": "도착",
+    "delivery": "배송",
+    "finalDest": "최종",
+    "cargoType": "화물타입",
+    "forwarder": "포워더",
+    "orgShipper": "실화주"
 }
