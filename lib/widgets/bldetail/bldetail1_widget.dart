@@ -110,55 +110,6 @@ class BLDetail1Widget extends StatelessWidget {
 
     Widget addResult(
         String event, String location, String datetime, List<Widget> popups) {
-      // if (popups.isEmpty) {
-      //   return Container(
-      //     clipBehavior: Clip.hardEdge, //Overflow 된 부분 잘라내기
-      //     decoration: const BoxDecoration(),
-      //     child: Padding(
-      //       padding: const EdgeInsets.all(5),
-      //       child: Row(
-      //         children: [
-      //           Icon(
-      //             event.contains('Pickup')
-      //                 ? Icons.local_shipping_outlined
-      //                 : event.contains('Return')
-      //                     ? Icons.domain_add_outlined
-      //                     : event.contains('Departure') ||
-      //                             event.contains('Arrival')
-      //                         ? Icons.sailing_outlined
-      //                         : Icons.local_shipping_outlined,
-      //             size: 40,
-      //           ),
-      //           const SizedBox(
-      //             width: 20,
-      //           ),
-      //           Flexible(
-      //             child: Column(
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: [
-      //                 Text(
-      //                   event,
-      //                   style: Theme.of(context).textTheme.labelSmall,
-      //                   overflow: TextOverflow.ellipsis,
-      //                 ),
-      //                 Text(
-      //                   location,
-      //                   style: Theme.of(context).textTheme.displaySmall,
-      //                   overflow: TextOverflow.ellipsis,
-      //                 ),
-      //                 Text(
-      //                   datetime,
-      //                   style: Theme.of(context).textTheme.displaySmall,
-      //                   overflow: TextOverflow.ellipsis,
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   );
-      // } else {
       return GestureDetector(
         onTap: () {
           showDialog(

@@ -76,5 +76,16 @@
     "finalDest": "F.Dest",
     "cargoType": "Cargo Type",
     "forwarder": "Forwarder",
-    "orgShipper": "Shipper"
+    "orgShipper": "Shipper",
+    "heulierInfo": "Heulier Info.",
+    "pickupArea": "Pickup Area",
+    "pickupDate": "Pickup Date",
+    "heulier": "Heulier",
+    "pic": "PIC",
+    "cfsPaid": "Paid at CFS",
+    "cfsDate": "CFS Date",
+    "factory": "Factory",
+    "area": "Area",
+    "jobDate": "Work Date",
+    "returnArea": "Return"
 }

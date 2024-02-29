@@ -13,7 +13,10 @@ class BLBkCntr {
       cover,
       awk_x,
       awk_y,
-      awk_z;
+      awk_z,
+      dgMix,
+      dgList,
+      specialInfo;
   double wgt;
 
   BLBkCntr.fromJson(Map<String, dynamic> json)
@@ -32,5 +35,8 @@ class BLBkCntr {
         awk_x = json['awk_x'] ?? '',
         awk_y = json['awk_y'] ?? '',
         awk_z = json['awk_z'] ?? '',
-        wgt = json['wgt'] ?? 0;
+        wgt = json['wgt'] ?? 0,
+        dgMix = json['dgMix'] ?? '',
+        dgList = json['dgList'] ?? '',
+        specialInfo = json['specialInfo'] ?? '';
 }

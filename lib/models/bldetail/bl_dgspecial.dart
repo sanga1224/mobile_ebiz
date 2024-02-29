@@ -18,8 +18,9 @@ class BLDgSpecial {
       casNoList,
       isNeedFlashPoint,
       isNeedTechnicalNm,
-      isNeedSapt;
-  double netWgt, grsWgt, flashPoint;
+      isNeedSapt,
+      flashPoint;
+  double netWgt, grsWgt;
 
   BLDgSpecial.fromJson(Map<String, dynamic> json)
       : cntrSeq = json['cntrSeq'],
@@ -32,7 +33,7 @@ class BLDgSpecial {
         grsWgt = json['grsWgt'],
         pollutant = json['pollutant'] ?? '',
         limitedQty = json['limitedQty'] ?? '',
-        flashPoint = json['flashPoint'],
+        flashPoint = json['flashPoint'] ?? '',
         sapt = json['sapt'] ?? '',
         technicalNm = json['technicalNm'] ?? '',
         contactNo = json['contactNo'] ?? '',
@@ -41,7 +42,7 @@ class BLDgSpecial {
         oPkg = json['oPkg'],
         oPkgCd = json['oPkgCd'] ?? '',
         oPkgNm = json['oPkgNm'] ?? '',
-        iPkg = json['iPkg'],
+        iPkg = json['iPkg'] ?? 0,
         iPkgCd = json['iPkgCd'] ?? '',
         iPkgNm = json['iPkgNm'] ?? '',
         casNoList = json['casNoList'] ?? '',
