@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_bkcntr.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_blcntr.dart';
+import 'package:mobile_ebiz/models/bldetail/bl_dgspecial.dart';
 import 'package:mobile_ebiz/models/bldetail/bldetail.dart';
 
 class BLDetail3Widget extends StatelessWidget {
@@ -10,6 +12,358 @@ class BLDetail3Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> getDgInfo(List<BLDgSpecial> dgSpecials, String seq) {
+      List<Widget> result = [];
+      for (BLDgSpecial dg in dgSpecials) {
+        if (dg.cntrSeq == int.parse(seq)) {
+          result.add(
+            Row(
+              children: [
+                Text(
+                  'UN/Cls',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  '${dg.unno}/${dg.imdg}',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+          result.add(
+            Row(
+              children: [
+                Text(
+                  'S.Risk/P.Grp',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  '${dg.subRisk}/${dg.pGrade}',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+          result.add(
+            Row(
+              children: [
+                Text(
+                  'GrsWgt/NetWgt',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  '${dg.grsWgt}/${dg.netWgt}',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+          result.add(
+            Row(
+              children: [
+                Text(
+                  'Pollute/LimitQty',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  '${dg.pollutant}/${dg.limitedQty}',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+          if (dg.flashPoint != '' || dg.sapt != '') {
+            result.add(
+              Row(
+                children: [
+                  Text(
+                    dg.flashPoint != '' && dg.sapt != ''
+                        ? 'F.Point/SAPT'
+                        : dg.flashPoint != ''
+                            ? 'F.Point'
+                            : 'SAPT',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    dg.flashPoint != '' && dg.sapt != ''
+                        ? '${dg.flashPoint}/${dg.sapt}'
+                        : dg.flashPoint != ''
+                            ? dg.flashPoint
+                            : dg.sapt,
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                ],
+              ),
+            );
+          }
+          if (dg.technicalNm != '') {
+            result.add(
+              Row(
+                children: [
+                  Text(
+                    'Technical',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                    child: Text(
+                      dg.technicalNm,
+                      style: Theme.of(context).textTheme.displaySmall,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+          result.add(
+            Row(
+              children: [
+                Text(
+                  'OutPKG',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  '${dg.oPkg} [${dg.oPkgCd}]',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
+            ),
+          );
+          if (dg.iPkgCd != '') {
+            result.add(
+              Row(
+                children: [
+                  Text(
+                    'InPKG',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    '${dg.iPkg} [${dg.iPkgCd}]',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                ],
+              ),
+            );
+          }
+          result.add(
+            Row(
+              children: [
+                Text(
+                  'Contact',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Flexible(
+                  child: Text(
+                    '${dg.contactNm} / ${dg.contactNo}',
+                    style: Theme.of(context).textTheme.displaySmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      }
+      return result;
+    }
+
+    List<Widget> getCntrInfo(BLBlCntr cntr) {
+      List<Widget> result = [];
+      result.add(
+        Row(
+          children: [
+            Text(
+              'TPSZ',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              cntr.tpsz,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          ],
+        ),
+      );
+      result.add(
+        Row(
+          children: [
+            Text(
+              'CNTR No.',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              cntr.cntrNo,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          ],
+        ),
+      );
+      result.add(
+        Row(
+          children: [
+            Text(
+              'Seal No.',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              cntr.sealNo,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          ],
+        ),
+      );
+      result.add(
+        Row(
+          children: [
+            Text(
+              'Owner',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              cntr.soc,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              'PKG',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              cntr.pkg.toString(),
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          ],
+        ),
+      );
+      result.add(
+        Row(
+          children: [
+            Text(
+              'WGT',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              cntr.wgt.toString(),
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              'CBM',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              cntr.cbm.toString(),
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          ],
+        ),
+      );
+      if (cntr.vgm != 0) {
+        result.add(
+          Row(
+            children: [
+              Text(
+                'VGM',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                cntr.vgm.toString(),
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'MSR',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                cntr.vgmType.toString(),
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            ],
+          ),
+        );
+      }
+      if (cntr.vgmSign != '') {
+        result.add(
+          Row(
+            children: [
+              Text(
+                'Sign',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                cntr.vgmSign,
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            ],
+          ),
+        );
+      }
+      return result;
+    }
+
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 0),
       child: Column(
@@ -57,9 +411,56 @@ class BLDetail3Widget extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.only(right: 10),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext ctx) {
+                                        return AlertDialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            contentPadding:
+                                                const EdgeInsets.only(
+                                                    bottom: 0,
+                                                    top: 20,
+                                                    left: 20,
+                                                    right: 20),
+                                            actionsPadding: EdgeInsets.zero,
+                                            content: SizedBox(
+                                              height: 210,
+                                              child: Container(
+                                                padding: EdgeInsets.zero,
+                                                clipBehavior: Clip
+                                                    .hardEdge, //Overflow 된 부분 잘라내기
+                                                decoration:
+                                                    const BoxDecoration(),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: getDgInfo(
+                                                    blInfo.dgSpecials,
+                                                    bkCntr.seq,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  'close'.tr(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displayMedium,
+                                                ),
+                                              ),
+                                            ]);
+                                      });
+                                },
                                 child: Text(
-                                  'D/G',
+                                  'DG',
                                   style:
                                       Theme.of(context).textTheme.displaySmall,
                                 ),
@@ -127,7 +528,53 @@ class BLDetail3Widget extends StatelessWidget {
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext ctx) {
+                                        return AlertDialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            contentPadding:
+                                                const EdgeInsets.only(
+                                                    bottom: 0,
+                                                    top: 20,
+                                                    left: 20,
+                                                    right: 20),
+                                            actionsPadding: EdgeInsets.zero,
+                                            content: SizedBox(
+                                              height: 210,
+                                              child: Container(
+                                                padding: EdgeInsets.zero,
+                                                clipBehavior: Clip
+                                                    .hardEdge, //Overflow 된 부분 잘라내기
+                                                decoration:
+                                                    const BoxDecoration(),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: getCntrInfo(
+                                                    blCntr,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  'close'.tr(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displayMedium,
+                                                ),
+                                              ),
+                                            ]);
+                                      });
+                                },
                                 child: Text(
                                   'View',
                                   style:
