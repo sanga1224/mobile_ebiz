@@ -1,4 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_ebiz/widgets/setting/setting_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
   const AppBarHome({
@@ -20,31 +23,27 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      // actions: [
-      //   IconButton(
-      //     onPressed: () {
-      //       context.read<ThemeProvider>().toggleTheme();
-      //     },
-      //     icon: const Icon(Icons.refresh_outlined),
-      //   ),
-      //   IconButton(
-      //     onPressed: () {
-      //       if (EasyLocalization.of(context)!
-      //           .locale
-      //           .toString()
-      //           .contains('ko')) {
-      //         EasyLocalization.of(context)!.setLocale(const Locale('en', 'US'));
-      //       } else {
-      //         EasyLocalization.of(context)!.setLocale(const Locale('ko', 'KR'));
-      //       }
-      //     },
-      //     icon: const Icon(Icons.language_outlined),
-      //   ),
-      //   IconButton(
-      //     onPressed: () {},
-      //     icon: const Icon(Icons.menu_rounded),
-      //   ),
-      // ],
+      actions: [
+        IconButton(
+          onPressed: () async {
+            final prefs = await SharedPreferences.getInstance();
+            final String? savedThemeMode = prefs.getString('themeMode');
+            if (!context.mounted) {
+              return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+            }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingWidget(
+                      savedThemeMode: savedThemeMode ?? 'light',
+                      curLocale:
+                          EasyLocalization.of(context)!.locale.toString()),
+                  fullscreenDialog: true,
+                ));
+          },
+          icon: const Icon(Icons.menu_outlined),
+        ),
+      ],
     );
   }
 }

@@ -52,7 +52,7 @@ class _SettingWidgetState extends State<SettingWidget> {
         elevation: 2, //AppBar 음영 크기
         foregroundColor: Theme.of(context).appBarTheme.titleTextStyle!.color,
         title: Text(
-          'setting'.tr(),
+          'more'.tr(),
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -68,36 +68,19 @@ class _SettingWidgetState extends State<SettingWidget> {
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'dark_mode'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                      AdvancedSwitch(
-                        controller: _darkModeSwitch,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Divider(
-                    color: Theme.of(context).colorScheme.outline,
-                    thickness: 1,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'language'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
+                      Row(
+                        children: [
+                          const Icon(Icons.language_outlined),
+                          const SizedBox(width: 10),
+                          Text(
+                            'language'.tr(),
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                        ],
                       ),
                       DropdownButton(
                         items: lstLanguage
@@ -128,10 +111,59 @@ class _SettingWidgetState extends State<SettingWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Divider(
-                    color: Theme.of(context).colorScheme.outline,
-                    thickness: 1,
+                  padding: const EdgeInsets.only(
+                      top: 4, bottom: 8, left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.dark_mode_outlined),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'dark_mode'.tr(),
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                        ],
+                      ),
+                      AdvancedSwitch(
+                        controller: _darkModeSwitch,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.speaker_notes_outlined),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'notice'.tr(),
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.headphones_outlined),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'csteam'.tr(),
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                    ],
                   ),
                 ),
               ],

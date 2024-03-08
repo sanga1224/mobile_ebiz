@@ -2,6 +2,7 @@ import 'package:mobile_ebiz/models/bldetail/bl_bkcntr.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_blcntr.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_desc.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_dgspecial.dart';
+import 'package:mobile_ebiz/models/bldetail/bl_freight.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_mark.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_schedule.dart';
 import 'package:mobile_ebiz/models/bldetail/bl_tracking.dart';
@@ -128,6 +129,7 @@ class BLDetail {
   List<BLBkCntr> bkCntrs = [];
   List<BLBlCntr> blCntrs = [];
   List<BLDgSpecial> dgSpecials = [];
+  List<BLFreight> freights = [];
 
   BLDetail.fromJson(Map<String, dynamic> json)
       : refNo = json['refNo'] ?? '',
@@ -230,7 +232,7 @@ class BLDetail {
         afrSzipCode = json['afrSzipCode'] ?? '',
         afrScity = json['afrScity'] ?? '',
         afrSinvCur = json['afrSinvCur'] ?? '',
-        afrSinvAmt = json['afrSinvAmt'] ?? '',
+        afrSinvAmt = json['afrSinvAmt'].toString() ?? '',
         afrCzipCode = json['afrCzipCode'] ?? '',
         afrCcity = json['afrCcity'] ?? '',
         afrCgstNo = json['afrCgstNo'] ?? '',
@@ -258,5 +260,8 @@ class BLDetail {
             (json['blCntrs'] as List).map((i) => BLBlCntr.fromJson(i)).toList(),
         dgSpecials = (json['dgSpecials'] as List)
             .map((i) => BLDgSpecial.fromJson(i))
+            .toList(),
+        freights = (json['freights'] as List)
+            .map((i) => BLFreight.fromJson(i))
             .toList();
 }

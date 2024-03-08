@@ -87,5 +87,17 @@
     "factory": "Factory",
     "area": "Area",
     "jobDate": "Work Date",
-    "returnArea": "Return"
+    "returnArea": "Return",
+    "freightinfo": "Feight Info.",
+    "frtinit": "Code",
+    "cur": "CUR",
+    "frtunit": "Unit",
+    "usdamt": "Amt(USD)",
+    "locamt": "AMT(Local)",
+    "alarm": "Alarm",
+    "outbound": "Outbound",
+    "inbound": "Inbound",
+    "crossbound": "Crossbound",
+    "outboundallsearch": "ALL(Non-Departure)",
+    "more": "More"
 }

@@ -34,9 +34,15 @@ class ApiBLDetail {
     }
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String nacd = prefs.getString('userNacd') ?? 'EN';
+    String token = prefs.getString('login_token')!;
 
     String portlistUrl = 'getBlDetail/getBlDetail';
-    var param = {'deviceId': deviceId, 'nacd': nacd, 'blno': blno};
+    var param = {
+      'deviceId': deviceId,
+      'token': token,
+      'nacd': nacd,
+      'blno': blno
+    };
     //final url = Uri.parse('$baseUrl/$portlistUrl');
     final response = await Dio().post(
       '$baseUrl/$portlistUrl',

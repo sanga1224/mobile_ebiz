@@ -6,6 +6,7 @@ import 'package:mobile_ebiz/services/api_bldetail.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail1_widget.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail2_widget.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail3_widget.dart';
+import 'package:mobile_ebiz/widgets/bldetail/bldetail4_widget.dart';
 
 class SearchWidget extends StatefulWidget {
   const SearchWidget({super.key, required this.blno});
@@ -31,7 +32,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           body: NestedScrollView(
             headerSliverBuilder: (context, bool innerBoxIsScrolled) {
@@ -82,6 +83,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                       Tab(child: Text('basicInfo'.tr())),
                       Tab(child: Text('detailinfo'.tr())),
                       Tab(child: Text('cntrinfo'.tr())),
+                      Tab(child: Text('freightinfo'.tr())),
                     ],
                   ),
                 ),
@@ -140,6 +142,28 @@ class _SearchWidgetState extends State<SearchWidget> {
                       return ListView(
                         children: [
                           BLDetail3Widget(
+                            blno: widget.blno,
+                            blInfo: snapshot.data!,
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: Theme.of(context).colorScheme.outline,
+                          size: 50,
+                        ),
+                      );
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: bldetail,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView(
+                        children: [
+                          BLDetail4Widget(
                             blno: widget.blno,
                             blInfo: snapshot.data!,
                           ),

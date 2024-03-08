@@ -87,5 +87,17 @@
     "factory": "공장",
     "area": "지역",
     "jobDate": "작업일자",
-    "returnArea": "반입지"
+    "returnArea": "반입지",
+    "freightinfo": "운임정보",
+    "frtinit": "운임",
+    "cur": "통화",
+    "frtunit": "대상",
+    "usdamt": "금액(USD)",
+    "locamt": "금액(Local)",
+    "alarm": "알림",
+    "outbound": "수출",
+    "inbound": "수입",
+    "crossbound": "삼국간",
+    "outboundallsearch": "전체검색(미출항)",
+    "more": "더보기"
 }

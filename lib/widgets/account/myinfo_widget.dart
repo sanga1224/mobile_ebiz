@@ -8,7 +8,6 @@ import 'package:mobile_ebiz/models/account/profile.dart';
 import 'package:mobile_ebiz/popup/account/profile_info.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
-import 'package:mobile_ebiz/widgets/account/setting_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyInfoWidget extends StatefulWidget {
@@ -142,74 +141,6 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.speaker_notes_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'notice'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.headphones_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'csteam'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () async {
-                      final prefs = await SharedPreferences.getInstance();
-                      final String? savedThemeMode =
-                          prefs.getString('themeMode');
-                      if (!context.mounted) {
-                        return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
-                      }
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SettingWidget(
-                                savedThemeMode: savedThemeMode ?? 'light',
-                                curLocale: EasyLocalization.of(context)!
-                                    .locale
-                                    .toString()),
-                            fullscreenDialog: true,
-                          ));
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.settings_outlined),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'setting'.tr(),
-                          style: Theme.of(context).textTheme.displayMedium,
-                        ),
-                      ],
-                    ),
                   ),
                 ),
                 Padding(
