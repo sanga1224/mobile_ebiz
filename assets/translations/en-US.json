@@ -99,5 +99,8 @@
     "inbound": "Inbound",
     "crossbound": "Crossbound",
     "outboundallsearch": "ALL(Non-Departure)",
-    "more": "More"
+    "more": "More",
+    "details": "Detail",
+    "detailsearch": "Detail Search",
+    "term": "Term"
 }

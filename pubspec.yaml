@@ -37,12 +37,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_advanced_switch: ^3.0.1
-  flutter_html:
+  flutter_html: null
   flutter_map: ^6.1.0
   flutter_svg: ^2.0.9
   just_the_tooltip: ^0.0.12
   latlong2: ^0.9.0
   loading_animation_widget: ^1.2.0+4
+  percent_indicator: ^4.2.3
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   side_navigation: ^1.0.4
@@ -68,6 +69,7 @@ flutter:
     - assets/translations/
     - assets/images/
     - assets/images/profiles/
+    - assets/images/dgs/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

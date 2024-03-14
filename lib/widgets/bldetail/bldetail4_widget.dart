@@ -19,35 +19,35 @@ class BLDetail4Widget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width / 7,
+              width: MediaQuery.of(context).size.width / 7 - 5,
               child: Text(
                 'frtinit'.tr(),
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width / 7,
+              width: MediaQuery.of(context).size.width / 7 - 5,
               child: Text(
                 'cur'.tr(),
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width / 7,
+              width: MediaQuery.of(context).size.width / 7 - 5,
               child: Text(
                 'frtunit'.tr(),
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 2 / 7,
+              width: MediaQuery.of(context).size.width * 2 / 7 - 10,
               child: Text(
                 'usdamt'.tr(),
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 2 / 7,
+              width: MediaQuery.of(context).size.width * 2 / 7 - 10,
               child: Text(
                 'locamt'.tr(),
                 style: Theme.of(context).textTheme.labelSmall,
@@ -65,28 +65,28 @@ class BLDetail4Widget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width / 7,
+                width: MediaQuery.of(context).size.width / 7 - 5,
                 child: Text(
                   frt.init,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width / 7,
+                width: MediaQuery.of(context).size.width / 7 - 5,
                 child: Text(
                   frt.cur,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width / 7,
+                width: MediaQuery.of(context).size.width / 7 - 5,
                 child: Text(
                   frt.unit,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 2 / 7,
+                width: MediaQuery.of(context).size.width * 2 / 7 - 10,
                 child: Text(
                   frt.usdAmt,
                   style: Theme.of(context).textTheme.displaySmall,
@@ -94,10 +94,11 @@ class BLDetail4Widget extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 2 / 7,
+                width: MediaQuery.of(context).size.width * 2 / 7 - 10,
                 child: Text(
                   frt.locAmt,
                   style: Theme.of(context).textTheme.displaySmall,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],
@@ -105,52 +106,56 @@ class BLDetail4Widget extends StatelessWidget {
         );
       }
       result.add(
-        Divider(
-          color: Theme.of(context).colorScheme.outline,
-          thickness: 1,
-        ),
-      );
-      result.add(
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 7,
-              child: Text(
-                '',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                  color: Theme.of(context).colorScheme.outline, width: 1),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 7,
-              child: Text(
-                '',
-                style: Theme.of(context).textTheme.displaySmall,
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 3),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 7 - 5,
+                child: Text(
+                  '',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 7,
-              child: Text(
-                '',
-                style: Theme.of(context).textTheme.displaySmall,
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 7 - 5,
+                child: Text(
+                  '',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 2 / 7,
-              child: Text(
-                format.format(usdamt),
-                style: Theme.of(context).textTheme.displaySmall,
-                textAlign: TextAlign.center,
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 7 - 5,
+                child: Text(
+                  '',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 2 / 7,
-              child: Text(
-                format.format(locamt),
-                style: Theme.of(context).textTheme.displaySmall,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 2 / 7 - 10,
+                child: Text(
+                  format.format(usdamt),
+                  style: Theme.of(context).textTheme.displaySmall,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 2 / 7 - 10,
+                child: Text(
+                  format.format(locamt),
+                  style: Theme.of(context).textTheme.displaySmall,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
         ),
       );
       return result;

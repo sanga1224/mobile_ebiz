@@ -4,9 +4,7 @@ import 'package:mobile_ebiz/widgets/setting/setting_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarHome({
-    super.key,
-  });
+  const AppBarHome({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(50);

@@ -99,5 +99,8 @@
     "inbound": "수입",
     "crossbound": "삼국간",
     "outboundallsearch": "전체검색(미출항)",
-    "more": "더보기"
+    "more": "더보기",
+    "details": "상세",
+    "detailsearch": "상세검색",
+    "term": "기간"
 }

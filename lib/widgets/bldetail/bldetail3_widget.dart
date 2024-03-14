@@ -14,38 +14,62 @@ class BLDetail3Widget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> getDgInfo(List<BLDgSpecial> dgSpecials, String seq) {
       List<Widget> result = [];
+      int i = 0;
       for (BLDgSpecial dg in dgSpecials) {
         if (dg.cntrSeq == int.parse(seq)) {
+          if (i > 0) {
+            result.add(
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                thickness: 1,
+              ),
+            );
+          }
           result.add(
             Row(
               children: [
-                Text(
-                  'UN/Cls',
-                  style: Theme.of(context).textTheme.labelSmall,
+                Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/dgs/${dg.imdg.replaceAll('.', '')}.gif',
+                      width: 80,
+                      height: 80,
+                    )
+                  ],
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  '${dg.unno}/${dg.imdg}',
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-              ],
-            ),
-          );
-          result.add(
-            Row(
-              children: [
-                Text(
-                  'S.Risk/P.Grp',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  '${dg.subRisk}/${dg.pGrade}',
-                  style: Theme.of(context).textTheme.displaySmall,
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'UN/Cls',
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          '${dg.unno}/${dg.imdg}',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'S.Risk/P.Grp',
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          '${dg.subRisk}/${dg.pGrade}',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -189,6 +213,7 @@ class BLDetail3Widget extends StatelessWidget {
               ],
             ),
           );
+          i++;
         }
       }
       return result;
@@ -361,6 +386,44 @@ class BLDetail3Widget extends StatelessWidget {
           ),
         );
       }
+      if (cntr.outDemLimit != '') {
+        result.add(
+          Row(
+            children: [
+              Text(
+                'Freeday(Out)',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                cntr.outDemLimit,
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            ],
+          ),
+        );
+      }
+      if (cntr.inDemLimit != '') {
+        result.add(
+          Row(
+            children: [
+              Text(
+                'Freeday(In)',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                cntr.inDemLimit,
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            ],
+          ),
+        );
+      }
       return result;
     }
 
@@ -428,18 +491,21 @@ class BLDetail3Widget extends StatelessWidget {
                                             actionsPadding: EdgeInsets.zero,
                                             content: SizedBox(
                                               height: 210,
-                                              child: Container(
-                                                padding: EdgeInsets.zero,
-                                                clipBehavior: Clip
-                                                    .hardEdge, //Overflow 된 부분 잘라내기
-                                                decoration:
-                                                    const BoxDecoration(),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: getDgInfo(
-                                                    blInfo.dgSpecials,
-                                                    bkCntr.seq,
+                                              child: SingleChildScrollView(
+                                                child: Container(
+                                                  padding: EdgeInsets.zero,
+                                                  clipBehavior: Clip
+                                                      .hardEdge, //Overflow 된 부분 잘라내기
+                                                  decoration:
+                                                      const BoxDecoration(),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: getDgInfo(
+                                                      blInfo.dgSpecials,
+                                                      bkCntr.seq,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -459,10 +525,12 @@ class BLDetail3Widget extends StatelessWidget {
                                             ]);
                                       });
                                 },
-                                child: Text(
+                                child: const Text(
                                   'DG',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
                                 ),
                               ),
                             ),
@@ -485,24 +553,6 @@ class BLDetail3Widget extends StatelessWidget {
           if (blInfo.blCntrs.isNotEmpty)
             Column(
               children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.flip_to_front_outlined,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Container (B/L)',
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                  ],
-                ),
-                Divider(
-                  color: Theme.of(context).colorScheme.outline,
-                  thickness: 1,
-                ),
                 Container(
                   clipBehavior: Clip.hardEdge, //Overflow 된 부분 잘라내기
                   decoration: const BoxDecoration(),
@@ -576,9 +626,11 @@ class BLDetail3Widget extends StatelessWidget {
                                       });
                                 },
                                 child: Text(
-                                  'View',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
+                                  'details'.tr(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
                                 ),
                               ),
                             ],

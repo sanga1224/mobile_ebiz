@@ -373,7 +373,7 @@ class BLDetail1Widget extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(
-                      Icons.directions_boat_outlined,
+                      Icons.text_snippet_outlined,
                     ),
                     const SizedBox(
                       width: 10,

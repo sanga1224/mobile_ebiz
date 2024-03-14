@@ -643,7 +643,7 @@ class BLDetail2Widget extends StatelessWidget {
                           ),
                         if (blInfo.afrStel != '')
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 'TEL',
@@ -653,6 +653,12 @@ class BLDetail2Widget extends StatelessWidget {
                                 blInfo.afrStel,
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
+                            ],
+                          ),
+                        if (blInfo.afrSregNo != '')
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
                               Text(
                                 'PAN',
                                 style: Theme.of(context).textTheme.labelSmall,
@@ -741,7 +747,7 @@ class BLDetail2Widget extends StatelessWidget {
                           ),
                         if (blInfo.afrCtel != '')
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 'TEL',
@@ -751,6 +757,12 @@ class BLDetail2Widget extends StatelessWidget {
                                 blInfo.afrCtel,
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
+                            ],
+                          ),
+                        if (blInfo.afrCregNo != '')
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
                               Text(
                                 'PAN',
                                 style: Theme.of(context).textTheme.labelSmall,
@@ -862,7 +874,7 @@ class BLDetail2Widget extends StatelessWidget {
                           ),
                         if (blInfo.afrNtel != '')
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 'TEL',
@@ -872,6 +884,12 @@ class BLDetail2Widget extends StatelessWidget {
                                 blInfo.afrNtel,
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
+                            ],
+                          ),
+                        if (blInfo.afrNregNo != '')
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
                               Text(
                                 'PAN',
                                 style: Theme.of(context).textTheme.labelSmall,

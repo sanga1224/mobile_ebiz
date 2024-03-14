@@ -116,22 +116,6 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                   child: Row(
                     children: [
-                      const Icon(Icons.plus_one_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'onetouchbk'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
                       const Icon(Icons.my_library_add_outlined),
                       const SizedBox(
                         width: 10,
