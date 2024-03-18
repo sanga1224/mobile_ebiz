@@ -6,7 +6,8 @@ import 'package:mobile_ebiz/services/api_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginWidget extends StatelessWidget {
-  const LoginWidget({super.key});
+  const LoginWidget({super.key, required this.returnPage});
+  final String returnPage;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +40,17 @@ class LoginWidget extends StatelessWidget {
         if (!context.mounted) {
           return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
         }
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (BuildContext context) => const MainScreen()));
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => const MainScreen()));
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => MainScreen(
+                    forceIndex: (returnPage == 'Main' ? 2 : 1),
+                  )),
+        );
       }
     }
 

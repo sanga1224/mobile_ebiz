@@ -8,7 +8,8 @@ import 'package:mobile_ebiz/screens/search_screen.dart';
 import 'package:mobile_ebiz/widgets/appbar.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  const MainScreen({super.key, required this.forceIndex});
+  final int forceIndex;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -25,11 +26,18 @@ class _MainScreenState extends State<MainScreen> {
       pod: '',
     ),
     const SearchScreen(),
-    const AccountScreen(),
+    const AccountScreen(
+      returnPage: 'Main',
+    ),
     const AlarmScreen(),
   ];
-
   int _selectedIndex = 2;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.forceIndex;
+  }
 
   void _onItemTapped(int index) {
     setState(() {

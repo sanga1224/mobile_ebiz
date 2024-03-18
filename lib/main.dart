@@ -109,7 +109,9 @@ Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
   if (snapshot.hasError) {
     return const Text('Error');
   } else if (snapshot.hasData) {
-    return const MainScreen();
+    return const MainScreen(
+      forceIndex: 2,
+    );
   } else {
     return const SplashScreen();
   }

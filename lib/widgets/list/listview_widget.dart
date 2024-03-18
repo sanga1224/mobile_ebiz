@@ -8,20 +8,32 @@ import 'package:mobile_ebiz/widgets/bldetail/bldetail_main_widget.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class ListViewWidget extends StatefulWidget {
-  const ListViewWidget(
-      {super.key,
-      required this.bound,
-      required this.fmdt,
-      required this.todt,
-      required this.pol,
-      required this.pod});
-  final String bound, fmdt, todt, pol, pod;
+  const ListViewWidget({
+    super.key,
+    required this.bound,
+    required this.fmdt,
+    required this.todt,
+    required this.pol,
+    required this.pod,
+    required this.sortby,
+    required this.descending,
+  });
+  final String bound, fmdt, todt, pol, pod, sortby;
+  final bool descending;
 
   @override
   State<ListViewWidget> createState() => _ListViewWidgetState();
 }
 
 class _ListViewWidgetState extends State<ListViewWidget> {
+  late String searchBound,
+      searchFmdt,
+      searchTodt,
+      searchPol,
+      searchPod,
+      searchSortby;
+  late bool searchDescending;
+
   DateTimeRange dateRange = DateTimeRange(
     start: DateTime.now(),
     end: DateTime.now().add(const Duration(days: 14)),
@@ -40,21 +52,46 @@ class _ListViewWidgetState extends State<ListViewWidget> {
       });
 
   Future<List<BLList>>? _list;
-  bool _visible = false;
+  bool _visibleSearch = false,
+      _visibleSort1_up = false,
+      _visibleSort1_down = false,
+      _visibleSort2_up = false,
+      _visibleSort2_down = false,
+      _visibleSort3_up = false,
+      _visibleSort3_down = false;
 
-  Future search(
-      String bound, String fmdt, String todt, String pol, String pod) async {
+  Future search() async {
     setState(() {
+      _visibleSort1_up =
+          searchSortby == 'etd' && searchDescending == false ? true : false;
+      _visibleSort1_down =
+          searchSortby == 'etd' && searchDescending == true ? true : false;
+      _visibleSort2_up =
+          searchSortby == 'eta' && searchDescending == false ? true : false;
+      _visibleSort2_down =
+          searchSortby == 'eta' && searchDescending == true ? true : false;
+      _visibleSort3_up =
+          searchSortby == 'blno' && searchDescending == false ? true : false;
+      _visibleSort3_down =
+          searchSortby == 'blno' && searchDescending == true ? true : false;
       _list = Future.value([]); //초기화하는 즉시 리스트뷰가 없어지지 않음
-      _list = ApiList.getList(bound, fmdt, todt, pol, pod);
-      _visible = false;
+      _list = ApiList.getList(searchBound, searchFmdt, searchTodt, searchPol,
+          searchPod, searchSortby, searchDescending);
+      _visibleSearch = false;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    search(widget.bound, widget.fmdt, widget.todt, widget.pol, widget.pod);
+    searchBound = widget.bound;
+    searchFmdt = widget.fmdt;
+    searchTodt = widget.todt;
+    searchPol = widget.pol;
+    searchPod = widget.pod;
+    searchSortby = widget.sortby;
+    searchDescending = widget.descending;
+    search();
   }
 
   @override
@@ -87,14 +124,145 @@ class _ListViewWidgetState extends State<ListViewWidget> {
               SizedBox(
                 height: 19,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              searchSortby = 'etd';
+                              searchDescending =
+                                  _visibleSort1_up ? true : false;
+                              search();
+                            });
+                          },
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(
+                                left: 8, top: 3, bottom: 0, right: 0),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'ETD',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall!
+                                      .color,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Visibility(
+                                visible: _visibleSort1_up,
+                                child: const Icon(
+                                  Icons.arrow_upward_outlined,
+                                  size: 14,
+                                ),
+                              ),
+                              Visibility(
+                                visible: _visibleSort1_down,
+                                child: const Icon(
+                                  Icons.arrow_downward_outlined,
+                                  size: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              searchSortby = 'eta';
+                              searchDescending =
+                                  _visibleSort2_up ? true : false;
+                              search();
+                            });
+                          },
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(
+                                left: 8, top: 3, bottom: 0, right: 0),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'ETA',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall!
+                                      .color,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Visibility(
+                                visible: _visibleSort2_up,
+                                child: const Icon(
+                                  Icons.arrow_upward_outlined,
+                                  size: 14,
+                                ),
+                              ),
+                              Visibility(
+                                visible: _visibleSort2_down,
+                                child: const Icon(
+                                  Icons.arrow_downward_outlined,
+                                  size: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              searchSortby = 'blno';
+                              searchDescending =
+                                  _visibleSort3_up ? true : false;
+                              search();
+                            });
+                          },
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.only(
+                                left: 8, top: 3, bottom: 0, right: 0),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'B/L No.',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall!
+                                      .color,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Visibility(
+                                visible: _visibleSort3_up,
+                                child: const Icon(
+                                  Icons.arrow_upward_outlined,
+                                  size: 14,
+                                ),
+                              ),
+                              Visibility(
+                                visible: _visibleSort3_down,
+                                child: const Icon(
+                                  Icons.arrow_downward_outlined,
+                                  size: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            _visible = !_visible;
+                            _visibleSearch = !_visibleSearch;
                           });
                         },
                         style: ElevatedButton.styleFrom(
@@ -105,12 +273,15 @@ class _ListViewWidgetState extends State<ListViewWidget> {
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('detailsearch'.tr()),
-                            Icon(!_visible
+                            Icon(!_visibleSearch
                                 ? Icons.expand_more_outlined
                                 : Icons.expand_less_outlined),
                           ],
@@ -121,7 +292,7 @@ class _ListViewWidgetState extends State<ListViewWidget> {
                 ),
               ),
               Visibility(
-                visible: _visible,
+                visible: _visibleSearch,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -298,12 +469,11 @@ class _ListViewWidgetState extends State<ListViewWidget> {
                         Center(
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              search(
-                                  widget.bound,
-                                  '${start.year}$startMonth$startDay',
-                                  '${end.year}$endMonth$endDay',
-                                  _pol,
-                                  _pod);
+                              searchFmdt = '${start.year}$startMonth$startDay';
+                              searchTodt = '${end.year}$endMonth$endDay';
+                              searchPol = _pol;
+                              searchPod = _pod;
+                              search();
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(50, 20),

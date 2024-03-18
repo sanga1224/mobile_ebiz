@@ -6,7 +6,8 @@ import 'package:mobile_ebiz/widgets/account/myinfo_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
+  const AccountScreen({super.key, required this.returnPage});
+  final String returnPage;
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +32,21 @@ class AccountScreen extends StatelessWidget {
       child: FutureBuilder(
         future: isLogIn(),
         builder: (context, snapshot) {
-          return _loadingWidget(snapshot);
+          return _loadingWidget(snapshot, returnPage);
         },
       ),
     );
   }
 }
 
-Widget _loadingWidget(AsyncSnapshot<Object?> snapshot) {
+Widget _loadingWidget(AsyncSnapshot<Object?> snapshot, String returnPage) {
   if (snapshot.hasError) {
     return const Text('Error');
   } else if (snapshot.hasData) {
     if (snapshot.data == true) {
       return const MyInfoWidget();
     } else {
-      return const LoginWidget();
+      return LoginWidget(returnPage: returnPage);
     }
   } else {
     return const Text('');

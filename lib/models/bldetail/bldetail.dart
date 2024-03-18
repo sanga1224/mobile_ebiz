@@ -232,7 +232,7 @@ class BLDetail {
         afrSzipCode = json['afrSzipCode'] ?? '',
         afrScity = json['afrScity'] ?? '',
         afrSinvCur = json['afrSinvCur'] ?? '',
-        afrSinvAmt = json['afrSinvAmt'].toString() ?? '',
+        afrSinvAmt = json['afrSinvAmt'].toString(),
         afrCzipCode = json['afrCzipCode'] ?? '',
         afrCcity = json['afrCcity'] ?? '',
         afrCgstNo = json['afrCgstNo'] ?? '',
