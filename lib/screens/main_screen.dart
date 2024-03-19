@@ -17,7 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final List<Widget> _widgetList = [
-    const ScheduleScreen(),
+    const ScheduleScreen(pol: '', polnm: '', pod: '', podnm: '', yyyymm: ''),
     const ListScreen(
       bound: 'O',
       fmdt: '',
