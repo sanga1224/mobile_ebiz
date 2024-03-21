@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mobile_ebiz/models/common_function.dart';
 import 'package:mobile_ebiz/models/schedule/myschedule.dart';
 import 'package:mobile_ebiz/models/schedule/schedule.dart';
+import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/popup/schedule/port_list.dart';
 import 'package:mobile_ebiz/services/api_schedule.dart';
 import 'package:mobile_ebiz/widgets/schedule/schedule_widget.dart';
@@ -28,7 +29,7 @@ class ScheduleScreen extends StatefulWidget {
 class _ScheduleScreenState extends State<ScheduleScreen> {
   DateTime _selectedDate = DateTime.now();
   late String _pol, _polnm, _pod, _podnm, _yyyymm, _sortBy;
-  late bool _descending;
+  late bool _descending, _isFavorites;
   Future<List<Schedule>>? _schedules;
   Future<List<MySchedule>>? _mySchedule;
   bool _visibleSort1_up = false,
@@ -44,6 +45,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           _pod = code;
           _podnm = name;
         }
+        checkFavorites();
       });
 
   changePolPod() => setState(() {
@@ -52,6 +54,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         _polnm = podnm;
         _pod = pol;
         _podnm = polnm;
+        checkFavorites();
       });
 
   Future search(String pol, String pod, String yyyymm, String sortBy,
@@ -71,6 +74,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           'recentSchedule', '$pol|$_polnm|$pod|$_podnm|$yyyymm');
       setState(() {
         _schedules = ApiSchedule.getList(pol, pod, yyyymm, sortBy, descending);
+        //즐겨찾기 체크
+        checkFavorites();
       });
     }
   }
@@ -115,6 +120,18 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     });
   }
 
+  void checkFavorites() {
+    _mySchedule?.then((my) {
+      _isFavorites = my.any((item) {
+        if (item.pol == _pol && item.pod == _pod) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    });
+  }
+
   Future<String> getRecentSchedule() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('recentSchedule') ?? '';
@@ -122,6 +139,36 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
   Future getMySchedule() async {
     _mySchedule = ApiSchedule.getMySchedule();
+  }
+
+  void addFavorites() async {
+    StatusMsg result = await ApiSchedule.addMySchedule(_pol, _pod);
+    if (result.status == 'Y') {
+      if (!context.mounted) {
+        return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+      }
+      CommonFunction.showSnackBar(context, 'Added_Favorites'.tr(), true);
+    }
+
+    setState(() {
+      getMySchedule();
+      _isFavorites = true;
+    });
+  }
+
+  void delFavorites() async {
+    StatusMsg result = await ApiSchedule.delMySchedule(_pol, _pod);
+    if (result.status == 'Y') {
+      if (!context.mounted) {
+        return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+      }
+      CommonFunction.showSnackBar(context, 'Deleted_Favorites'.tr(), true);
+    }
+
+    setState(() {
+      getMySchedule();
+      _isFavorites = false;
+    });
   }
 
   @override
@@ -245,11 +292,53 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           flex: 1,
                           child: Column(
                             children: [
-                              IconButton(
-                                onPressed: changePolPod,
-                                icon: Icon(
-                                  Icons.change_circle_outlined,
-                                  color: Theme.of(context).iconTheme.color,
+                              SizedBox(
+                                height: 30,
+                                child: IconButton(
+                                  padding: const EdgeInsets.all(0),
+                                  onPressed: changePolPod,
+                                  icon: Icon(
+                                    Icons.change_circle_outlined,
+                                    color: Theme.of(context).iconTheme.color,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30,
+                                child: FutureBuilder(
+                                  future: _mySchedule,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      if (snapshot.data!.isNotEmpty) {
+                                        _isFavorites =
+                                            snapshot.data!.any((item) {
+                                          if (item.pol == _pol &&
+                                              item.pod == _pod) {
+                                            return true;
+                                          } else {
+                                            return false;
+                                          }
+                                        });
+
+                                        return IconButton(
+                                          padding: const EdgeInsets.all(0),
+                                          onPressed: _isFavorites
+                                              ? delFavorites
+                                              : addFavorites,
+                                          icon: Icon(
+                                            _isFavorites
+                                                ? Icons.favorite
+                                                : Icons.favorite_outline,
+                                            color: Colors.red,
+                                          ),
+                                        );
+                                      } else {
+                                        return const Text('');
+                                      }
+                                    } else {
+                                      return const Text('');
+                                    }
+                                  },
                                 ),
                               ),
                             ],

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mobile_ebiz/models/schedule/myschedule.dart';
 import 'package:mobile_ebiz/models/schedule/schedule.dart';
+import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiSchedule {
@@ -8,6 +9,8 @@ class ApiSchedule {
   static const String portlistUrl =
       'port-to-port-schedule/port-to-port-schedule';
   static const String myScheduleListUrl = 'getMySchedule/getMySchedule';
+  static const String addMyScheduleListUrl = 'addMySchedule/addMySchedule';
+  static const String delMyScheduleListUrl = 'delMySchedule/delMySchedule';
 
   static Future<List<Schedule>> getList(String pol, String pod, String etd,
       String sortBy, bool descending) async {
@@ -59,5 +62,39 @@ class ApiSchedule {
       }
     }
     return result;
+  }
+
+  static Future<StatusMsg> addMySchedule(String pol, String pod) async {
+    List<StatusMsg> result = [];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('login_token');
+    if (token != '') {
+      final response = await Dio().post(
+        '$baseUrl/$addMyScheduleListUrl',
+        queryParameters: {'token': token, 'pol': pol, 'pod': pod},
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> responseMap = response.data['ResultData'];
+        result = responseMap.map((e) => StatusMsg.fromJson(e)).toList();
+      }
+    }
+    return result[0];
+  }
+
+  static Future<StatusMsg> delMySchedule(String pol, String pod) async {
+    List<StatusMsg> result = [];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('login_token');
+    if (token != '') {
+      final response = await Dio().post(
+        '$baseUrl/$delMyScheduleListUrl',
+        queryParameters: {'token': token, 'pol': pol, 'pod': pod},
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> responseMap = response.data['ResultData'];
+        result = responseMap.map((e) => StatusMsg.fromJson(e)).toList();
+      }
+    }
+    return result[0];
   }
 }

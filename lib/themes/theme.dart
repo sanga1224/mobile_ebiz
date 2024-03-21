@@ -28,6 +28,11 @@ ThemeData lightMode = ThemeData(
       fontSize: 50,
       fontWeight: FontWeight.w800,
     ),
+    headlineSmall: TextStyle(
+      color: Colors.white.withOpacity(1.0),
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+    ),
     displayLarge: TextStyle(
       color: Colors.black.withOpacity(1.0),
       fontSize: 28,
@@ -120,6 +125,11 @@ ThemeData darkMode = ThemeData(
       color: Color.fromRGBO(61, 129, 197, 1),
       fontSize: 50,
       fontWeight: FontWeight.w800,
+    ),
+    headlineSmall: TextStyle(
+      color: Colors.white.withOpacity(1.0),
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
     ),
     displayLarge: TextStyle(
       color: Colors.white.withOpacity(1.0),

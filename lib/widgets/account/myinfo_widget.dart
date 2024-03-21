@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mobile_ebiz/models/common_function.dart';
 import 'package:mobile_ebiz/models/account/profile.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
+import 'package:mobile_ebiz/popup/account/favorite_schedule_widget.dart';
 import 'package:mobile_ebiz/popup/account/profile_info.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
@@ -122,6 +123,33 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                 Divider(
                   color: Theme.of(context).colorScheme.outline,
                   thickness: 1,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const FavoriteScheduleWidget(),
+                            fullscreenDialog: true,
+                          ));
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(Icons.favorite_outline),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'myschedule'.tr(),
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Padding(
                   padding:

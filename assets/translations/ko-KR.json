@@ -25,7 +25,7 @@
     "Login_Error3": "아직 승인되지 않은 아이디입니다.",
     "chkingLogin": "로그인 정보를 체크중입니다...",
     "onetouchbk": "원터치부킹",
-    "mybl": "나의 B/L",
+    "mybl": "즐겨찾기(B/L)",
     "notice": "공지사항",
     "csteam": "고객센터",
     "setting": "설정",
@@ -103,5 +103,8 @@
     "details": "상세",
     "detailsearch": "상세검색",
     "term": "기간",
-    "favorites": "즐겨찾기"
+    "favorites": "즐겨찾기",
+    "Deleted_Favorites": "즐겨찾기가 삭제되었습니다.",
+    "Added_Favorites": "즐겨찾기에 추가되었습니다.",
+    "myschedule": "즐겨찾기(스케쥴)"
 }

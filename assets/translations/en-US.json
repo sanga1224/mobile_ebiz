@@ -25,7 +25,7 @@
     "Login_Error3": "ID is not approved yet.",
     "chkingLogin": "Checking login information...",
     "onetouchbk": "One touch B/K",
-    "mybl": "My B/L",
+    "mybl": "Favorites(B/L)",
     "notice": "Notice",
     "csteam": "Customer Service",
     "setting": "Setting",
@@ -103,5 +103,8 @@
     "details": "Detail",
     "detailsearch": "Detail Search",
     "term": "Term",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "Deleted_Favorites": "Deleted favorites.",
+    "Added_Favorites": "Added favorites.",
+    "myschedule": "Favorites(Schedule)"
 }

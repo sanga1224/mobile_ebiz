@@ -42,6 +42,13 @@ class SearchScreen extends StatelessWidget {
           keyboardType: TextInputType.text,
           style: Theme.of(context).textTheme.bodyLarge,
           textAlignVertical: TextAlignVertical.top,
+          onSubmitted: (value) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        SearchWidget(blno: value)));
+          },
         ),
       ),
     );

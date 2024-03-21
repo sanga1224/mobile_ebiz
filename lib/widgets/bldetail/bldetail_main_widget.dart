@@ -20,6 +20,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   //Ticker가 필요한 애니메이션이 한개인 경우
   TextEditingController txtBlNo = TextEditingController();
   Future<BLDetail>? bldetail;
+  final bool _isFavorite = false;
 
   @override
   void initState() {
@@ -39,41 +40,67 @@ class _SearchWidgetState extends State<SearchWidget> {
               return <Widget>[
                 SliverAppBar(
                   titleSpacing: 10,
-                  title: Center(
-                    child: SizedBox(
-                      height: 45,
-                      child: TextField(
-                        controller: txtBlNo,
-                        onChanged: (value) {
-                          txtBlNo.text = txtBlNo.text.toUpperCase();
-                        },
-                        decoration: InputDecoration(
-                          suffix: InkWell(
-                            child: const Icon(Icons.search),
-                            onTap: () {
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          height: 45,
+                          width: 250,
+                          child: TextField(
+                            controller: txtBlNo,
+                            onChanged: (value) {
+                              txtBlNo.text = txtBlNo.text.toUpperCase();
+                            },
+                            decoration: InputDecoration(
+                              suffixIcon: InkWell(
+                                child: const Icon(
+                                  Icons.search,
+                                  color: Colors.white,
+                                ),
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              SearchWidget(
+                                                  blno: txtBlNo.text)));
+                                },
+                              ),
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                            ),
+                            keyboardType: TextInputType.text,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                            textAlignVertical: TextAlignVertical.top,
+                            onSubmitted: (value) {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          SearchWidget(blno: txtBlNo.text)));
+                                          SearchWidget(blno: value)));
                             },
                           ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Colors.blue),
-                          ),
                         ),
-                        keyboardType: TextInputType.text,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                        textAlignVertical: TextAlignVertical.top,
                       ),
-                    ),
+                      Icon(
+                        _isFavorite ? Icons.favorite : Icons.favorite_outline,
+                        color: Colors.red,
+                      ),
+                    ],
                   ),
                   pinned: false,
                   floating: true,
