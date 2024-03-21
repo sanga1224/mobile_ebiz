@@ -107,10 +107,42 @@ class _SearchWidgetState extends State<SearchWidget> {
                   bottom: TabBar(
                     isScrollable: true,
                     tabs: [
-                      Tab(child: Text('basicInfo'.tr())),
-                      Tab(child: Text('detailinfo'.tr())),
-                      Tab(child: Text('cntrinfo'.tr())),
-                      Tab(child: Text('freightinfo'.tr())),
+                      Tab(
+                        child: Text(
+                          'basicInfo'.tr(),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          'detailinfo'.tr(),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          'cntrinfo'.tr(),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          'freightinfo'.tr(),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
