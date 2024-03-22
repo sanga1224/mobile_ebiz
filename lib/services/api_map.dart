@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_trackingmap.dart';
+import 'package:mobile_ebiz/models/bl/bl_trackingmap.dart';
 
 class ApiMap {
   static const String baseUrl = 'http://fastapi.sinokor.co.kr:8000';

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_schedule.dart';
-import 'package:mobile_ebiz/models/bldetail/bldetail.dart';
+import 'package:mobile_ebiz/models/bl/bl_schedule.dart';
+import 'package:mobile_ebiz/models/bl/bldetail.dart';
 import 'package:mobile_ebiz/widgets/map/trackingmap_widget.dart';
 import 'dart:math' as math;
 

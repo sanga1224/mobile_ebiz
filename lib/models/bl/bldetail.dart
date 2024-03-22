@@ -1,11 +1,11 @@
-import 'package:mobile_ebiz/models/bldetail/bl_bkcntr.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_blcntr.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_desc.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_dgspecial.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_freight.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_mark.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_schedule.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_tracking.dart';
+import 'package:mobile_ebiz/models/bl/bl_bkcntr.dart';
+import 'package:mobile_ebiz/models/bl/bl_blcntr.dart';
+import 'package:mobile_ebiz/models/bl/bl_desc.dart';
+import 'package:mobile_ebiz/models/bl/bl_dgspecial.dart';
+import 'package:mobile_ebiz/models/bl/bl_freight.dart';
+import 'package:mobile_ebiz/models/bl/bl_mark.dart';
+import 'package:mobile_ebiz/models/bl/bl_schedule.dart';
+import 'package:mobile_ebiz/models/bl/bl_tracking.dart';
 
 class BLDetail {
   String refNo,

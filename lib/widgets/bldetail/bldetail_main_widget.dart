@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:mobile_ebiz/models/bldetail/bldetail.dart';
-import 'package:mobile_ebiz/services/api_bldetail.dart';
+import 'package:mobile_ebiz/models/bl/bldetail.dart';
+import 'package:mobile_ebiz/models/bl/favorite.dart';
+import 'package:mobile_ebiz/models/common_function.dart';
+import 'package:mobile_ebiz/models/status_msg.dart';
+import 'package:mobile_ebiz/services/api_bl.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail1_widget.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail2_widget.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail3_widget.dart';
@@ -19,25 +22,57 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   //Ticker가 필요한 애니메이션이 한개인 경우
   TextEditingController txtBlNo = TextEditingController();
+  TextEditingController txtFavoriteNickName = TextEditingController();
   Future<BLDetail>? bldetail;
-  final bool _isFavorite = false;
+  Future<List<FavoriteBL>>? favoriteBlList;
+  bool _isFavorite = false;
+
+  void getFavoriteBLList() {
+    favoriteBlList = ApiBL.getFavorite();
+  }
 
   @override
   void initState() {
     txtBlNo = TextEditingController(text: widget.blno);
-    bldetail = ApiBLDetail.getBLDetail(txtBlNo.text);
+    bldetail = ApiBL.getBLDetail(txtBlNo.text);
+    getFavoriteBLList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    void addFavoriteBL() async {
+      StatusMsg result = await ApiBL.addFavorite(
+          txtBlNo.text,
+          txtFavoriteNickName.text == ''
+              ? txtBlNo.text
+              : txtFavoriteNickName.text);
+      if (result.status == 'Y') {
+        setState(() {
+          CommonFunction.showSnackBar(context, 'Added_Favorites'.tr(), true);
+          getFavoriteBLList();
+          Navigator.pop(context);
+        });
+      }
+    }
+
+    void delFavoriteBL() async {
+      StatusMsg result = await ApiBL.delFavorite(txtBlNo.text);
+      if (result.status == 'Y') {
+        setState(() {
+          CommonFunction.showSnackBar(context, 'Deleted_Favorites'.tr(), true);
+          getFavoriteBLList();
+        });
+      }
+    }
+
     return SafeArea(
       child: DefaultTabController(
         length: 4,
         child: Scaffold(
           body: NestedScrollView(
             headerSliverBuilder: (context, bool innerBoxIsScrolled) {
-              return <Widget>[
+              return [
                 SliverAppBar(
                   titleSpacing: 10,
                   title: Row(
@@ -96,9 +131,86 @@ class _SearchWidgetState extends State<SearchWidget> {
                           ),
                         ),
                       ),
-                      Icon(
-                        _isFavorite ? Icons.favorite : Icons.favorite_outline,
-                        color: Colors.red,
+                      FutureBuilder(
+                        future: favoriteBlList,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            _isFavorite = snapshot.data!.any((item) {
+                              if (item.blno == widget.blno) {
+                                return true;
+                              } else {
+                                return false;
+                              }
+                            });
+
+                            return GestureDetector(
+                              onTap: () {
+                                if (_isFavorite) {
+                                  delFavoriteBL();
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Column(
+                                          children: [
+                                            Text(
+                                              'Input_NickName'.tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium,
+                                            ),
+                                            Text(
+                                              'No_Input_Blno'.tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall,
+                                            ),
+                                          ],
+                                        ),
+                                        content: TextField(
+                                          controller: txtFavoriteNickName,
+                                          decoration: InputDecoration(
+                                              hintText: txtBlNo.text),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: addFavoriteBL,
+                                            child: Text(
+                                              'confirm'.tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall,
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              'cancel'.tr(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              child: Icon(
+                                _isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline,
+                                color: Colors.red,
+                              ),
+                            );
+                          } else {
+                            return const Text('');
+                          }
+                        },
                       ),
                     ],
                   ),

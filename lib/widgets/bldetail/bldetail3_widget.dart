@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_bkcntr.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_blcntr.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_dgspecial.dart';
-import 'package:mobile_ebiz/models/bldetail/bldetail.dart';
+import 'package:mobile_ebiz/models/bl/bl_bkcntr.dart';
+import 'package:mobile_ebiz/models/bl/bl_blcntr.dart';
+import 'package:mobile_ebiz/models/bl/bl_dgspecial.dart';
+import 'package:mobile_ebiz/models/bl/bldetail.dart';
 
 class BLDetail3Widget extends StatelessWidget {
   const BLDetail3Widget({super.key, required this.blno, required this.blInfo});

@@ -40,7 +40,7 @@
     "select": "선택",
     "new": "신규",
     "setProfile_Error": "프로필 저장 중 오류가 발생하였습니다.",
-    "Input_NickName": "닉네임을 입력하세요.",
+    "Input_NickName": "별칭을 입력하세요.",
     "Input_Name": "이름을 입력하세요.",
     "Input_Email": "이메일 주소를 입력하세요.",
     "InValid_Email": "올바른 이메일 주소가 아닙니다.",
@@ -106,5 +106,8 @@
     "favorites": "즐겨찾기",
     "Deleted_Favorites": "즐겨찾기가 삭제되었습니다.",
     "Added_Favorites": "즐겨찾기에 추가되었습니다.",
-    "myschedule": "즐겨찾기(스케쥴)"
+    "myschedule": "즐겨찾기(스케쥴)",
+    "confirm": "확인",
+    "cancel": "취소",
+    "No_Input_Blno": "미입력 시 B/L 번호로 저장"
 }

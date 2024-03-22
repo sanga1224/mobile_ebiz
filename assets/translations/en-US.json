@@ -106,5 +106,8 @@
     "favorites": "Favorites",
     "Deleted_Favorites": "Deleted favorites.",
     "Added_Favorites": "Added favorites.",
-    "myschedule": "Favorites(Schedule)"
+    "myschedule": "Favorites(Schedule)",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "No_Input_Blno": "It'll be saved as B/L No. when you don't input."
 }

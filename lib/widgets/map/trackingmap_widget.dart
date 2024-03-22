@@ -3,7 +3,7 @@ import 'package:flutter_map/flutter_map.dart' as map;
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:mobile_ebiz/models/bldetail/bl_trackingmap.dart';
+import 'package:mobile_ebiz/models/bl/bl_trackingmap.dart';
 import 'package:mobile_ebiz/models/map/location.dart';
 import 'package:mobile_ebiz/models/map/path.dart';
 import 'package:mobile_ebiz/services/api_map.dart';

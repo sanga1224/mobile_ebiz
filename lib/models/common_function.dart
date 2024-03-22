@@ -4,7 +4,10 @@ class CommonFunction {
   static void showSnackBar(BuildContext context, String text, bool positive) {
     Text content = Text(
       text,
-      style: Theme.of(context).textTheme.displaySmall,
+      style: const TextStyle(
+        fontSize: 15,
+        color: Colors.white,
+      ),
     );
     final snackBar = SnackBar(
       content: content,
