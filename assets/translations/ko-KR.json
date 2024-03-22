@@ -109,5 +109,6 @@
     "myschedule": "즐겨찾기(스케쥴)",
     "confirm": "확인",
     "cancel": "취소",
-    "No_Input_Blno": "미입력 시 B/L 번호로 저장"
+    "No_Input_Blno": "미입력 시 B/L 번호로 저장",
+    "recentbl": "최근 B/L"
 }

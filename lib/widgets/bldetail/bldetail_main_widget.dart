@@ -36,6 +36,7 @@ class _SearchWidgetState extends State<SearchWidget> {
     txtBlNo = TextEditingController(text: widget.blno);
     bldetail = ApiBL.getBLDetail(txtBlNo.text);
     getFavoriteBLList();
+    ApiBL.addRecentBL(widget.blno);
     super.initState();
   }
 

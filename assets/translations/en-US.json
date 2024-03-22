@@ -109,5 +109,6 @@
     "myschedule": "Favorites(Schedule)",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "No_Input_Blno": "It'll be saved as B/L No. when you don't input."
+    "No_Input_Blno": "It'll be saved as B/L No. when you don't input.",
+    "recentbl": "Recent B/L"
 }
