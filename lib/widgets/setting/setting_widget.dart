@@ -134,38 +134,6 @@ class _SettingWidgetState extends State<SettingWidget> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.speaker_notes_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'notice'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.headphones_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'csteam'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

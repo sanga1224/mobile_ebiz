@@ -110,5 +110,9 @@
     "confirm": "확인",
     "cancel": "취소",
     "No_Input_Blno": "미입력 시 B/L 번호로 저장",
-    "recentbl": "최근 B/L"
+    "recentbl": "최근 B/L",
+    "save": "저장",
+    "Input_Right_BlNo": "16자리 올바른 B/L No를 입력하세요.",
+    "Error_Occured": "오류가 발생하였습니다.",
+    "Delete_All": "전체삭제"
 }

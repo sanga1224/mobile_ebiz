@@ -67,291 +67,300 @@ class _SearchWidgetState extends State<SearchWidget> {
       }
     }
 
-    return SafeArea(
-      child: DefaultTabController(
-        length: 4,
-        child: Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder: (context, bool innerBoxIsScrolled) {
-              return [
-                SliverAppBar(
-                  titleSpacing: 10,
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          height: 45,
-                          width: 250,
-                          child: TextField(
-                            controller: txtBlNo,
-                            onChanged: (value) {
-                              txtBlNo.text = txtBlNo.text.toUpperCase();
-                            },
-                            decoration: InputDecoration(
-                              suffixIcon: InkWell(
-                                child: const Icon(
-                                  Icons.search,
-                                  color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: SafeArea(
+        child: DefaultTabController(
+          length: 4,
+          child: Scaffold(
+            body: NestedScrollView(
+              headerSliverBuilder: (context, bool innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    titleSpacing: 10,
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Center(
+                          child: SizedBox(
+                            height: 45,
+                            width: 250,
+                            child: TextField(
+                              controller: txtBlNo,
+                              onChanged: (value) {
+                                txtBlNo.text = txtBlNo.text.toUpperCase();
+                              },
+                              decoration: InputDecoration(
+                                suffixIcon: InkWell(
+                                  child: const Icon(
+                                    Icons.search,
+                                    color: Colors.white,
+                                  ),
+                                  onTap: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                SearchWidget(
+                                                    blno: txtBlNo.text)));
+                                  },
                                 ),
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              SearchWidget(
-                                                  blno: txtBlNo.text)));
-                                },
-                              ),
-                              enabledBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
+                                enabledBorder: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  borderSide: BorderSide(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                focusedBorder: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  borderSide: BorderSide(color: Colors.blue),
                                 ),
                               ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide: BorderSide(color: Colors.blue),
+                              keyboardType: TextInputType.text,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
                               ),
+                              textAlignVertical: TextAlignVertical.top,
+                              onSubmitted: (value) {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            SearchWidget(blno: value)));
+                              },
                             ),
-                            keyboardType: TextInputType.text,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                            textAlignVertical: TextAlignVertical.top,
-                            onSubmitted: (value) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          SearchWidget(blno: value)));
-                            },
                           ),
                         ),
-                      ),
-                      FutureBuilder(
-                        future: favoriteBlList,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            _isFavorite = snapshot.data!.any((item) {
-                              if (item.blno == widget.blno) {
-                                return true;
-                              } else {
-                                return false;
-                              }
-                            });
-
-                            return GestureDetector(
-                              onTap: () {
-                                if (_isFavorite) {
-                                  delFavoriteBL();
+                        FutureBuilder(
+                          future: favoriteBlList,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              _isFavorite = snapshot.data!.any((item) {
+                                if (item.blno == widget.blno) {
+                                  return true;
                                 } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Column(
-                                          children: [
-                                            Text(
-                                              'Input_NickName'.tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium,
+                                  return false;
+                                }
+                              });
+
+                              return GestureDetector(
+                                onTap: () {
+                                  if (_isFavorite) {
+                                    delFavoriteBL();
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Column(
+                                            children: [
+                                              Text(
+                                                'Input_NickName'.tr(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayMedium,
+                                              ),
+                                              Text(
+                                                'No_Input_Blno'.tr(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall,
+                                              ),
+                                            ],
+                                          ),
+                                          content: TextField(
+                                            controller: txtFavoriteNickName,
+                                            decoration: InputDecoration(
+                                                hintText: txtBlNo.text),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: addFavoriteBL,
+                                              child: Text(
+                                                'confirm'.tr(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall,
+                                              ),
                                             ),
-                                            Text(
-                                              'No_Input_Blno'.tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall,
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'cancel'.tr(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall,
+                                              ),
                                             ),
                                           ],
-                                        ),
-                                        content: TextField(
-                                          controller: txtFavoriteNickName,
-                                          decoration: InputDecoration(
-                                              hintText: txtBlNo.text),
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: addFavoriteBL,
-                                            child: Text(
-                                              'confirm'.tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall,
-                                            ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              'cancel'.tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall,
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
-                              },
-                              child: Icon(
-                                _isFavorite
-                                    ? Icons.favorite
-                                    : Icons.favorite_outline,
-                                color: Colors.red,
-                              ),
-                            );
-                          } else {
-                            return const Text('');
-                          }
-                        },
-                      ),
-                    ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
+                                child: Icon(
+                                  _isFavorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_outline,
+                                  color: Colors.red,
+                                ),
+                              );
+                            } else {
+                              return const Text('');
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    pinned: false,
+                    floating: true,
+                    bottom: TabBar(
+                      isScrollable: true,
+                      tabs: [
+                        Tab(
+                          child: Text(
+                            'basicInfo'.tr(),
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            'detailinfo'.tr(),
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            'cntrinfo'.tr(),
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            'freightinfo'.tr(),
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  pinned: false,
-                  floating: true,
-                  bottom: TabBar(
-                    isScrollable: true,
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          'basicInfo'.tr(),
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
+                ];
+              },
+              body: TabBarView(
+                children: [
+                  FutureBuilder(
+                    future: bldetail,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView(
+                          children: [
+                            BLDetail1Widget(
+                              blno: widget.blno,
+                              blInfo: snapshot.data!,
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: Theme.of(context).colorScheme.outline,
+                            size: 50,
                           ),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          'detailinfo'.tr(),
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          'cntrinfo'.tr(),
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          'freightinfo'.tr(),
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
+                        );
+                      }
+                    },
                   ),
-                ),
-              ];
-            },
-            body: TabBarView(
-              children: [
-                FutureBuilder(
-                  future: bldetail,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView(
-                        children: [
-                          BLDetail1Widget(
-                            blno: widget.blno,
-                            blInfo: snapshot.data!,
+                  FutureBuilder(
+                    future: bldetail,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView(
+                          children: [
+                            BLDetail2Widget(
+                              blno: widget.blno,
+                              blInfo: snapshot.data!,
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: Theme.of(context).colorScheme.outline,
+                            size: 50,
                           ),
-                        ],
-                      );
-                    } else {
-                      return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: Theme.of(context).colorScheme.outline,
-                          size: 50,
-                        ),
-                      );
-                    }
-                  },
-                ),
-                FutureBuilder(
-                  future: bldetail,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView(
-                        children: [
-                          BLDetail2Widget(
-                            blno: widget.blno,
-                            blInfo: snapshot.data!,
+                        );
+                      }
+                    },
+                  ),
+                  FutureBuilder(
+                    future: bldetail,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView(
+                          children: [
+                            BLDetail3Widget(
+                              blno: widget.blno,
+                              blInfo: snapshot.data!,
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: Theme.of(context).colorScheme.outline,
+                            size: 50,
                           ),
-                        ],
-                      );
-                    } else {
-                      return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: Theme.of(context).colorScheme.outline,
-                          size: 50,
-                        ),
-                      );
-                    }
-                  },
-                ),
-                FutureBuilder(
-                  future: bldetail,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView(
-                        children: [
-                          BLDetail3Widget(
-                            blno: widget.blno,
-                            blInfo: snapshot.data!,
+                        );
+                      }
+                    },
+                  ),
+                  FutureBuilder(
+                    future: bldetail,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView(
+                          children: [
+                            BLDetail4Widget(
+                              blno: widget.blno,
+                              blInfo: snapshot.data!,
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: Theme.of(context).colorScheme.outline,
+                            size: 50,
                           ),
-                        ],
-                      );
-                    } else {
-                      return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: Theme.of(context).colorScheme.outline,
-                          size: 50,
-                        ),
-                      );
-                    }
-                  },
-                ),
-                FutureBuilder(
-                  future: bldetail,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView(
-                        children: [
-                          BLDetail4Widget(
-                            blno: widget.blno,
-                            blInfo: snapshot.data!,
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: Theme.of(context).colorScheme.outline,
-                          size: 50,
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ],
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

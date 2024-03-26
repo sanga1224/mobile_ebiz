@@ -110,5 +110,9 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "No_Input_Blno": "It'll be saved as B/L No. when you don't input.",
-    "recentbl": "Recent B/L"
+    "recentbl": "Recent B/L",
+    "save": "Save",
+    "Input_Right_BlNo": "Input valid B/L No. with 16 digits.",
+    "Error_Occured": "Some error is occured.",
+    "Delete_All": "Delete All"
 }

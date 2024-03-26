@@ -34,6 +34,7 @@ dependencies:
   device_info_plus: ^9.1.2
   dio: ^5.4.0
   dropdown_model_list: ^2.0.2
+  easy_autocomplete: ^1.6.0
   easy_localization: ^3.0.0
   firebase_core: ^2.24.2
   flutter:

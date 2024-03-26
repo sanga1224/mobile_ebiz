@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CommonFunction {
   static void showSnackBar(BuildContext context, String text, bool positive) {
@@ -15,5 +16,22 @@ class CommonFunction {
           positive == true ? const Color.fromRGBO(0, 84, 166, 1) : Colors.red,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  static bool isNumeric(String str) {
+    if (str == '') {
+      return false;
+    }
+    return num.tryParse(str) != null;
+  }
+
+  static Future<bool> isLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('login_token')!;
+    if (token == '') {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
