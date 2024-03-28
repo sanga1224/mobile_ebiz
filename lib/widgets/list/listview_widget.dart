@@ -5,7 +5,7 @@ import 'package:mobile_ebiz/models/list/bl_list.dart';
 import 'package:mobile_ebiz/popup/schedule/port_list.dart';
 import 'package:mobile_ebiz/services/api_list.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail_main_widget.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import 'package:mobile_ebiz/widgets/list/percent_indicator.dart';
 
 class ListViewWidget extends StatefulWidget {
   const ListViewWidget({
@@ -611,17 +611,25 @@ class _ListViewWidgetState extends State<ListViewWidget> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    LinearPercentIndicator(
-                                      animation: true,
-                                      width: 180,
-                                      lineHeight: 16,
-                                      percent: double.parse(
-                                          snapshot.data![index].transit),
-                                      center: Text(
-                                          '${(double.parse(snapshot.data![index].transit) * 100).toStringAsFixed(0)}%'),
-                                      progressColor: Colors.green,
-                                      barRadius: const Radius.circular(10),
+                                    PercentIndicator(
+                                      bound: widget.bound,
+                                      pickupTransit:
+                                          snapshot.data![index].pickupTransit,
+                                      returnTransit:
+                                          snapshot.data![index].returnTransit,
+                                      transit: snapshot.data![index].transit,
                                     ),
+                                    // LinearPercentIndicator(
+                                    //   animation: true,
+                                    //   width: 180,
+                                    //   lineHeight: 16,
+                                    //   percent: double.parse(
+                                    //       snapshot.data![index].transit),
+                                    //   center: Text(
+                                    //       '${(double.parse(snapshot.data![index].transit) * 100).toStringAsFixed(0)}%'),
+                                    //   progressColor: Colors.green,
+                                    //   barRadius: const Radius.circular(10),
+                                    // ),
                                   ],
                                 ),
                               ],

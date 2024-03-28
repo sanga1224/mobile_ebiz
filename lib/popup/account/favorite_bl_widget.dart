@@ -84,7 +84,7 @@ class _FavoriteBLWidgetState extends State<FavoriteBLWidget> {
                   width: 10,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 2,
+                  width: MediaQuery.of(context).size.width / 2 - 10,
                   child: Focus(
                     onFocusChange: ((value) {
                       if (!value && msg != ctrl.text) {

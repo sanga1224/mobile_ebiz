@@ -95,90 +95,88 @@ class _RecentBLWidgetState extends State<RecentBLWidget> {
             ],
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FutureBuilder(
-                  future: _recentBL,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: Theme.of(context).colorScheme.outline,
-                          size: 50,
-                        ),
-                      );
-                    } else if (snapshot.hasData) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        snapshot.data![index].blno,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          delMyBL(snapshot.data![index].blno);
-                                        },
-                                        child: SizedBox(
-                                          width: 30,
-                                          child: Icon(
-                                            Icons.close_outlined,
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .displayMedium!
-                                                .color,
-                                          ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FutureBuilder(
+                future: _recentBL,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: Theme.of(context).colorScheme.outline,
+                        size: 50,
+                      ),
+                    );
+                  } else if (snapshot.hasData) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 0),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      snapshot.data![index].blno,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        delMyBL(snapshot.data![index].blno);
+                                      },
+                                      child: SizedBox(
+                                        width: 30,
+                                        child: Icon(
+                                          Icons.close_outlined,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium!
+                                              .color,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    } else {
-                      return const Text('');
-                    }
-                  },
-                ),
-              ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  delRecentBL('');
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Text('');
+                  }
                 },
-                icon: const Icon(Icons.delete_outline),
-                label: Text('Delete_All'.tr()),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  textStyle: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                delRecentBL('');
+              },
+              icon: const Icon(Icons.delete_outline),
+              label: Text('Delete_All'.tr()),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

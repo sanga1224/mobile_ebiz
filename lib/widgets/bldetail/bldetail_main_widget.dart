@@ -297,14 +297,23 @@ class _SearchWidgetState extends State<SearchWidget> {
                     future: bldetail,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return ListView(
-                          children: [
-                            BLDetail2Widget(
-                              blno: widget.blno,
-                              blInfo: snapshot.data!,
+                        if (snapshot.data!.auth == 'Y') {
+                          return ListView(
+                            children: [
+                              BLDetail2Widget(
+                                blno: widget.blno,
+                                blInfo: snapshot.data!,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: Text(
+                              'No Authority',
+                              style: Theme.of(context).textTheme.displayMedium,
                             ),
-                          ],
-                        );
+                          );
+                        }
                       } else {
                         return Center(
                           child: LoadingAnimationWidget.staggeredDotsWave(
@@ -319,14 +328,23 @@ class _SearchWidgetState extends State<SearchWidget> {
                     future: bldetail,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return ListView(
-                          children: [
-                            BLDetail3Widget(
-                              blno: widget.blno,
-                              blInfo: snapshot.data!,
+                        if (snapshot.data!.auth == 'Y') {
+                          return ListView(
+                            children: [
+                              BLDetail3Widget(
+                                blno: widget.blno,
+                                blInfo: snapshot.data!,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: Text(
+                              'No Authority',
+                              style: Theme.of(context).textTheme.displayMedium,
                             ),
-                          ],
-                        );
+                          );
+                        }
                       } else {
                         return Center(
                           child: LoadingAnimationWidget.staggeredDotsWave(
@@ -341,14 +359,23 @@ class _SearchWidgetState extends State<SearchWidget> {
                     future: bldetail,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return ListView(
-                          children: [
-                            BLDetail4Widget(
-                              blno: widget.blno,
-                              blInfo: snapshot.data!,
+                        if (snapshot.data!.auth == 'Y') {
+                          return ListView(
+                            children: [
+                              BLDetail4Widget(
+                                blno: widget.blno,
+                                blInfo: snapshot.data!,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: Text(
+                              'No Authority',
+                              style: Theme.of(context).textTheme.displayMedium,
                             ),
-                          ],
-                        );
+                          );
+                        }
                       } else {
                         return Center(
                           child: LoadingAnimationWidget.staggeredDotsWave(

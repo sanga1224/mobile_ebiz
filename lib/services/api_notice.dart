@@ -5,11 +5,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ApiNotice {
   static const String baseUrl = 'http://fastapi.sinokor.co.kr:8000';
 
-  static Future<List<Notice>> getList(num pageIndex) async {
+  static Future<List<Notice>> getList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String nacd = prefs.getString('userNacd') ?? 'EN';
     String detailUrl = 'getNotice/getNotice';
-    var param = {'nacd': nacd, 'pageIndex': (pageIndex + 1).toString()};
+    var param = {'nacd': nacd};
     final response = await Dio().post(
       '$baseUrl/$detailUrl',
       queryParameters: param,

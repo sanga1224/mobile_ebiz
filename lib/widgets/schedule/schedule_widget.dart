@@ -11,14 +11,6 @@ class ScheduleList extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> popupButtons(String avail) {
       List<Widget> lst = [];
-      if (avail == 'Y') {
-        lst.add(TextButton(
-            onPressed: () {},
-            child: Text(
-              'booking'.tr(),
-              style: Theme.of(context).textTheme.displayMedium,
-            )));
-      }
       lst.add(TextButton(
           onPressed: () {
             Navigator.pop(context);

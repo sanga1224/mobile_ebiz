@@ -114,5 +114,8 @@
     "save": "Save",
     "Input_Right_BlNo": "Input valid B/L No. with 16 digits.",
     "Error_Occured": "Some error is occured.",
-    "Delete_All": "Delete All"
+    "Delete_All": "Delete All",
+    "pickup": "Pickup",
+    "return": "Return",
+    "sailing": "Sailing"
 }

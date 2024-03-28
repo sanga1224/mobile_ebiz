@@ -114,5 +114,8 @@
     "save": "저장",
     "Input_Right_BlNo": "16자리 올바른 B/L No를 입력하세요.",
     "Error_Occured": "오류가 발생하였습니다.",
-    "Delete_All": "전체삭제"
+    "Delete_All": "전체삭제",
+    "pickup": "픽업",
+    "return": "반입",
+    "sailing": "항해"
 }

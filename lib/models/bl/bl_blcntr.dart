@@ -13,7 +13,7 @@ class BLBlCntr {
         pkg = json['pkg'],
         wgt = json['wgt'],
         cbm = json['cbm'],
-        vgm = json['vgm'],
+        vgm = json['vgm'] ?? 0,
         vgmType = json['vgmType'] ?? '',
         vgmSign = json['vgmSign'] ?? '',
         vgmCert = json['vgmCert'] ?? '',

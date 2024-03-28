@@ -1,5 +1,17 @@
 class BLList {
-  String blno, vslcd, vslnm, vyg, pol, pod, cntr, transit, dg, etd, eta;
+  String blno,
+      vslcd,
+      vslnm,
+      vyg,
+      pol,
+      pod,
+      cntr,
+      dg,
+      etd,
+      eta,
+      transit,
+      pickupTransit,
+      returnTransit;
 
   BLList.fromJson(Map<String, dynamic> json)
       : blno = json['blno'] ?? '',
@@ -9,8 +21,10 @@ class BLList {
         pol = json['pol'] ?? '',
         pod = json['pod'] ?? '',
         cntr = json['cntr'] ?? '',
-        transit = json['transit'].toString(),
         dg = json['dg'] ?? '',
         etd = json['etd'] ?? '',
-        eta = json['eta'] ?? '';
+        eta = json['eta'] ?? '',
+        transit = json['transit'].toString(),
+        pickupTransit = json['pickupTransit'].toString(),
+        returnTransit = json['returnTransit'].toString();
 }

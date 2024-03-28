@@ -14,6 +14,7 @@ import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
 import 'package:mobile_ebiz/widgets/account/notice_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyInfoWidget extends StatefulWidget {
   const MyInfoWidget({super.key});
@@ -235,17 +236,31 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.headphones_outlined),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'csteam'.tr(),
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
+                  child: GestureDetector(
+                    onTap: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      String nacd = prefs.getString('userNacd') ?? 'EN';
+                      if (nacd == 'KR') {
+                        launchUrl(
+                            Uri.parse('http://sinokor.co.kr/kr/qnaList.html'));
+                      } else {
+                        launchUrl(
+                            Uri.parse('http://sinokor.co.kr/en/net_02OS.html'));
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(Icons.headphones_outlined),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'csteam'.tr(),
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
