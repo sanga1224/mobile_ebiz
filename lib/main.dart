@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_ebiz/firebase_options.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/screens/splash_screen.dart';
@@ -14,6 +16,8 @@ final supportedLocales = [const Locale('en', 'US'), const Locale('ko', 'KR')];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //Firebase 초기화
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // easylocalization 초기화!
   await EasyLocalization.ensureInitialized();
   //shared_preferences 초기화

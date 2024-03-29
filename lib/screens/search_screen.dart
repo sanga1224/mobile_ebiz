@@ -9,6 +9,7 @@ import 'package:mobile_ebiz/services/api_bl.dart';
 import 'package:mobile_ebiz/widgets/bldetail/bldetail_main_widget.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:mobile_ebiz/widgets/bldetail/search_blno_widget.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -25,12 +26,22 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+    getFcmToken();
     CommonFunction.isLogin().then((value) {
       isLogin = value;
       if (isLogin) {
         getFavoriteBL();
         getRecentBL();
       }
+    });
+  }
+
+  void getFcmToken() {
+    Future<String?> fcmToken = FirebaseMessaging.instance.getToken();
+    debugPrint('start!!');
+    fcmToken.then((value) {
+      debugPrint(value);
+      debugPrint('end!!');
     });
   }
 
