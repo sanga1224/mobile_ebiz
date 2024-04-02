@@ -18,73 +18,19 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+//   await setupFlutterNotifications();
+//   showFlutterNotification(message);
+// }
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await setupFlutterNotifications();
-  showFlutterNotification(message);
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
 }
-
-late AndroidNotificationChannel channel;
-bool isFlutterLocalNotificationsInitialized = false;
-
-Future<void> setupFlutterNotifications() async {
-  if (isFlutterLocalNotificationsInitialized) {
-    return;
-  }
-  channel = const AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    description:
-        'This channel is used for important notifications.', // description
-    importance: Importance.high,
-  );
-
-  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-  /// Create an Android Notification Channel.
-  ///
-  /// We use this channel in the `AndroidManifest.xml` file to override the
-  /// default FCM channel to enable heads up notifications.
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  /// Update the iOS foreground notification presentation options to allow
-  /// heads up notifications.
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-  isFlutterLocalNotificationsInitialized = true;
-}
-
-void showFlutterNotification(RemoteMessage message) {
-  RemoteNotification? notification = message.notification;
-  AndroidNotification? android = message.notification?.android;
-  if (notification != null && android != null && !kIsWeb) {
-    debugPrint(notification.title);
-    flutterLocalNotificationsPlugin.show(
-      notification.hashCode,
-      notification.title,
-      notification.body,
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          channel.id,
-          channel.name,
-          channelDescription: channel.description,
-          // TODO add a proper drawable resource to android, for now using
-          //      one that already exists in example app.
-          icon: 'launch_background',
-        ),
-      ),
-    );
-  }
-}
-
-/// Initialize the [FlutterLocalNotificationsPlugin] package.
-late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 // 앱에서 지원하는 언어 리스트 변수
 final supportedLocales = [const Locale('en', 'US'), const Locale('ko', 'KR')];
@@ -93,14 +39,35 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Firebase 초기화
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //알림 수신을 위한 권한 요청
-  if (await Permission.notification.isDenied) {
-    await Permission.notification.request();
-  }
+  // //알림 수신을 위한 권한 요청
+  // if (await Permission.notification.isDenied) {
+  //   await Permission.notification.request();
+  // }
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // if (!kIsWeb) {
+  //   await setupFlutterNotifications();
+  // }
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  if (!kIsWeb) {
-    await setupFlutterNotifications();
-  }
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
 
   // easylocalization 초기화!
   await EasyLocalization.ensureInitialized();
@@ -145,8 +112,40 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // In this example, suppose that all messages contain a data field with the key 'type'.
+  Future<void> setupInteractedMessage() async {
+    // Get any messages which caused the application to open from
+    // a terminated state.
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    // If the message also contains a data property with a "type" of "chat",
+    // navigate to a chat screen
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+
+    // Also handle any interaction when the app is in the background via a
+    // Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    if (message.data['type'] == 'chat') {
+      debugPrint(message.data.toString());
+      // Navigator.pushNamed(context, '/chat',
+      //   arguments: ChatArguments(message),
+      // );
+    }
+  }
 
   Future chkLogIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -165,6 +164,14 @@ class MyApp extends StatelessWidget {
     }
   }
 
+  @override
+  void initState() {
+    super.initState();
+    // Run code required to handle interacted messages in an async function
+    // as initState() must not be async
+    setupInteractedMessage();
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -175,27 +182,15 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       title: 'Sinokor App',
       theme: Provider.of<ThemeProvider>(context).themeData,
-      routes: {
-        '/': (context) => FutureBuilder(
-              future: Future.delayed(const Duration(seconds: 3), chkLogIn),
-              builder: (context, snapshot) {
-                return AnimatedSwitcher(
-                  duration: const Duration(microseconds: 1000),
-                  child: _splashLoadingWidget(snapshot),
-                );
-              },
-            ),
-        '/message': (context) => const MessageView(),
-      },
-      // home: FutureBuilder(
-      //   future: Future.delayed(const Duration(seconds: 3), chkLogIn),
-      //   builder: (context, snapshot) {
-      //     return AnimatedSwitcher(
-      //       duration: const Duration(microseconds: 1000),
-      //       child: _splashLoadingWidget(snapshot),
-      //     );
-      //   },
-      // ),
+      home: FutureBuilder(
+        future: Future.delayed(const Duration(seconds: 3), chkLogIn),
+        builder: (context, snapshot) {
+          return AnimatedSwitcher(
+            duration: const Duration(microseconds: 1000),
+            child: _splashLoadingWidget(snapshot),
+          );
+        },
+      ),
     );
   }
 }
