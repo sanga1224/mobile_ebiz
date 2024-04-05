@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "755406057055",
+    "project_id": "mobileebiz-69f65",
+    "storage_bucket": "mobileebiz-69f65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755406057055:android:1d61ee83866bad6530b5ea",
+        "android_client_info": {
+          "package_name": "com.sinokor.mobileEbiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDswhpNobeVUQFpVN5ZLsU9J5G052yRZ_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

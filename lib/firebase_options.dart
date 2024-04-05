@@ -44,38 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAJ5rflTZfqxGdoW9YABjS9b21K4nCmFhE',
-    appId: '1:303937380531:web:8c09f49bba4d94fa3250c6',
-    messagingSenderId: '303937380531',
-    projectId: 'mobile-ebiz',
-    authDomain: 'mobile-ebiz.firebaseapp.com',
-    storageBucket: 'mobile-ebiz.appspot.com',
-    measurementId: 'G-TKR3DRL2HF',
+    apiKey: 'AIzaSyCfo0Qyb4vFq6JH8GVQuT63Q78Lz79DiG8',
+    appId: '1:327941159644:web:4f016583976a6fe2e35219',
+    messagingSenderId: '327941159644',
+    projectId: 'mobileebiz-fd005',
+    authDomain: 'mobileebiz-fd005.firebaseapp.com',
+    storageBucket: 'mobileebiz-fd005.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD8SOBBljCMGvkbzv4G_AcwEJV15rI6obc',
-    appId: '1:303937380531:android:7fc9f4cba95e3da63250c6',
-    messagingSenderId: '303937380531',
-    projectId: 'mobile-ebiz',
-    storageBucket: 'mobile-ebiz.appspot.com',
+    apiKey: 'AIzaSyB6crWB3xz7-rwwP10KHdQUqSMwzjUU7oQ',
+    appId: '1:327941159644:android:af880eee4e24489ce35219',
+    messagingSenderId: '327941159644',
+    projectId: 'mobileebiz-fd005',
+    storageBucket: 'mobileebiz-fd005.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD7TdTsxYooTfDISg6YBF1jJ-UHBr50Cr0',
-    appId: '1:303937380531:ios:290456a82c944c3f3250c6',
-    messagingSenderId: '303937380531',
-    projectId: 'mobile-ebiz',
-    storageBucket: 'mobile-ebiz.appspot.com',
+    apiKey: 'AIzaSyAbWvFLpWb4fzdv34c2eoITHybrugFEqvQ',
+    appId: '1:327941159644:ios:597a59052c82733ee35219',
+    messagingSenderId: '327941159644',
+    projectId: 'mobileebiz-fd005',
+    storageBucket: 'mobileebiz-fd005.appspot.com',
     iosBundleId: 'com.example.mobileEbiz',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD7TdTsxYooTfDISg6YBF1jJ-UHBr50Cr0',
-    appId: '1:303937380531:ios:c1deedf44602dd2b3250c6',
-    messagingSenderId: '303937380531',
-    projectId: 'mobile-ebiz',
-    storageBucket: 'mobile-ebiz.appspot.com',
+    apiKey: 'AIzaSyAbWvFLpWb4fzdv34c2eoITHybrugFEqvQ',
+    appId: '1:327941159644:ios:c993dafc5ebaaa08e35219',
+    messagingSenderId: '327941159644',
+    projectId: 'mobileebiz-fd005',
+    storageBucket: 'mobileebiz-fd005.appspot.com',
     iosBundleId: 'com.example.mobileEbiz.RunnerTests',
   );
 }
