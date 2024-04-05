@@ -62,11 +62,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAbWvFLpWb4fzdv34c2eoITHybrugFEqvQ',
-    appId: '1:327941159644:ios:597a59052c82733ee35219',
+    appId: '1:327941159644:ios:1876f10527017297e35219',
     messagingSenderId: '327941159644',
     projectId: 'mobileebiz-fd005',
     storageBucket: 'mobileebiz-fd005.appspot.com',
-    iosBundleId: 'com.example.mobileEbiz',
+    iosBundleId: 'com.sinokor.mobileEbiz',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
