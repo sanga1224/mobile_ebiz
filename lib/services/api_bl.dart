@@ -86,7 +86,7 @@ class ApiBL {
       deviceId = macOsInfo.systemGUID;
     }
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('login_token')!;
+    String? token = prefs.getString('login_token');
 
     String portlistUrl = 'getFavoriteBL/getFavoriteBL';
     var param = {

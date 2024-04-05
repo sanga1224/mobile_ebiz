@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "mobile_ebiz" "\0"
+            VALUE "CompanyName", "com.sinokor" "\0"
+            VALUE "FileDescription", "mobileEbiz" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "mobile_ebiz" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.sinokor. All rights reserved." "\0"
             VALUE "OriginalFilename", "mobile_ebiz.exe" "\0"
             VALUE "ProductName", "mobile_ebiz" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

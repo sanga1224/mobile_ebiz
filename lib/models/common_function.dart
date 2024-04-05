@@ -29,7 +29,7 @@ class CommonFunction {
   static Future<bool> isLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('login_token');
-    if (token == '') {
+    if (token == null || token == '') {
       return false;
     } else {
       return true;

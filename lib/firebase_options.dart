@@ -75,6 +75,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '327941159644',
     projectId: 'mobileebiz-fd005',
     storageBucket: 'mobileebiz-fd005.appspot.com',
-    iosBundleId: 'com.example.mobileEbiz.RunnerTests',
+    iosBundleId: 'com.sinokor.mobileEbiz.RunnerTests',
   );
 }
