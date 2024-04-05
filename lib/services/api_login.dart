@@ -95,6 +95,7 @@ class ApiLogIn {
   static Future<Profile> getProfile(int seq) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('login_token')!;
+    String fcmToken = prefs.getString('fcmToken')!;
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     String? deviceId;
     if (kIsWeb) {
@@ -118,7 +119,12 @@ class ApiLogIn {
       deviceId = macOsInfo.systemGUID;
     }
     String detailUrl = 'getProfile/getProfile';
-    var param = {'deviceId': deviceId, 'token': token, 'seq': seq.toString()};
+    var param = {
+      'deviceId': deviceId,
+      'token': token,
+      'fcmToken': fcmToken,
+      'seq': seq.toString()
+    };
     final response = await Dio().post(
       '$baseUrl/$detailUrl',
       queryParameters: param,
@@ -206,6 +212,7 @@ class ApiLogIn {
   static Future<StatusMsg> setProfile(int seq) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('login_token')!;
+    String fcmToken = prefs.getString('fcmToken')!;
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     String? deviceId;
     if (kIsWeb) {
@@ -232,6 +239,7 @@ class ApiLogIn {
     var param = {
       'deviceid': deviceId,
       'token': token,
+      'fcmToken': fcmToken,
       'seq': seq,
     };
     final response = await Dio().post(

@@ -40,6 +40,7 @@ class PercentIndicator extends StatelessWidget {
             ),
           ),
           progressColor: Colors.green,
+          backgroundColor: Colors.grey,
           barRadius: Radius.zero,
         ),
         Visibility(
@@ -62,7 +63,7 @@ class PercentIndicator extends StatelessWidget {
               ),
             ),
             progressColor: Colors.green,
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.blueGrey,
             barRadius: Radius.zero,
           ),
         ),

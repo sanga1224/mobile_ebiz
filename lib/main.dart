@@ -1,19 +1,14 @@
-import 'dart:convert';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mobile_ebiz/firebase_options.dart';
+import 'package:mobile_ebiz/models/common_function.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/screens/splash_screen.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
 import 'package:mobile_ebiz/themes/theme.dart';
 import 'package:mobile_ebiz/themes/theme_provider.dart';
-import 'package:mobile_ebiz/widgets/message/message.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -133,8 +128,7 @@ class _MyAppState extends State<MyApp> {
       _handleMessage(initialMessage);
     }
 
-    // Also handle any interaction when the app is in the background via a
-    // Stream listener
+    //탭했을 때 인식을 위한 리스너
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   }
 
@@ -167,6 +161,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    CommonFunction.setFcmToken(); //FCM token setting
     // Run code required to handle interacted messages in an async function
     // as initState() must not be async
     setupInteractedMessage();
@@ -204,55 +199,5 @@ Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
     );
   } else {
     return const SplashScreen();
-  }
-}
-
-// Crude counter to make messages unique
-int _messageCount = 0;
-
-/// The API endpoint here accepts a raw FCM payload for demonstration purposes.
-String constructFCMPayload(String? token) {
-  _messageCount++;
-  return jsonEncode({
-    'token': token,
-    'data': {
-      'via': 'FlutterFire Cloud Messaging!!!',
-      'count': _messageCount.toString(),
-    },
-    'notification': {
-      'title': 'Hello FlutterFire!',
-      'body': 'This notification (#$_messageCount) was created via FCM!',
-    },
-  });
-}
-
-/// UI Widget for displaying metadata.
-class MetaCard extends StatelessWidget {
-  final String _title;
-  final Widget _children;
-
-  // ignore: public_member_api_docs
-  const MetaCard(this._title, this._children, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                child: Text(_title, style: const TextStyle(fontSize: 18)),
-              ),
-              _children,
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

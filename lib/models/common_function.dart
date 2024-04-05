@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,5 +34,14 @@ class CommonFunction {
     } else {
       return true;
     }
+  }
+
+  static Future setFcmToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Future<String?> fcmToken = FirebaseMessaging.instance.getToken();
+    fcmToken.then((value) {
+      debugPrint('Fcm token : $value');
+      prefs.setString('fcmToken', value!);
+    });
   }
 }
