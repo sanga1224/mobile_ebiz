@@ -1,9 +1,9 @@
 class Profile {
   String nickname, name, cellno, email, telno, faxno;
-  int seq, icon, maxseq;
+  int profile_seq, icon, maxseq;
 
   Profile.fromJson(Map<String, dynamic> json)
-      : seq = json['SEQ'],
+      : profile_seq = json['PROFILE_SEQ'],
         nickname = json['NICKNAME'].toString(),
         name = json['NAME'].toString(),
         cellno = json['CELLNO'] ?? '',

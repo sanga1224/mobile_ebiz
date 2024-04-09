@@ -92,7 +92,7 @@ class ApiLogIn {
     throw Error();
   }
 
-  static Future<Profile> getProfile(int seq) async {
+  static Future<Profile> getProfile(int profileSeq) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('login_token')!;
     String fcmToken = prefs.getString('fcmToken')!;
@@ -123,7 +123,7 @@ class ApiLogIn {
       'deviceId': deviceId,
       'token': token,
       'fcmToken': fcmToken,
-      'seq': seq.toString()
+      'profile_seq': profileSeq.toString()
     };
     final response = await Dio().post(
       '$baseUrl/$detailUrl',
@@ -156,7 +156,7 @@ class ApiLogIn {
   }
 
   static Future<StatusMsg> saveProfile(
-      int seq,
+      int profileSeq,
       int icon,
       String nickName,
       String name,
@@ -169,7 +169,7 @@ class ApiLogIn {
     String detailUrl = 'saveProfile/saveProfile';
     var param = {
       'token': token,
-      'seq': seq,
+      'profile_seq': profileSeq,
       'icon': icon,
       'nickname': nickName,
       'name': name,
@@ -191,11 +191,11 @@ class ApiLogIn {
     throw Error();
   }
 
-  static Future<StatusMsg> deleteProfile(int seq) async {
+  static Future<StatusMsg> deleteProfile(int profileSeq) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('login_token')!;
     String detailUrl = 'deleteProfile/deleteProfile';
-    var param = {'token': token, 'seq': seq};
+    var param = {'token': token, 'profile_seq': profileSeq};
     final response = await Dio().post(
       '$baseUrl/$detailUrl',
       queryParameters: param,
@@ -209,7 +209,7 @@ class ApiLogIn {
     throw Error();
   }
 
-  static Future<StatusMsg> setProfile(int seq) async {
+  static Future<StatusMsg> setProfile(int profileSeq) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('login_token')!;
     String fcmToken = prefs.getString('fcmToken')!;
@@ -240,7 +240,7 @@ class ApiLogIn {
       'deviceid': deviceId,
       'token': token,
       'fcmToken': fcmToken,
-      'seq': seq,
+      'profile_seq': profileSeq,
     };
     final response = await Dio().post(
       '$baseUrl/$detailUrl',

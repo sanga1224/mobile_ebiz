@@ -81,7 +81,7 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ProfileInfo(
-                            initSeq: snapshot.data!.seq,
+                            initSeq: snapshot.data!.profile_seq,
                             func: getUserInfo,
                           ),
                           fullscreenDialog: true,

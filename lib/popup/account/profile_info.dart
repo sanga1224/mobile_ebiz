@@ -114,11 +114,11 @@ class _ProfileInfoState extends State<ProfileInfo> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        snapshot.data![_seq - 1].seq == 1
+                        snapshot.data![_seq - 1].profile_seq == 1
                             ? const Text('           ')
                             : GestureDetector(
                                 onTap: () {
-                                  prev(snapshot.data![_seq - 1].seq);
+                                  prev(snapshot.data![_seq - 1].profile_seq);
                                 },
                                 child: const Icon(
                                   Icons.chevron_left,
@@ -137,12 +137,12 @@ class _ProfileInfoState extends State<ProfileInfo> {
                             height: 150,
                           ),
                         ),
-                        snapshot.data![_seq - 1].seq ==
+                        snapshot.data![_seq - 1].profile_seq ==
                                 snapshot.data![_seq - 1].maxseq
                             ? const Text('           ')
                             : GestureDetector(
                                 onTap: () {
-                                  next(snapshot.data![_seq - 1].seq);
+                                  next(snapshot.data![_seq - 1].profile_seq);
                                 },
                                 child: const Icon(
                                   Icons.chevron_right,
@@ -300,7 +300,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                                                 ? widget.initSeq
                                                 : _seq) -
                                             1]
-                                        .seq,
+                                        .profile_seq,
                                     icon: snapshot
                                         .data![(_seq == 0
                                                 ? widget.initSeq
