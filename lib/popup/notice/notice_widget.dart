@@ -16,12 +16,14 @@ class NoticeWidget extends StatelessWidget {
       appBar: AppBar(
         elevation: 2, //AppBar 음영 크기
         foregroundColor: Theme.of(context).appBarTheme.titleTextStyle!.color,
-        title: Text(
-          'notice'.tr(),
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'notice'.tr(),
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ],
         ),
       ),
       body: FutureBuilder(

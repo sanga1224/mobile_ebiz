@@ -12,7 +12,8 @@ import 'package:mobile_ebiz/popup/account/profile_info.dart';
 import 'package:mobile_ebiz/popup/account/recent_bl_widget.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
-import 'package:mobile_ebiz/widgets/account/notice_widget.dart';
+import 'package:mobile_ebiz/popup/account/alarm_widget.dart';
+import 'package:mobile_ebiz/popup/notice/notice_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -201,6 +202,35 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                         ),
                         Text(
                           'recentbl'.tr(),
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      getUserInfo().then((value) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AlarmWidget(),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(Icons.alarm_on_outlined),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'alarm_setting'.tr(),
                           style: Theme.of(context).textTheme.displayMedium,
                         ),
                       ],

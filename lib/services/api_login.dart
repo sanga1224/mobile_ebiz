@@ -295,4 +295,46 @@ class ApiLogIn {
     }
     throw Error();
   }
+
+  static Future<StatusMsg> updateAlarm(String gb, String val) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('login_token')!;
+    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    String? deviceId;
+    if (kIsWeb) {
+      final webBrowserInfo = await deviceInfo.webBrowserInfo;
+      deviceId =
+          '${webBrowserInfo.vendor ?? '-'} + ${webBrowserInfo.userAgent ?? '-'} + ${webBrowserInfo.hardwareConcurrency.toString()}';
+    } else if (Platform.isAndroid) {
+      const androidId = AndroidId();
+      deviceId = await androidId.getId();
+    } else if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      deviceId = iosInfo.identifierForVendor;
+    } else if (Platform.isLinux) {
+      final linuxInfo = await deviceInfo.linuxInfo;
+      deviceId = linuxInfo.machineId;
+    } else if (Platform.isWindows) {
+      final windowsInfo = await deviceInfo.windowsInfo;
+      deviceId = windowsInfo.deviceId;
+    } else if (Platform.isMacOS) {
+      final macOsInfo = await deviceInfo.macOsInfo;
+      deviceId = macOsInfo.systemGUID;
+    }
+    String detailUrl = 'updateAlarm/updateAlarm';
+    var param = {'deviceId': deviceId, 'token': token, 'gb': gb, 'val': val};
+    final response = await Dio().post(
+      '$baseUrl/$detailUrl',
+      queryParameters: param,
+      // options: Options(
+      //     headers: {HttpHeaders.contentTypeHeader: 'application/json'})
+    );
+    if (response.statusCode == 200) {
+      List<dynamic> responseMap = response.data['ResultData'];
+      StatusMsg result =
+          responseMap.map((e) => StatusMsg.fromJson(e)).toList()[0];
+      return result;
+    }
+    throw Error();
+  }
 }

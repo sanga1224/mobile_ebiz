@@ -14,10 +14,12 @@ class SettingWidget extends StatefulWidget {
 }
 
 class _SettingWidgetState extends State<SettingWidget> {
-  ValueNotifier<bool> _darkModeSwitch = ValueNotifier<bool>(false);
   bool _darkModeChecked = false;
+  ValueNotifier<bool> _darkModeSwitch = ValueNotifier<bool>(false);
   List<String> lstLanguage = <String>['ENG', 'KOR'];
   String? _selectedLanguage;
+
+  void changeTheme() {}
 
   @override
   void initState() {
@@ -35,18 +37,10 @@ class _SettingWidgetState extends State<SettingWidget> {
       _darkModeChecked = true;
     }
     _darkModeSwitch = ValueNotifier<bool>(_darkModeChecked);
-
-    _darkModeSwitch.addListener(() {
-      setState(() {
-        context.read<ThemeProvider>().toggleTheme();
-        _darkModeSwitch = ValueNotifier<bool>(_darkModeChecked);
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(widget.savedThemeMode);
     return Scaffold(
       appBar: AppBar(
         elevation: 2, //AppBar 음영 크기
@@ -130,6 +124,27 @@ class _SettingWidgetState extends State<SettingWidget> {
                       ),
                       AdvancedSwitch(
                         controller: _darkModeSwitch,
+                        initialValue: _darkModeChecked,
+                        onChanged: (value) {
+                          setState(() {
+                            if (_darkModeChecked) {
+                              _darkModeChecked = false;
+                            } else {
+                              _darkModeChecked = true;
+                            }
+                            context.read<ThemeProvider>().toggleTheme();
+                            _darkModeSwitch =
+                                ValueNotifier<bool>(_darkModeChecked);
+                          });
+                        },
+                        thumb: ValueListenableBuilder<bool>(
+                          valueListenable: _darkModeSwitch,
+                          builder: (_, value, __) {
+                            return Icon(value
+                                ? Icons.lightbulb
+                                : Icons.lightbulb_outline);
+                          },
+                        ),
                       ),
                     ],
                   ),

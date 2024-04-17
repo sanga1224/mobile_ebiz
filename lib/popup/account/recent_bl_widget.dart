@@ -89,7 +89,7 @@ class _RecentBLWidgetState extends State<RecentBLWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'mybl'.tr(),
+                'recentbl'.tr(),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ],

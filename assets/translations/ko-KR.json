@@ -117,5 +117,12 @@
     "Delete_All": "전체삭제",
     "pickup": "픽업",
     "return": "반입",
-    "sailing": "항해"
+    "sailing": "항해",
+    "alarm_delay": "딜레이 알림",
+    "alarm_bkcfm": "부킹승인 알림",
+    "alarm_blisu": "비엘발행 알림",
+    "alarm_ftcfm": "프리타임 알림",
+    "alarm_setting": "알림 설정",
+    "alarm_setting_completed": "알람 설정 완료",
+    "alarm_setting_failed": "알람 설정 실패"
 }

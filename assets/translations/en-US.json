@@ -117,5 +117,12 @@
     "Delete_All": "Delete All",
     "pickup": "Pickup",
     "return": "Return",
-    "sailing": "Sailing"
+    "sailing": "Sailing",
+    "alarm_delay": "Delay Alarm",
+    "alarm_bkcfm": "B/K Approval Alarm",
+    "alarm_blisu": "B/L Issue Alarm",
+    "alarm_ftcfm": "Freetime Alarm",
+    "alarm_setting": "Alarm On/Off",
+    "alarm_setting_completed": "Alarm setting completed",
+    "alarm_setting_failed": "Alarm setting failed"
 }

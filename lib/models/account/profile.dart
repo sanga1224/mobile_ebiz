@@ -1,5 +1,14 @@
 class Profile {
-  String nickname, name, cellno, email, telno, faxno;
+  String nickname,
+      name,
+      cellno,
+      email,
+      telno,
+      faxno,
+      rcvDelay,
+      rcvBkCfm,
+      rcvBlIsu,
+      rcvFtCfm;
   int profile_seq, icon, maxseq;
 
   Profile.fromJson(Map<String, dynamic> json)
@@ -11,5 +20,9 @@ class Profile {
         telno = json['TELNO'] ?? '',
         faxno = json['FAXNO'] ?? '',
         icon = json['ICON'],
-        maxseq = json['MAXSEQ'];
+        maxseq = json['MAXSEQ'],
+        rcvDelay = json['RCVDELAY'],
+        rcvBkCfm = json['RCVBKCFM'],
+        rcvBlIsu = json['RCVBLISU'],
+        rcvFtCfm = json['RCVFTCFM'];
 }
