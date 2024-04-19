@@ -1,11 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_ebiz/provider/msgcount_provider.dart';
 import 'package:mobile_ebiz/screens/account_screen.dart';
 import 'package:mobile_ebiz/screens/alarm_screen.dart';
 import 'package:mobile_ebiz/screens/list_screen.dart';
 import 'package:mobile_ebiz/screens/schedule_screen.dart';
 import 'package:mobile_ebiz/screens/search_screen.dart';
 import 'package:mobile_ebiz/widgets/appbar.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key, required this.forceIndex});
@@ -37,6 +40,16 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _selectedIndex = widget.forceIndex;
+    // initFcmMsgCount();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      Provider.of<MsgCountProvider>(context).addMsgCount();
+      // print('Got a message whilst in the foreground!');
+      // print('Message data: ${message.data}');
+
+      // if (message.notification != null) {
+      //   print('Message also contained a notification: ${message.notification}');
+      // }
+    });
   }
 
   void _onItemTapped(int index) {
@@ -44,6 +57,12 @@ class _MainScreenState extends State<MainScreen> {
       _selectedIndex = index;
     });
   }
+
+  // void initFcmMsgCount() {
+  //   ApiAlarm.getCount().then((value) {
+  //     _msgCount = value;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +90,48 @@ class _MainScreenState extends State<MainScreen> {
             label: 'MY',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.notifications_outlined),
+            icon: Stack(children: [
+              const Icon(Icons.notifications_outlined),
+              Positioned(
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(1),
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.all(Radius.circular(6)),
+                  ),
+                  constraints: const BoxConstraints(
+                    minWidth: 12,
+                    maxWidth: 12,
+                  ),
+                  child: FutureBuilder(
+                    future:
+                        Provider.of<MsgCountProvider>(context).getMsgCount(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          snapshot.data!.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 8,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      } else {
+                        return const Text(
+                          "0",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 8,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ]),
             label: 'alarm'.tr(),
           ),
         ],

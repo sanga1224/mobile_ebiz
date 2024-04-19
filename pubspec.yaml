@@ -43,6 +43,7 @@ dependencies:
   flutter_advanced_switch: ^3.0.1
   flutter_carousel_widget: ^2.1.1
   flutter_html: null
+  flutter_local_notifications: ^17.0.1
   flutter_map: ^6.1.0
   flutter_svg: ^2.0.9
   just_the_tooltip: ^0.0.12

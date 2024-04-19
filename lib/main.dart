@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile_ebiz/firebase_options.dart';
 import 'package:mobile_ebiz/models/common_function.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
+import 'package:mobile_ebiz/provider/msgcount_provider.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/screens/splash_screen.dart';
+import 'package:mobile_ebiz/services/api_alarm.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
 import 'package:mobile_ebiz/themes/theme.dart';
-import 'package:mobile_ebiz/themes/theme_provider.dart';
+import 'package:mobile_ebiz/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -23,12 +25,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-
-  print("Handling a background message: ${message.messageId}");
 }
 
 // 앱에서 지원하는 언어 리스트 변수
 final supportedLocales = [const Locale('en', 'US'), const Locale('ko', 'KR')];
+MsgCountProvider msgCountProvider = MsgCountProvider();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,13 +56,8 @@ void main() async {
     sound: true,
   );
 
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
-
-    if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
-    }
+  ApiAlarm.getCount().then((value) {
+    msgCountProvider.setMsgCount(value);
   });
 
   // easylocalization 초기화!
@@ -100,6 +96,7 @@ void main() async {
         providers: [
           ChangeNotifierProvider(
               create: (context) => ThemeProvider(initThemeData: themeData)),
+          ChangeNotifierProvider(create: (context) => MsgCountProvider()),
         ],
         child: const MyApp(),
       ),
