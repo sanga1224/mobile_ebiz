@@ -40,4 +40,21 @@ class ApiAlarm {
     }
     throw Error();
   }
+
+  static Future<int> setRead(String refno) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String fcmToken = prefs.getString('fcmToken')!;
+
+    String url = 'setReadAlarm/setReadAlarm';
+    var param = {'fcm_token': fcmToken, 'refno': refno};
+    final response = await Dio().post(
+      '$baseUrl/$url',
+      queryParameters: param,
+    );
+    if (response.statusCode == 200) {
+      List<dynamic> responseMap = response.data['ResultData'];
+      return responseMap[0]['cnt'];
+    }
+    throw Error();
+  }
 }

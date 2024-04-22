@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebiz/main.dart';
+import 'package:mobile_ebiz/services/api_alarm.dart';
 
 class AlarmDetail extends StatelessWidget {
-  const AlarmDetail({super.key, required this.title, required this.contents});
-  final String title, contents;
+  const AlarmDetail(
+      {super.key,
+      required this.refno,
+      required this.title,
+      required this.contents});
+  final String refno, title, contents;
 
   @override
   Widget build(BuildContext context) {
+    void getCount() async {
+      msgCountGlobal.value = await ApiAlarm.setRead(refno);
+    }
+
+    getCount();
+
     return Scaffold(
       appBar: AppBar(
         title: Row(

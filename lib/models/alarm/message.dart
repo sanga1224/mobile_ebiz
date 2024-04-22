@@ -1,9 +1,11 @@
 class Message {
-  final String title, contents, inpdate, blno;
+  final String refno, title, contents, inpdate, blno, read;
 
   Message.fromJson(Map<String, dynamic> json)
-      : title = json['title'].toString(),
+      : refno = json['refno'].toString(),
+        title = json['title'].toString(),
         contents = json['contents'].toString(),
         inpdate = json['inpdate'].toString(),
-        blno = json['blno'].toString();
+        blno = json['blno'].toString(),
+        read = json['read'].toString();
 }

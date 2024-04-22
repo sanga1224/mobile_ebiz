@@ -4,9 +4,14 @@ import 'package:mobile_ebiz/models/alarm/message.dart';
 import 'package:mobile_ebiz/popup/alarm/alarm_detail.dart';
 import 'package:mobile_ebiz/services/api_alarm.dart';
 
-class AlarmScreen extends StatelessWidget {
+class AlarmScreen extends StatefulWidget {
   const AlarmScreen({super.key});
 
+  @override
+  State<AlarmScreen> createState() => _AlarmScreenState();
+}
+
+class _AlarmScreenState extends State<AlarmScreen> {
   @override
   Widget build(BuildContext context) {
     Future<List<Message>> message = ApiAlarm.getMsgList();
@@ -35,37 +40,56 @@ class AlarmScreen extends StatelessWidget {
                   ),
                 );
               } else if (snapshot.hasData) {
+                List<bool> lstPressed = [];
+
                 return ListView.separated(
                   scrollDirection: Axis.vertical,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   itemBuilder: (context, index) {
+                    lstPressed
+                        .add(snapshot.data![index].read == 'Y' ? true : false);
+
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (BuildContext context) => AlarmDetail(
+                              refno: snapshot.data![index].refno,
                               title: snapshot.data![index].title,
                               contents: snapshot.data![index].contents,
                             ),
                           ),
                         );
+
+                        setState(() {
+                          lstPressed[index] = true;
+                        });
                       },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            snapshot.data![index].title,
-                            style: Theme.of(context).textTheme.displayMedium,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            snapshot.data![index].contents,
-                            style: Theme.of(context).textTheme.displaySmall,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: lstPressed[index]
+                              ? Colors.grey
+                              : Theme.of(context).colorScheme.background,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              snapshot.data![index].title,
+                              style: Theme.of(context).textTheme.displayMedium,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              snapshot.data![index].contents,
+                              style: Theme.of(context).textTheme.displaySmall,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

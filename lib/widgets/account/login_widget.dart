@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_ebiz/main.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
-import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,17 +41,14 @@ class LoginWidget extends StatelessWidget {
         if (!context.mounted) {
           return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
         }
+        selectedIndexGlobal.value = returnPage == 'Main' ? 2 : 1;
         // Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) => const MainScreen()));
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => MainScreen(
-                    forceIndex: (returnPage == 'Main' ? 2 : 1),
-                  )),
-        );
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (BuildContext context) => MainScreen(
+        //             forceIndex: (returnPage == 'Main' ? 2 : 1),
+        //           )),
+        // );
       }
     }
 

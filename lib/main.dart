@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mobile_ebiz/firebase_options.dart';
-import 'package:mobile_ebiz/models/common_function.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
-import 'package:mobile_ebiz/provider/msgcount_provider.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
 import 'package:mobile_ebiz/screens/splash_screen.dart';
 import 'package:mobile_ebiz/services/api_alarm.dart';
@@ -22,31 +22,42 @@ import 'package:easy_localization/easy_localization.dart';
 // }
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 // 앱에서 지원하는 언어 리스트 변수
 final supportedLocales = [const Locale('en', 'US'), const Locale('ko', 'KR')];
-MsgCountProvider msgCountProvider = MsgCountProvider();
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+late AndroidNotificationChannel channel;
+bool isFlutterLocalNotificationsInitialized = false; //셋팅여부 판단 flag
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  //Firebase 초기화
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // //알림 수신을 위한 권한 요청
-  // if (await Permission.notification.isDenied) {
-  //   await Permission.notification.request();
-  // }
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  // if (!kIsWeb) {
-  //   await setupFlutterNotifications();
-  // }
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-  await messaging.requestPermission(
+//셋팅 메소드
+Future<void> setupFlutterNotifications() async {
+  if (isFlutterLocalNotificationsInitialized) {
+    return;
+  }
+  channel = const AndroidNotificationChannel(
+    'high_importance_channel', //id
+    'High Importance Notifications', //title
+    description:
+        'This channel is used for important notifications.', //description
+    importance: Importance.high,
+  );
+  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+  //iOS foreground notification 권한
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  //iOS background 권한 체킹, 요청
+  await FirebaseMessaging.instance.requestPermission(
     alert: true,
     announcement: false,
     badge: true,
@@ -55,10 +66,31 @@ void main() async {
     provisional: false,
     sound: true,
   );
+  //토큰 요청
+  getToken();
+  //셋팅flag 설정
+  isFlutterLocalNotificationsInitialized = true;
+}
 
-  ApiAlarm.getCount().then((value) {
-    msgCountProvider.setMsgCount(value);
-  });
+Future<void> getToken() async {
+  //iOS
+  String? token;
+  // if (defaultTargetPlatform == TargetPlatform.iOS ||
+  //     defaultTargetPlatform == TargetPlatform.macOS) {
+  //   token = await FirebaseMessaging.instance.getAPNSToken();
+  // } else {
+  //AOS
+  token = await FirebaseMessaging.instance.getToken();
+  // }
+  debugPrint('fcmToken : $token');
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //Firebase 초기화
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //Firebase setting
+  await setupFlutterNotifications();
 
   // easylocalization 초기화!
   await EasyLocalization.ensureInitialized();
@@ -96,13 +128,15 @@ void main() async {
         providers: [
           ChangeNotifierProvider(
               create: (context) => ThemeProvider(initThemeData: themeData)),
-          ChangeNotifierProvider(create: (context) => MsgCountProvider()),
         ],
         child: const MyApp(),
       ),
     ),
   );
 }
+
+final ValueNotifier selectedIndexGlobal = ValueNotifier(2);
+final ValueNotifier msgCountGlobal = ValueNotifier(0);
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -112,32 +146,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // In this example, suppose that all messages contain a data field with the key 'type'.
-  Future<void> setupInteractedMessage() async {
-    // Get any messages which caused the application to open from
-    // a terminated state.
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
-
-    // If the message also contains a data property with a "type" of "chat",
-    // navigate to a chat screen
-    if (initialMessage != null) {
-      _handleMessage(initialMessage);
-    }
-
-    //탭했을 때 인식을 위한 리스너
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-  }
-
-  void _handleMessage(RemoteMessage message) {
-    if (message.data['type'] == 'chat') {
-      debugPrint(message.data.toString());
-      // Navigator.pushNamed(context, '/chat',
-      //   arguments: ChatArguments(message),
-      // );
-    }
-  }
-
   Future chkLogIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? loginToken = prefs.getString('login_token');
@@ -155,13 +163,40 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void showFlutterNotification(RemoteMessage message) async {
+    msgCountGlobal.value = await ApiAlarm.getCount();
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+    if (notification != null && android != null && !kIsWeb) {
+      flutterLocalNotificationsPlugin.show(
+        notification.hashCode,
+        notification.title,
+        notification.body,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            channelDescription: channel.description,
+            icon: 'launch_background',
+          ),
+        ),
+      );
+    }
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    selectedIndexGlobal.value = 4;
+  }
+
   @override
   void initState() {
     super.initState();
-    CommonFunction.setFcmToken(); //FCM token setting
-    // Run code required to handle interacted messages in an async function
-    // as initState() must not be async
-    setupInteractedMessage();
+    ApiAlarm.getCount().then((value) {
+      msgCountGlobal.value = value;
+    });
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   }
 
   // This widget is the root of your application.
@@ -191,9 +226,7 @@ Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
   if (snapshot.hasError) {
     return const Text('Error');
   } else if (snapshot.hasData) {
-    return const MainScreen(
-      forceIndex: 2,
-    );
+    return const MainScreen();
   } else {
     return const SplashScreen();
   }
