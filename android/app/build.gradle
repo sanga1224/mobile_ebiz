@@ -50,7 +50,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        multiDexEnabled = true
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -67,6 +67,8 @@ flutter {
 }
 
 dependencies {
+    implementation 'androidx.window:window:1.0.0'
+    implementation 'androidx.window:window-java:1.0.0'
     // local_notification 디슈가링 의존성 추가
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }
