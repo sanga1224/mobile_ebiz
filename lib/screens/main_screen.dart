@@ -11,7 +11,6 @@ import 'package:mobile_ebiz/widgets/appbar.dart';
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
-  // void initFcmMsgCount() {
   @override
   Widget build(BuildContext context) {
     final List<Widget> widgetList = [
