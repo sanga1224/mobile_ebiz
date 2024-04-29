@@ -9,6 +9,7 @@ import 'package:mobile_ebiz/services/api_login.dart';
 class ProfileAdd extends StatefulWidget {
   const ProfileAdd(
       {super.key,
+      required this.empGB,
       required this.seq,
       required this.icon,
       required this.nickName,
@@ -19,7 +20,7 @@ class ProfileAdd extends StatefulWidget {
       required this.faxno,
       required this.func});
   final int seq, icon;
-  final String nickName, name, cellno, email, telno, faxno;
+  final String empGB, nickName, name, cellno, email, telno, faxno;
   final Function func;
 
   @override
@@ -148,7 +149,7 @@ class _ProfileAddState extends State<ProfileAdd> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  iconSeq == 1
+                  widget.empGB == 'E' || iconSeq == 1
                       ? const Text('           ')
                       : GestureDetector(
                           onTap: () {
@@ -171,7 +172,7 @@ class _ProfileAddState extends State<ProfileAdd> {
                       height: 150,
                     ),
                   ),
-                  iconSeq == 18
+                  widget.empGB == 'E' || iconSeq == 18
                       ? const Text('           ')
                       : GestureDetector(
                           onTap: () {
@@ -256,7 +257,7 @@ class _ProfileAddState extends State<ProfileAdd> {
                 ),
               ),
               SizedBox(
-                  child: widget.icon > 0
+                  child: widget.empGB == 'C' && widget.icon > 0
                       ? ElevatedButton.icon(
                           onPressed: () async {
                             CoolAlert.show(

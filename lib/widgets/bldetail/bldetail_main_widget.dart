@@ -126,7 +126,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                               ),
                               keyboardType: TextInputType.text,
                               style: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 16,
                                 color: Colors.white,
                               ),
                               textAlignVertical: TextAlignVertical.top,

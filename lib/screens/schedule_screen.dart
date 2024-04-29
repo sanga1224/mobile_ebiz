@@ -29,7 +29,7 @@ class ScheduleScreen extends StatefulWidget {
 class _ScheduleScreenState extends State<ScheduleScreen> {
   DateTime _selectedDate = DateTime.now();
   late String _pol, _polnm, _pod, _podnm, _yyyymm, _sortBy;
-  late bool _descending, _isFavorites;
+  late bool _descending, _isFavorites = false;
   Future<List<Schedule>>? _schedules;
   Future<List<MySchedule>>? _mySchedule;
   bool _visibleSort1_up = false,
@@ -166,8 +166,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     }
 
     setState(() {
-      getMySchedule();
       _isFavorites = false;
+      getMySchedule();
     });
   }
 
@@ -333,7 +333,20 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                           ),
                                         );
                                       } else {
-                                        return const Text('');
+                                        _isFavorites = false;
+
+                                        return IconButton(
+                                          padding: const EdgeInsets.all(0),
+                                          onPressed: _isFavorites
+                                              ? delFavorites
+                                              : addFavorites,
+                                          icon: Icon(
+                                            _isFavorites
+                                                ? Icons.favorite
+                                                : Icons.favorite_outline,
+                                            color: Colors.red,
+                                          ),
+                                        );
                                       }
                                     } else {
                                       return const Text('');

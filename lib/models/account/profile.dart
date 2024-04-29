@@ -8,7 +8,8 @@ class Profile {
       rcvDelay,
       rcvBkCfm,
       rcvBlIsu,
-      rcvFtCfm;
+      rcvFtCfm,
+      empGB;
   int profile_seq, icon, maxseq;
 
   Profile.fromJson(Map<String, dynamic> json)
@@ -21,8 +22,9 @@ class Profile {
         faxno = json['FAXNO'] ?? '',
         icon = json['ICON'],
         maxseq = json['MAXSEQ'],
-        rcvDelay = json['RCVDELAY'],
-        rcvBkCfm = json['RCVBKCFM'],
-        rcvBlIsu = json['RCVBLISU'],
-        rcvFtCfm = json['RCVFTCFM'];
+        rcvDelay = json['RCVDELAY'] ?? 'N',
+        rcvBkCfm = json['RCVBKCFM'] ?? 'N',
+        rcvBlIsu = json['RCVBLISU'] ?? 'N',
+        rcvFtCfm = json['RCVFTCFM'] ?? 'N',
+        empGB = json['EMPGB'] ?? 'C';
 }

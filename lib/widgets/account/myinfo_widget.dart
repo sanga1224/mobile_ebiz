@@ -83,6 +83,7 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ProfileInfo(
+                            empGB: snapshot.data!.empGB,
                             initSeq: snapshot.data!.profile_seq,
                             func: getUserInfo,
                           ),
@@ -209,35 +210,36 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      getUserInfo().then((value) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AlarmWidget(),
-                            fullscreenDialog: true,
+                if (snapshot.data!.empGB == 'C')
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        getUserInfo().then((value) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AlarmWidget(),
+                              fullscreenDialog: true,
+                            ),
+                          );
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(Icons.alarm_on_outlined),
+                          const SizedBox(
+                            width: 10,
                           ),
-                        );
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.alarm_on_outlined),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'alarm_setting'.tr(),
-                          style: Theme.of(context).textTheme.displayMedium,
-                        ),
-                      ],
+                          Text(
+                            'alarm_setting'.tr(),
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 10),

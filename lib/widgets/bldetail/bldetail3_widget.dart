@@ -491,20 +491,22 @@ class BLDetail3Widget extends StatelessWidget {
                                             actionsPadding: EdgeInsets.zero,
                                             content: SizedBox(
                                               height: 210,
-                                              child: SingleChildScrollView(
-                                                child: Container(
-                                                  padding: EdgeInsets.zero,
-                                                  clipBehavior: Clip
-                                                      .hardEdge, //Overflow 된 부분 잘라내기
-                                                  decoration:
-                                                      const BoxDecoration(),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: getDgInfo(
-                                                      blInfo.dgSpecials,
-                                                      bkCntr.seq,
+                                              child: Container(
+                                                padding: EdgeInsets.zero,
+                                                clipBehavior: Clip
+                                                    .hardEdge, //Overflow 된 부분 잘라내기
+                                                decoration:
+                                                    const BoxDecoration(),
+                                                child: Flexible(
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: getDgInfo(
+                                                        blInfo.dgSpecials,
+                                                        bkCntr.seq,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -601,11 +603,16 @@ class BLDetail3Widget extends StatelessWidget {
                                                     .hardEdge, //Overflow 된 부분 잘라내기
                                                 decoration:
                                                     const BoxDecoration(),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: getCntrInfo(
-                                                    blCntr,
+                                                child: Flexible(
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: getCntrInfo(
+                                                        blCntr,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),

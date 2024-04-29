@@ -8,7 +8,12 @@ import 'package:mobile_ebiz/popup/account/profile_add.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
 
 class ProfileInfo extends StatefulWidget {
-  const ProfileInfo({super.key, required this.initSeq, required this.func});
+  const ProfileInfo(
+      {super.key,
+      required this.empGB,
+      required this.initSeq,
+      required this.func});
+  final String empGB;
   final int initSeq;
   final Function func;
 
@@ -70,29 +75,31 @@ class _ProfileInfoState extends State<ProfileInfo> {
               'profile'.tr(),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfileAdd(
-                        seq: 0,
-                        icon: 0,
-                        nickName: '',
-                        name: '',
-                        cellno: '',
-                        email: '',
-                        telno: '',
-                        faxno: '',
-                        func: setSeq,
-                      ),
-                      fullscreenDialog: true,
-                    ));
-              },
-              child: const Icon(
-                Icons.person_add_outlined,
+            if (widget.empGB == 'C')
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileAdd(
+                          empGB: widget.empGB,
+                          seq: 0,
+                          icon: 0,
+                          nickName: '',
+                          name: '',
+                          cellno: '',
+                          email: '',
+                          telno: '',
+                          faxno: '',
+                          func: setSeq,
+                        ),
+                        fullscreenDialog: true,
+                      ));
+                },
+                child: const Icon(
+                  Icons.person_add_outlined,
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -114,7 +121,8 @@ class _ProfileInfoState extends State<ProfileInfo> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        snapshot.data![_seq - 1].profile_seq == 1
+                        widget.empGB == 'E' ||
+                                snapshot.data![_seq - 1].profile_seq == 1
                             ? const Text('           ')
                             : GestureDetector(
                                 onTap: () {
@@ -137,8 +145,9 @@ class _ProfileInfoState extends State<ProfileInfo> {
                             height: 150,
                           ),
                         ),
-                        snapshot.data![_seq - 1].profile_seq ==
-                                snapshot.data![_seq - 1].maxseq
+                        widget.empGB == 'E' ||
+                                snapshot.data![_seq - 1].profile_seq ==
+                                    snapshot.data![_seq - 1].maxseq
                             ? const Text('           ')
                             : GestureDetector(
                                 onTap: () {
@@ -295,6 +304,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ProfileAdd(
+                                    empGB: widget.empGB,
                                     seq: snapshot
                                         .data![(_seq == 0
                                                 ? widget.initSeq
