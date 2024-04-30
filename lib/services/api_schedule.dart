@@ -51,7 +51,7 @@ class ApiSchedule {
     List<MySchedule> result = [];
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('login_token');
-    if (token != '') {
+    if (token != null) {
       final response = await Dio().post(
         '$baseUrl/$myScheduleListUrl',
         queryParameters: {'token': token},
