@@ -132,6 +132,9 @@ class _FavoriteBLWidgetState extends State<FavoriteBLWidget> {
       },
       child: Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

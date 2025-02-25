@@ -39,7 +39,10 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
                   fullscreenDialog: true,
                 ));
           },
-          icon: const Icon(Icons.settings_outlined),
+          icon: const Icon(
+            Icons.settings_outlined,
+            color: Colors.white,
+          ),
         ),
       ],
     );

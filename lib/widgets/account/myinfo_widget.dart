@@ -99,7 +99,7 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(width: 2, color: Colors.grey),
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context).colorScheme.surface,
                               shape: BoxShape.circle,
                             ),
                             child: SvgPicture.asset(
@@ -121,7 +121,18 @@ class _MyInfoWidgetState extends State<MyInfoWidget> {
                         ],
                       ),
                       IconButton(
-                        onPressed: getUserInfo,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProfileInfo(
+                                  empGB: snapshot.data!.empGB,
+                                  initSeq: snapshot.data!.profile_seq,
+                                  func: getUserInfo,
+                                ),
+                                fullscreenDialog: true,
+                              ));
+                        },
                         icon: const Icon(Icons.chevron_right),
                       ),
                     ],

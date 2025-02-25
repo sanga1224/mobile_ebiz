@@ -5,11 +5,10 @@ import 'package:side_navigation/side_navigation.dart';
 
 class PortList extends StatefulWidget {
   const PortList(
-      {Key? key,
+      {super.key,
       required this.gb,
       required this.func,
-      required this.initNation})
-      : super(key: key);
+      required this.initNation});
   final String gb, initNation;
   final Function func;
 
@@ -64,6 +63,9 @@ class _PortListState extends State<PortList> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         title: const Text('Port List'),
       ),
       body: FutureBuilder(
@@ -98,7 +100,7 @@ class _PortListState extends State<PortList> {
                     theme: SideNavigationBarTheme(
                       itemTheme: SideNavigationBarItemTheme(
                         unselectedBackgroundColor:
-                            Theme.of(context).colorScheme.background,
+                            Theme.of(context).colorScheme.surface,
                         selectedBackgroundColor:
                             Theme.of(context).colorScheme.primary,
                         iconSize: 20,

@@ -120,6 +120,9 @@ class _ProfileAddState extends State<ProfileAdd> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -163,7 +166,7 @@ class _ProfileAddState extends State<ProfileAdd> {
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(width: 2, color: Colors.grey),
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                       shape: BoxShape.circle,
                     ),
                     child: SvgPicture.asset(
@@ -270,7 +273,10 @@ class _ProfileAddState extends State<ProfileAdd> {
                               onConfirmBtnTap: delete,
                             );
                           },
-                          icon: const Icon(Icons.delete_outline),
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            color: Colors.white,
+                          ),
                           label: Text('delete'.tr()),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,

@@ -83,6 +83,9 @@ class _SearchWidgetState extends State<SearchWidget> {
               headerSliverBuilder: (context, bool innerBoxIsScrolled) {
                 return [
                   SliverAppBar(
+                    iconTheme: IconThemeData(
+                      color: Colors.white,
+                    ),
                     titleSpacing: 10,
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

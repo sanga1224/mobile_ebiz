@@ -144,7 +144,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   void addFavorites() async {
     StatusMsg result = await ApiSchedule.addMySchedule(_pol, _pod);
     if (result.status == 'Y') {
-      if (!context.mounted) {
+      if (context.mounted) {
         return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
       }
       CommonFunction.showSnackBar(context, 'Added_Favorites'.tr(), true);
@@ -444,7 +444,10 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           onPressed: () {
                             search(_pol, _pod, _yyyymm, _sortBy, _descending);
                           },
-                          icon: const Icon(Icons.search_outlined),
+                          icon: const Icon(
+                            Icons.search_outlined,
+                            color: Colors.white,
+                          ),
                           label: Text('${'schedule'.tr()} ${'search'.tr()}'),
                           style: Theme.of(context).elevatedButtonTheme.style,
                         ),
@@ -592,7 +595,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           final size = MediaQuery.of(context).size;
           return Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),

@@ -68,6 +68,9 @@ class _ProfileInfoState extends State<ProfileInfo> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -98,6 +101,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 },
                 child: const Icon(
                   Icons.person_add_outlined,
+                  color: Colors.white,
                 ),
               ),
           ],
@@ -136,7 +140,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(width: 2, color: Colors.grey),
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surface,
                             shape: BoxShape.circle,
                           ),
                           child: SvgPicture.asset(
@@ -358,7 +362,10 @@ class _ProfileInfoState extends State<ProfileInfo> {
                                   fullscreenDialog: true,
                                 ));
                           },
-                          icon: const Icon(Icons.edit_note_outlined),
+                          icon: const Icon(
+                            Icons.edit_note_outlined,
+                            color: Colors.white,
+                          ),
                           label: Text('revise'.tr()),
                           style: Theme.of(context).elevatedButtonTheme.style,
                         ),
@@ -367,7 +374,10 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         ),
                         ElevatedButton.icon(
                           onPressed: select,
-                          icon: const Icon(Icons.check_outlined),
+                          icon: const Icon(
+                            Icons.check_outlined,
+                            color: Colors.white,
+                          ),
                           label: Text('select'.tr()),
                           style: Theme.of(context).elevatedButtonTheme.style,
                         ),

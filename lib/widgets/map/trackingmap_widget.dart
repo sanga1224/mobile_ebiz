@@ -114,14 +114,15 @@ class TrackingMapWidget extends StatelessWidget {
                 map.TileLayer(
                   urlTemplate:
                       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-                  userAgentPackageName: 'com.example.app',
+                  userAgentPackageName: 'com.sinokor.mobileEbiz',
                 ),
                 map.MarkerLayer(
                   markers: getMarkers(snapshot.data!.locations),
                 ),
-                map.PolylineLayer(
-                  polylines: [getPaths(snapshot.data!.paths)],
-                ),
+                if (snapshot.data!.paths.isNotEmpty)
+                  map.PolylineLayer(
+                    polylines: [getPaths(snapshot.data!.paths)],
+                  ),
               ],
             ),
           );

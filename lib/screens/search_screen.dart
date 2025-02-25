@@ -119,10 +119,10 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           ),
                           FlutterCarousel(
-                            options: CarouselOptions(
+                            options: FlutterCarouselOptions(
                               height: 100,
                               showIndicator: true,
-                              slideIndicator: const CircularSlideIndicator(),
+                              slideIndicator: CircularSlideIndicator(),
                             ),
                             items: snapshot.data!.map((e) {
                               return Builder(
@@ -207,10 +207,10 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           ),
                           FlutterCarousel(
-                            options: CarouselOptions(
+                            options: FlutterCarouselOptions(
                               height: 120,
                               showIndicator: true,
-                              slideIndicator: const CircularSlideIndicator(),
+                              slideIndicator: CircularSlideIndicator(),
                             ),
                             items: snapshot.data!.map((e) {
                               return Builder(

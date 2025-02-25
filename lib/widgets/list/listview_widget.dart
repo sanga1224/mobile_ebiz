@@ -485,7 +485,10 @@ class _ListViewWidgetState extends State<ListViewWidget> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            icon: const Icon(Icons.search_outlined),
+                            icon: const Icon(
+                              Icons.search_outlined,
+                              color: Colors.white,
+                            ),
                             label: Text('search'.tr()),
                           ),
                         ),

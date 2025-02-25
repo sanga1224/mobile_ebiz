@@ -12,14 +12,12 @@ ThemeData lightMode = ThemeData(
     onPrimary: Colors.white,
     secondary: Colors.white,
     onSecondary: Colors.white70,
-    background: Colors.white,
-    onBackground: const Color.fromRGBO(0, 84, 166, 1),
     brightness: Brightness.light,
     error: Colors.red,
     onError: Colors.red,
     surface: Colors.white,
-    onSurface: Colors.black,
-    outline: Colors.black.withOpacity(0.6),
+    onSurface: const Color.fromRGBO(0, 84, 166, 1),
+    outline: Colors.black.withValues(alpha: 0.6),
     primaryContainer: const Color.fromRGBO(0, 84, 166, 1),
   ),
   textTheme: TextTheme(
@@ -29,22 +27,22 @@ ThemeData lightMode = ThemeData(
       fontWeight: FontWeight.w800,
     ),
     headlineSmall: TextStyle(
-      color: Colors.white.withOpacity(1.0),
+      color: Colors.white.withValues(alpha: 1.0),
       fontSize: 20,
       fontWeight: FontWeight.w400,
     ),
     displayLarge: TextStyle(
-      color: Colors.black.withOpacity(1.0),
+      color: Colors.black.withValues(alpha: 1.0),
       fontSize: 28,
       fontWeight: FontWeight.w800,
     ),
     displayMedium: TextStyle(
-      color: Colors.black.withOpacity(0.8),
+      color: Colors.black.withValues(alpha: 0.8),
       fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
     displaySmall: TextStyle(
-      color: Colors.black.withOpacity(0.6),
+      color: Colors.black.withValues(alpha: 0.6),
       fontSize: 15,
     ),
     labelLarge: const TextStyle(
@@ -62,7 +60,7 @@ ThemeData lightMode = ThemeData(
       fontSize: 15,
     ),
     bodySmall: TextStyle(
-      color: Colors.black.withOpacity(1.0),
+      color: Colors.black.withValues(alpha: 1.0),
       fontSize: 14,
     ),
   ),
@@ -86,12 +84,13 @@ ThemeData lightMode = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     labelStyle: TextStyle(
-      color: const Color.fromRGBO(0, 84, 166, 1).withOpacity(0.8),
+      color: const Color.fromRGBO(0, 84, 166, 1).withValues(alpha: 0.8),
       fontSize: 15,
     ),
     enabledBorder: OutlineInputBorder(
       // width: 0.0 produces a thin "hairline" border
-      borderSide: BorderSide(color: Colors.black.withOpacity(0.8), width: 0.0),
+      borderSide:
+          BorderSide(color: Colors.black.withValues(alpha: 0.8), width: 0.0),
     ),
     border: const OutlineInputBorder(),
   ),
@@ -110,14 +109,12 @@ ThemeData darkMode = ThemeData(
     onPrimary: Colors.black,
     secondary: Colors.white70,
     onSecondary: Colors.black,
-    background: Colors.black,
-    onBackground: Colors.white70,
     brightness: Brightness.dark,
     error: Colors.red,
     onError: Colors.red,
     surface: Colors.black,
-    onSurface: Colors.white,
-    outline: Colors.white.withOpacity(0.6),
+    onSurface: Colors.white70,
+    outline: Colors.white.withValues(alpha: 0.6),
     primaryContainer: Colors.white70,
   ),
   textTheme: TextTheme(
@@ -127,27 +124,27 @@ ThemeData darkMode = ThemeData(
       fontWeight: FontWeight.w800,
     ),
     headlineSmall: TextStyle(
-      color: Colors.white.withOpacity(1.0),
+      color: Colors.white.withValues(alpha: 1.0),
       fontSize: 20,
       fontWeight: FontWeight.w400,
     ),
     displayLarge: TextStyle(
-      color: Colors.white.withOpacity(1.0),
+      color: Colors.white.withValues(alpha: 1.0),
       fontSize: 28,
       fontWeight: FontWeight.w800,
     ),
     displayMedium: TextStyle(
-      color: Colors.white.withOpacity(0.9),
+      color: Colors.white.withValues(alpha: 0.9),
       fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
     displaySmall: TextStyle(
-      color: Colors.white.withOpacity(0.8),
+      color: Colors.white.withValues(alpha: 0.8),
       fontSize: 15,
     ),
     //Snack bar button(action) text
     labelLarge: TextStyle(
-      color: Colors.white.withOpacity(1.0),
+      color: Colors.white.withValues(alpha: 1.0),
       fontSize: 28,
       fontWeight: FontWeight.w800,
     ),
@@ -162,7 +159,7 @@ ThemeData darkMode = ThemeData(
       fontSize: 15,
     ),
     bodySmall: TextStyle(
-      color: Colors.white.withOpacity(1.0),
+      color: Colors.white.withValues(alpha: 1.0),
       fontSize: 14,
     ),
   ),
@@ -187,12 +184,13 @@ ThemeData darkMode = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     labelStyle: TextStyle(
-      color: Colors.white.withOpacity(0.8),
+      color: Colors.white.withValues(alpha: 0.8),
       fontSize: 15,
     ),
     enabledBorder: OutlineInputBorder(
       // width: 0.0 produces a thin "hairline" border
-      borderSide: BorderSide(color: Colors.white.withOpacity(0.8), width: 0.0),
+      borderSide:
+          BorderSide(color: Colors.white.withValues(alpha: 0.8), width: 0.0),
     ),
     border: const OutlineInputBorder(),
   ),

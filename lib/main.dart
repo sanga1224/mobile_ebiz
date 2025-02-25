@@ -83,6 +83,8 @@ Future<void> getToken() async {
   token = await FirebaseMessaging.instance.getToken();
   // }
   debugPrint('fcmToken : $token');
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('fcmToken', token!);
 }
 
 void main() async {
@@ -203,6 +205,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // 디버그 모드 배너 설정
+      debugShowCheckedModeBanner: false,
       // 기본적으로 필요한 언어 설정
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

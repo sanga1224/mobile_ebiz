@@ -85,6 +85,9 @@ class _RecentBLWidgetState extends State<RecentBLWidget> {
       },
       child: Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

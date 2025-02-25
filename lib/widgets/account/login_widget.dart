@@ -42,7 +42,8 @@ class LoginWidget extends StatelessWidget {
         if (!context.mounted) {
           return result; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
         }
-        selectedIndexGlobal.value = returnPage == 'Main' ? 2 : 1;
+        selectedIndexGlobal.value = 2;
+        // selectedIndexGlobal.value = returnPage == 'Main' ? 2 : 1;
         // Navigator.pushReplacement(
         //   context,
         //   MaterialPageRoute(
@@ -72,7 +73,7 @@ class LoginWidget extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(width: 2, color: Colors.grey),
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -117,7 +118,10 @@ class LoginWidget extends StatelessWidget {
                             await login(txtUserId.text, txtPwd.text);
                           },
                           style: Theme.of(context).elevatedButtonTheme.style,
-                          icon: const Icon(Icons.lock_outline),
+                          icon: const Icon(
+                            Icons.lock_outline,
+                            color: Colors.white,
+                          ),
                           label: Text('login'.tr()),
                         ),
                       ],

@@ -54,6 +54,9 @@ class _FavoriteScheduleWidgetState extends State<FavoriteScheduleWidget> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
