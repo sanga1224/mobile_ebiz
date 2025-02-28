@@ -201,6 +201,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                               OptionItem(title: 'favorites'.tr());
 
                           return SelectDropList(
+                            containerPadding: const EdgeInsets.all(5),
                             itemSelected: optionItemSelected,
                             dropListModel: dropListModel,
                             showIcon: true,
@@ -458,7 +459,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               ),
             ),
             SizedBox(
-              height: 18,
+              height: 24,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

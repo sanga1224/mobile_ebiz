@@ -626,15 +626,18 @@ class BLDetail2Widget extends StatelessWidget {
                         top: 0, left: 15, right: 15, bottom: 0),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              blInfo.shipperNm.replaceAll('\\n', '\n'),
-                              style: Theme.of(context).textTheme.displaySmall,
-                              maxLines: 6,
-                            ),
-                          ],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                blInfo.shipperNm.replaceAll('\\n', '\n'),
+                                style: Theme.of(context).textTheme.displaySmall,
+                                maxLines: 6,
+                              ),
+                            ],
+                          ),
                         ),
                         if (blInfo.afrStel != '')
                           Divider(
@@ -731,14 +734,17 @@ class BLDetail2Widget extends StatelessWidget {
                         top: 0, left: 15, right: 15, bottom: 0),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              blInfo.consigneeNm.replaceAll('\\n', '\n'),
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                          ],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                blInfo.consigneeNm.replaceAll('\\n', '\n'),
+                                style: Theme.of(context).textTheme.displaySmall,
+                              ),
+                            ],
+                          ),
                         ),
                         if (blInfo.afrCtel != '')
                           Divider(
@@ -857,15 +863,18 @@ class BLDetail2Widget extends StatelessWidget {
                         top: 0, left: 15, right: 15, bottom: 0),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              blInfo.notifyNm.replaceAll('\\n', '\n'),
-                              style: Theme.of(context).textTheme.displaySmall,
-                              maxLines: 6,
-                            ),
-                          ],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                blInfo.notifyNm.replaceAll('\\n', '\n'),
+                                style: Theme.of(context).textTheme.displaySmall,
+                                maxLines: 6,
+                              ),
+                            ],
+                          ),
                         ),
                         if (blInfo.afrNtel != '')
                           Divider(

@@ -359,9 +359,12 @@ class BLDetail3Widget extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              Text(
-                cntr.vgmType.toString(),
-                style: Theme.of(context).textTheme.displaySmall,
+              Flexible(
+                child: Text(
+                  cntr.vgmType.toString(),
+                  style: Theme.of(context).textTheme.displaySmall,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),

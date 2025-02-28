@@ -155,7 +155,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             Text(
                                               e.msg,
                                               style: const TextStyle(
-                                                fontSize: 22,
+                                                fontSize: 18,
                                                 color: Colors.white,
                                               ),
                                             ),
@@ -261,17 +261,21 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
-                                                  e.blno,
-                                                  style: const TextStyle(
-                                                    fontSize: 22,
-                                                    color: Colors.white,
+                                                Flexible(
+                                                  child: Text(
+                                                    e.blno,
+                                                    style: const TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
                                                   ),
                                                 ),
                                                 Text(
                                                   e.cntr,
                                                   style: const TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: 13,
                                                     color: Colors.white,
                                                   ),
                                                 )

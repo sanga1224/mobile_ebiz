@@ -100,6 +100,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                                 txtBlNo.text = txtBlNo.text.toUpperCase();
                               },
                               decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: EdgeInsets.all(10),
                                 suffixIcon: InkWell(
                                   child: const Icon(
                                     Icons.search,
@@ -129,7 +131,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                               ),
                               keyboardType: TextInputType.text,
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: Colors.white,
                               ),
                               textAlignVertical: TextAlignVertical.top,

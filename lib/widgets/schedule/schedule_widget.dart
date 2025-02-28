@@ -24,36 +24,31 @@ class ScheduleList extends StatelessWidget {
 
     List<Widget> vesselInfo() {
       List<Widget> result = [];
-      int i = 0;
       for (ScheduleDetail vslinfo in schedule.vesselInformation) {
         result.add(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                vslinfo.voyageNumber == ''
-                    ? vslinfo.vesselName
-                    : '${vslinfo.vesselName} / ${vslinfo.voyageNumber}',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
               Flexible(
-                child: i == 0
-                    ? Text(
-                        schedule.availableForBooking == 'Y'
-                            ? 'avail_booking'.tr()
-                            : 'inavail_booking'.tr(),
-                        style: TextStyle(
-                          fontSize: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .fontSize,
-                          color: schedule.availableForBooking == 'Y'
-                              ? Colors.blueAccent
-                              : Colors.redAccent,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    : const Text(''),
+                child: Text(
+                  vslinfo.voyageNumber == ''
+                      ? vslinfo.vesselName
+                      : '${vslinfo.vesselName} / ${vslinfo.voyageNumber}',
+                  style: Theme.of(context).textTheme.displayMedium,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Text(
+                schedule.availableForBooking == 'Y'
+                    ? 'avail_booking'.tr()
+                    : 'inavail_booking'.tr(),
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.displaySmall!.fontSize,
+                  color: schedule.availableForBooking == 'Y'
+                      ? Colors.blueAccent
+                      : Colors.redAccent,
+                ),
+                overflow: TextOverflow.ellipsis,
               )
             ],
           ),
@@ -73,7 +68,6 @@ class ScheduleList extends StatelessWidget {
             ],
           ),
         );
-        i++;
       }
       return result;
     }
