@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobile_ebiz/models/bl/bldetail.dart';
+import 'package:mobile_ebiz/models/bl/blno_list.dart';
 import 'package:mobile_ebiz/models/bl/favorite.dart';
 import 'package:mobile_ebiz/models/bl/recent.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
@@ -331,9 +332,24 @@ class ApiBL {
     );
     if (response.statusCode == 200) {
       List<dynamic> responseMap = response.data['ResultData'];
-      List<String> instances =
-          responseMap.map((e) => e['BLNO'].toString()).toList();
-      return instances;
+      // List<String> instances =
+      //     responseMap.map((e) => e['BLNO'].toString()).toList();
+      List<BLNoList> instances =
+          responseMap.map((e) => BLNoList.fromJson(e)).toList();
+      List<String> result = [];
+      for (BLNoList item in instances) {
+        if (item.gb == 'C') {
+          if (item.refno != '') {
+            result.add(item.blno);
+          } else {
+            result.add('${item.blno} (${item.refno})');
+          }
+        } else if (item.gb == 'E') {
+          result.add(
+              '${item.blno} (${item.custcd}//${item.polcd}->${item.podcd})');
+        }
+      }
+      return result;
     }
     throw Error();
   }

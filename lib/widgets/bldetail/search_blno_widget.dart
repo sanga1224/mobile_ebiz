@@ -46,7 +46,7 @@ class SearchBlNoWidget extends StatelessWidget {
               return options;
             },
             onSelected: (String selection) {
-              goBL(selection);
+              goBL(selection.substring(0, 16));
             },
             fieldViewBuilder: (context, txtBlNo, focusNode, onFieldSubmitted) {
               return TextField(

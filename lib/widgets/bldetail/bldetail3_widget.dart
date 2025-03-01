@@ -606,18 +606,21 @@ class BLDetail3Widget extends StatelessWidget {
                                                     .hardEdge, //Overflow 된 부분 잘라내기
                                                 decoration:
                                                     const BoxDecoration(),
-                                                child: Flexible(
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: getCntrInfo(
-                                                        blCntr,
+                                                child: Column(children: [
+                                                  Flexible(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: getCntrInfo(
+                                                          blCntr,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
+                                                ]),
                                               ),
                                             ),
                                             actions: [
