@@ -1,8 +1,15 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:cool_alert/cool_alert.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobile_ebiz/firebase_options.dart';
 import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/screens/main_screen.dart';
@@ -14,6 +21,8 @@ import 'package:mobile_ebiz/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:yaml/yaml.dart';
 
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -148,7 +157,54 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String getStoreUrl() {
+    if (Platform.isAndroid) {
+      return "https://play.google.com/store/apps/details?id=com.sinokor.mobileEbiz&gl=US";
+    } else if (Platform.isIOS) {
+      return "https://apps.apple.com/kr/app/sinokor-m/id6502036160";
+    } else {
+      return "";
+    }
+  }
+
   Future chkLogIn() async {
+    //Version check
+    var originVersion = "";
+    rootBundle.loadString("pubspec.yaml").then((yamlValue) {
+      var yaml = loadYaml(yamlValue);
+      originVersion = yaml['version'];
+    });
+
+    var storeVersion = Platform.isAndroid
+        ? await getPlayStoreVersion()
+        : Platform.isIOS
+            ? await getAppStoreVersion()
+            : "";
+
+    originVersion = originVersion.split('+')[0];
+    debugPrint('Device Version: $originVersion');
+
+    if (storeVersion.toString().compareTo(originVersion) != 0 &&
+        storeVersion.toString().compareTo("") != 0) {
+      if (mounted) {
+        debugPrint("${"Origin: $originVersion"}, Store: $storeVersion");
+        // CoolAlert.show(
+        //     context: context,
+        //     type: CoolAlertType.confirm,
+        //     title: '',
+        //     text: 'update?'.tr(),
+        //     confirmBtnText: 'yes'.tr(),
+        //     cancelBtnText: 'no'.tr(),
+        //     onConfirmBtnTap: () async {
+        //       StatusMsg result = await ApiLogIn.logOut();
+        //       if (result.status == 'Y') {
+        //         launchUrl(Uri.parse(getStoreUrl()),
+        //             mode: LaunchMode.externalApplication);
+        //       }
+        //     });
+      }
+    }
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? loginToken = prefs.getString('login_token');
 
@@ -163,6 +219,39 @@ class _MyAppState extends State<MyApp> {
     } else {
       return '';
     }
+  }
+
+  Future<dynamic> getPlayStoreVersion() async {
+    try {
+      final http.Response response = await http.get(Uri.parse(
+          "https://play.google.com/store/apps/details?id=com.sinokor.mobileEbiz&gl=US"));
+      if (response.statusCode == 200) {
+        RegExp regexp =
+            RegExp(r'\[\[\[\"(\d+\.\d+(\.[a-z]+)?(\.([^"]|\\")*)?)\"\]\]');
+        return regexp.firstMatch(response.body)?.group(1);
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
+  }
+
+  Future<dynamic> getAppStoreVersion() async {
+    try {
+      Uri uri = Uri.https(
+        "itunes.apple.com",
+        "/lookup",
+        {"bundleId": "com.sinokor.mobileEbiz"},
+      );
+      final Response response = await Dio().get(uri.toString());
+      if (response.statusCode == 200) {
+        final jsonObj = json.decode(response.data);
+        return jsonObj['results'][0]['version'];
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
   }
 
   void showFlutterNotification(RemoteMessage message) async {

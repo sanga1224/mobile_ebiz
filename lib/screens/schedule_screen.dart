@@ -144,10 +144,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   void addFavorites() async {
     StatusMsg result = await ApiSchedule.addMySchedule(_pol, _pod);
     if (result.status == 'Y') {
-      if (context.mounted) {
-        return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+      // if (context.mounted) {
+      //   return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+      // }
+      if (mounted) {
+        CommonFunction.showSnackBar(context, 'Added_Favorites'.tr(), true);
       }
-      CommonFunction.showSnackBar(context, 'Added_Favorites'.tr(), true);
     }
 
     setState(() {
@@ -159,10 +161,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   void delFavorites() async {
     StatusMsg result = await ApiSchedule.delMySchedule(_pol, _pod);
     if (result.status == 'Y') {
-      if (!context.mounted) {
-        return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+      // if (!context.mounted) {
+      //   return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
+      // }
+      if (mounted) {
+        CommonFunction.showSnackBar(context, 'Deleted_Favorites'.tr(), true);
       }
-      CommonFunction.showSnackBar(context, 'Deleted_Favorites'.tr(), true);
     }
 
     setState(() {

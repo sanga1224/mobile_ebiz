@@ -133,5 +133,6 @@
     "alarm_doc": "D/O 승인",
     "alarm_setting": "알림 설정",
     "alarm_setting_completed": "알람 설정 완료",
-    "alarm_setting_failed": "알람 설정 실패"
+    "alarm_setting_failed": "알람 설정 실패",
+    "update?": "신규 버전이 업데이트 되었습니다. 즉시 업데이트 하시겠습니까?"
 }

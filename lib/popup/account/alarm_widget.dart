@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mobile_ebiz/models/account/profile.dart';
-import 'package:mobile_ebiz/models/common_function.dart';
-import 'package:mobile_ebiz/models/status_msg.dart';
 import 'package:mobile_ebiz/services/api_login.dart';
 
 class AlarmWidget extends StatefulWidget {
@@ -15,7 +13,14 @@ class AlarmWidget extends StatefulWidget {
 }
 
 class _AlarmWidgetState extends State<AlarmWidget> {
-  final Future<Profile> _profile = ApiLogIn.getProfile(0);
+  Future<Profile>? _profile;
+
+  Future search() async {
+    setState(() {
+      _profile = ApiLogIn.getProfile(0);
+    });
+  }
+
   bool _rcvBKCChecked = false;
   ValueNotifier<bool> _rcvBKCSwitch = ValueNotifier(false);
   bool _rcvBLCChecked = false;
@@ -48,22 +53,23 @@ class _AlarmWidgetState extends State<AlarmWidget> {
   @override
   void initState() {
     super.initState();
+    search();
   }
 
   @override
   Widget build(BuildContext context) {
     void setAlarm(String gb, String val) async {
-      StatusMsg result = await ApiLogIn.updateAlarm(gb, val);
-      if (!context.mounted) {
-        return; //async-await gap 때문에 context가 null일 수 있어 추가 필요.
-      }
-      if (result.status == 'Y') {
-        CommonFunction.showSnackBar(
-            context, 'alarm_setting_completed'.tr(), true);
-      } else {
-        CommonFunction.showSnackBar(
-            context, 'alarm_setting_failed'.tr(), false);
-      }
+      await ApiLogIn.updateAlarm(gb, val);
+      search();
+      // if (result.status == 'Y') {
+      //   CommonFunction.showSnackBar(
+      //       context, 'alarm_setting_completed'.tr(), true);
+      // } else {
+      //   if (mounted) {
+      //     CommonFunction.showSnackBar(
+      //         context, 'alarm_setting_failed'.tr(), false);
+      //   }
+      // }
     }
 
     return Scaffold(
@@ -86,33 +92,32 @@ class _AlarmWidgetState extends State<AlarmWidget> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             _rcvBKCChecked = snapshot.data!.bkc == 'Y' ? true : false;
-            _rcvBLCChecked = snapshot.data!.blc == 'Y' ? true : false;
-            _rcvCACChecked = snapshot.data!.cac == 'Y' ? true : false;
-            _rcvBLIChecked = snapshot.data!.bli == 'Y' ? true : false;
-            _rcvBLPChecked = snapshot.data!.blp == 'Y' ? true : false;
-            _rcvLCCChecked = snapshot.data!.lcc == 'Y' ? true : false;
-            _rcvIVIChecked = snapshot.data!.ivi == 'Y' ? true : false;
-            _rcvTXIChecked = snapshot.data!.txi == 'Y' ? true : false;
-            _rcvFTCChecked = snapshot.data!.ftc == 'Y' ? true : false;
-            _rcvDGCChecked = snapshot.data!.dgc == 'Y' ? true : false;
-            _rcvDLNChecked = snapshot.data!.dln == 'Y' ? true : false;
-            _rcvVSCChecked = snapshot.data!.vsc == 'Y' ? true : false;
-            _rcvTSCChecked = snapshot.data!.tsc == 'Y' ? true : false;
-            _rcvDOCChecked = snapshot.data!.doc == 'Y' ? true : false;
-
             _rcvBKCSwitch = ValueNotifier<bool>(_rcvBKCChecked);
+            _rcvBLCChecked = snapshot.data!.blc == 'Y' ? true : false;
             _rcvBLCSwitch = ValueNotifier<bool>(_rcvBLCChecked);
+            _rcvCACChecked = snapshot.data!.cac == 'Y' ? true : false;
             _rcvCACSwitch = ValueNotifier<bool>(_rcvCACChecked);
+            _rcvBLIChecked = snapshot.data!.bli == 'Y' ? true : false;
             _rcvBLISwitch = ValueNotifier<bool>(_rcvBLIChecked);
+            _rcvBLPChecked = snapshot.data!.blp == 'Y' ? true : false;
             _rcvBLPSwitch = ValueNotifier<bool>(_rcvBLPChecked);
+            _rcvLCCChecked = snapshot.data!.lcc == 'Y' ? true : false;
             _rcvLCCSwitch = ValueNotifier<bool>(_rcvLCCChecked);
+            _rcvIVIChecked = snapshot.data!.ivi == 'Y' ? true : false;
             _rcvIVISwitch = ValueNotifier<bool>(_rcvIVIChecked);
+            _rcvTXIChecked = snapshot.data!.txi == 'Y' ? true : false;
             _rcvTXISwitch = ValueNotifier<bool>(_rcvTXIChecked);
+            _rcvFTCChecked = snapshot.data!.ftc == 'Y' ? true : false;
             _rcvFTCSwitch = ValueNotifier<bool>(_rcvFTCChecked);
+            _rcvDGCChecked = snapshot.data!.dgc == 'Y' ? true : false;
             _rcvDGCSwitch = ValueNotifier<bool>(_rcvDGCChecked);
+            _rcvDLNChecked = snapshot.data!.dln == 'Y' ? true : false;
             _rcvDLNSwitch = ValueNotifier<bool>(_rcvDLNChecked);
+            _rcvVSCChecked = snapshot.data!.vsc == 'Y' ? true : false;
             _rcvVSCSwitch = ValueNotifier<bool>(_rcvVSCChecked);
+            _rcvTSCChecked = snapshot.data!.tsc == 'Y' ? true : false;
             _rcvTSCSwitch = ValueNotifier<bool>(_rcvTSCChecked);
+            _rcvDOCChecked = snapshot.data!.doc == 'Y' ? true : false;
             _rcvDOCSwitch = ValueNotifier<bool>(_rcvDOCChecked);
 
             return Padding(
@@ -141,22 +146,15 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                           controller: _rcvBKCSwitch,
                           initialValue: _rcvBKCChecked,
                           onChanged: (value) {
-                            debugPrint(value.toString());
                             setState(() {
-                              _rcvBKCChecked = value;
+                              if (_rcvBKCChecked) {
+                                _rcvBKCChecked = false;
+                              } else {
+                                _rcvBKCChecked = true;
+                              }
                               setAlarm('BKC', _rcvBKCChecked ? 'Y' : 'N');
-                              _rcvBKCSwitch =
-                                  ValueNotifier<bool>(_rcvBKCChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvBKCSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -186,18 +184,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvBLCChecked = value;
                               setAlarm('BLC', _rcvBLCChecked ? 'Y' : 'N');
-                              _rcvBLCSwitch =
-                                  ValueNotifier<bool>(_rcvBLCChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvBLCSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -227,18 +215,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvCACChecked = value;
                               setAlarm('CAC', _rcvCACChecked ? 'Y' : 'N');
-                              _rcvCACSwitch =
-                                  ValueNotifier<bool>(_rcvCACChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvCACSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -268,18 +246,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvBLIChecked = value;
                               setAlarm('BLI', _rcvBLIChecked ? 'Y' : 'N');
-                              _rcvBLISwitch =
-                                  ValueNotifier<bool>(_rcvBLIChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvBLISwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -309,18 +277,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvBLPChecked = value;
                               setAlarm('BLP', _rcvBLPChecked ? 'Y' : 'N');
-                              _rcvBLPSwitch =
-                                  ValueNotifier<bool>(_rcvBLPChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvBLPSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -350,18 +308,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvLCCChecked = value;
                               setAlarm('LCC', _rcvLCCChecked ? 'Y' : 'N');
-                              _rcvLCCSwitch =
-                                  ValueNotifier<bool>(_rcvLCCChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvLCCSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -391,18 +339,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvIVIChecked = value;
                               setAlarm('IVI', _rcvIVIChecked ? 'Y' : 'N');
-                              _rcvIVISwitch =
-                                  ValueNotifier<bool>(_rcvIVIChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvIVISwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -432,18 +370,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvTXIChecked = value;
                               setAlarm('TXI', _rcvTXIChecked ? 'Y' : 'N');
-                              _rcvTXISwitch =
-                                  ValueNotifier<bool>(_rcvTXIChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvTXISwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -473,18 +401,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvFTCChecked = value;
                               setAlarm('FTC', _rcvFTCChecked ? 'Y' : 'N');
-                              _rcvFTCSwitch =
-                                  ValueNotifier<bool>(_rcvFTCChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvFTCSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -514,18 +432,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvDGCChecked = value;
                               setAlarm('DGC', _rcvDGCChecked ? 'Y' : 'N');
-                              _rcvDGCSwitch =
-                                  ValueNotifier<bool>(_rcvDGCChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvDGCSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -543,7 +451,7 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                               width: 10,
                             ),
                             Text(
-                              'alarm_dln'.tr(),
+                              'Delay Notice',
                               style: Theme.of(context).textTheme.displayMedium,
                             ),
                           ],
@@ -555,18 +463,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvDLNChecked = value;
                               setAlarm('DLN', _rcvDLNChecked ? 'Y' : 'N');
-                              _rcvDLNSwitch =
-                                  ValueNotifier<bool>(_rcvDLNChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvDLNSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -596,18 +494,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvVSCChecked = value;
                               setAlarm('VSC', _rcvVSCChecked ? 'Y' : 'N');
-                              _rcvVSCSwitch =
-                                  ValueNotifier<bool>(_rcvVSCChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvVSCSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -637,18 +525,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvTSCChecked = value;
                               setAlarm('TSC', _rcvTSCChecked ? 'Y' : 'N');
-                              _rcvTSCSwitch =
-                                  ValueNotifier<bool>(_rcvTSCChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvTSCSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -678,18 +556,8 @@ class _AlarmWidgetState extends State<AlarmWidget> {
                             setState(() {
                               _rcvDOCChecked = value;
                               setAlarm('DOC', _rcvDOCChecked ? 'Y' : 'N');
-                              _rcvDOCSwitch =
-                                  ValueNotifier<bool>(_rcvDOCChecked);
                             });
                           },
-                          thumb: ValueListenableBuilder<bool>(
-                            valueListenable: _rcvDOCSwitch,
-                            builder: (_, value, __) {
-                              return Icon(value
-                                  ? Icons.lightbulb
-                                  : Icons.lightbulb_outline);
-                            },
-                          ),
                         ),
                       ],
                     ),

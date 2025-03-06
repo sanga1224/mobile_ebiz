@@ -133,5 +133,6 @@
     "alarm_doc": "D/O Approval",
     "alarm_setting": "Alarm On/Off",
     "alarm_setting_completed": "Alarm setting completed",
-    "alarm_setting_failed": "Alarm setting failed"
+    "alarm_setting_failed": "Alarm setting failed",
+    "update?": "New version is updated. Do you want to update now?"
 }
