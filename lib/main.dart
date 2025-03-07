@@ -168,7 +168,6 @@ class _MyAppState extends State<MyApp> {
             ? await getAppStoreVersion()
             : "";
     originVersion = originVersion.split('+')[0];
-    storeVersion = "1.1.5";
     var arrOrgVersion = originVersion.split('.');
     var arrStoreVersion = storeVersion.split('.');
 

@@ -23,7 +23,6 @@
     "Login_Error1": "There is no ID.",
     "Login_Error2": "Password is not matched.",
     "Login_Error3": "ID is not approved yet.",
-    "chkingLogin": "Checking login information...",
     "onetouchbk": "One touch B/K",
     "mybl": "Favorites(B/L)",
     "notice": "Notice",
@@ -135,5 +134,6 @@
     "alarm_setting_completed": "Alarm setting completed",
     "alarm_setting_failed": "Alarm setting failed",
     "update?": "New version is updated. Do you want to update now?",
-    "update!": "You should update it now because important function was revised."
+    "update!": "You should update it now because important function was revised.",
+    "chkingLogin": "Checking version information..."
 }
