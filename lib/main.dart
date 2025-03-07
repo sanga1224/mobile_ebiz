@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:cool_alert/cool_alert.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -21,7 +19,6 @@ import 'package:mobile_ebiz/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:yaml/yaml.dart';
 
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -157,16 +154,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String getStoreUrl() {
-    if (Platform.isAndroid) {
-      return "https://play.google.com/store/apps/details?id=com.sinokor.mobileEbiz&gl=US";
-    } else if (Platform.isIOS) {
-      return "https://apps.apple.com/kr/app/sinokor-m/id6502036160";
-    } else {
-      return "";
-    }
-  }
-
   Future chkLogIn() async {
     //Version check
     var originVersion = "";
@@ -180,28 +167,20 @@ class _MyAppState extends State<MyApp> {
         : Platform.isIOS
             ? await getAppStoreVersion()
             : "";
-
     originVersion = originVersion.split('+')[0];
-    debugPrint('Device Version: $originVersion');
+    storeVersion = "1.1.5";
+    var arrOrgVersion = originVersion.split('.');
+    var arrStoreVersion = storeVersion.split('.');
 
-    if (storeVersion.toString().compareTo(originVersion) != 0 &&
+    if (originVersion.toString().compareTo(storeVersion) != 0 &&
         storeVersion.toString().compareTo("") != 0) {
-      if (mounted) {
-        debugPrint("${"Origin: $originVersion"}, Store: $storeVersion");
-        // CoolAlert.show(
-        //     context: context,
-        //     type: CoolAlertType.confirm,
-        //     title: '',
-        //     text: 'update?'.tr(),
-        //     confirmBtnText: 'yes'.tr(),
-        //     cancelBtnText: 'no'.tr(),
-        //     onConfirmBtnTap: () async {
-        //       StatusMsg result = await ApiLogIn.logOut();
-        //       if (result.status == 'Y') {
-        //         launchUrl(Uri.parse(getStoreUrl()),
-        //             mode: LaunchMode.externalApplication);
-        //       }
-        //     });
+      if (arrOrgVersion[0] != arrStoreVersion[0] ||
+          arrOrgVersion[1] != arrStoreVersion[1]) {
+        return 'Force Update';
+      } else if (arrStoreVersion.length > 2) {
+        if (arrOrgVersion[2] != arrStoreVersion[2]) {
+          return 'Update';
+        }
       }
     }
 
@@ -313,14 +292,16 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-}
 
-Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
-  if (snapshot.hasError) {
-    return const Text('Error');
-  } else if (snapshot.hasData) {
-    return const MainScreen();
-  } else {
-    return const SplashScreen();
+  Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
+    if (snapshot.hasError) {
+      return const Text('Error');
+    } else if (snapshot.hasData) {
+      return MainScreen(
+        status: snapshot.data.toString(),
+      );
+    } else {
+      return const SplashScreen();
+    }
   }
 }
