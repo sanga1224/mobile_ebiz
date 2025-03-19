@@ -122,7 +122,11 @@ class BLDetail {
       docDate,
       userNacd,
       lWharfNm,
-      auth;
+      auth,
+      bkStatus,
+      blStatus,
+      prtInvoice,
+      lineCertiCnt;
   List<BLSchedule> schedules = [];
   List<BLTracking> trackings = [];
   List<BLMark> marks = [];
@@ -248,6 +252,10 @@ class BLDetail {
         userNacd = json['userNacd'] ?? '',
         lWharfNm = json['lWharfNm'] ?? '',
         auth = json['auth'] ?? '',
+        bkStatus = json['bkStatus'] ?? '',
+        blStatus = json['blStatus'] ?? '',
+        prtInvoice = json['prtInvoice'] ?? '',
+        lineCertiCnt = json['lineCertiCnt'].toString(),
         schedules = (json['schedules'] as List)
             .map((i) => BLSchedule.fromJson(i))
             .toList(),

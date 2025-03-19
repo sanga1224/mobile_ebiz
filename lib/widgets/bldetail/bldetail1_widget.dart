@@ -25,7 +25,7 @@ class BLDetail1Widget extends StatelessWidget {
                 schedule.vyg == ''
                     ? schedule.vslnm
                     : '${schedule.vslnm}/${schedule.vyg}',
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
             ],
           ),
@@ -37,14 +37,14 @@ class BLDetail1Widget extends StatelessWidget {
               Flexible(
                 child: Text(
                   schedule.polnm,
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayMedium,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               Flexible(
                 child: Text(
                   schedule.podnm,
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayMedium,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:mobile_ebiz/models/bl/bldetail.dart';
 
 class BLDetail2Widget extends StatelessWidget {
@@ -234,6 +235,215 @@ class BLDetail2Widget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 0),
       child: Column(
         children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.pending_outlined,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'progress'.tr(),
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+            ],
+          ),
+          Divider(
+            color: Theme.of(context).colorScheme.outline,
+            thickness: 1,
+          ),
+          Container(
+            clipBehavior: Clip.hardEdge, //Overflow 된 부분 잘라내기
+            decoration: const BoxDecoration(),
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
+              child: Center(
+                child: Table(
+                  border: TableBorder.all(),
+                  children: [
+                    TableRow(
+                      decoration: BoxDecoration(color: Colors.blueAccent[200]),
+                      children: [
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text(
+                                'booking'.tr(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text(
+                                'B/L',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text(
+                                'issue'.tr(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text(
+                                'Invoice',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Center(
+                              child: Text(
+                                'Certi',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    TableRow(children: [
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              blInfo.bkStatus == 'C'
+                                  ? 'approve'.tr()
+                                  : blInfo.bkStatus == 'R'
+                                      ? 'reduce_reject'.tr()
+                                      : 'reduce_request'.tr(),
+                              style: TextStyle(
+                                color: blInfo.bkStatus == 'R'
+                                    ? Colors.redAccent
+                                    : Colors.blueAccent,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              blInfo.blStatus == '1'
+                                  ? '-'
+                                  : blInfo.blStatus == '2'
+                                      ? 'write'.tr()
+                                      : blInfo.blStatus == '3'
+                                          ? 'submit'.tr()
+                                          : int.parse(blInfo.blStatus) >= 5
+                                              ? 'confirm'.tr()
+                                              : 'approve'.tr(),
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              blInfo.blIssueType,
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              blInfo.prtInvoice == 'Y' ? 'issue'.tr() : '',
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              int.parse(blInfo.lineCertiCnt) > 0
+                                  ? 'issue'.tr()
+                                  : '',
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           Row(
             children: [
               const Icon(

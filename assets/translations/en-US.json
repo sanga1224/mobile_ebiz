@@ -135,5 +135,12 @@
     "alarm_setting_failed": "Alarm setting failed",
     "update?": "New version is updated. Do you want to update now?",
     "update!": "You should update it now because important function was revised.",
-    "chkingLogin": "Checking version information..."
+    "chkingUpdate": "Checking version information...",
+    "progress": "Progress",
+    "issue": "Issue",
+    "request": "Request",
+    "approve": "Approve",
+    "reject": "Reject",
+    "write": "Write",
+    "submit": "Submit"
 }

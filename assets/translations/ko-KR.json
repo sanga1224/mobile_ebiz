@@ -3,7 +3,7 @@
     "schedule": "스케쥴",
     "Select_POL": "출발지를 선택하세요.",
     "Select_POD": "도착지를 선택하세요.",
-    "booking": "예약",
+    "booking": "부킹",
     "close": "닫기",
     "avail_booking": "가능",
     "inavail_booking": "마감",
@@ -135,5 +135,12 @@
     "alarm_setting_failed": "알람 설정 실패",
     "update?": "새로운 버전이 업데이트 되었습니다. 바로 업데이트 하시겠습니까?",
     "update!": "중요한 기능이 업데이트 되어 즉시 업데이트 하셔야 사용이 가능합니다.",
-    "chkingUpdate": "버전 정보를 체크중입니다..."
+    "chkingUpdate": "버전 정보를 체크중입니다...",
+    "progress": "진행상황",
+    "issue": "발행",
+    "request": "요청",
+    "approve": "승인",
+    "reject": "거절",
+    "write": "작성",
+    "submit": "제출"
 }
