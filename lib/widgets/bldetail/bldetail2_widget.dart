@@ -2,6 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:mobile_ebiz/models/bl/bldetail.dart';
+import 'package:mobile_ebiz/models/common_function.dart';
+import 'package:mobile_ebiz/models/print/print.dart';
+import 'package:mobile_ebiz/services/api_print.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BLDetail2Widget extends StatelessWidget {
   const BLDetail2Widget({super.key, required this.blno, required this.blInfo});
@@ -244,7 +249,7 @@ class BLDetail2Widget extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                'progress'.tr(),
+                '${'document'.tr()} ${'progress'.tr()}',
                 style: Theme.of(context).textTheme.displayMedium,
               ),
             ],
@@ -261,6 +266,13 @@ class BLDetail2Widget extends StatelessWidget {
                   const EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 0),
               child: Center(
                 child: Table(
+                  columnWidths: {
+                    0: FlexColumnWidth(1.3),
+                    1: FlexColumnWidth(1.3),
+                    2: FlexColumnWidth(1),
+                    3: FlexColumnWidth(1.2),
+                    4: FlexColumnWidth(0.9),
+                  },
                   border: TableBorder.all(),
                   children: [
                     TableRow(
@@ -348,19 +360,39 @@ class BLDetail2Widget extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Center(
-                            child: Text(
-                              blInfo.bkStatus == 'C'
-                                  ? 'approve'.tr()
-                                  : blInfo.bkStatus == 'R'
-                                      ? 'reduce_reject'.tr()
-                                      : 'reduce_request'.tr(),
-                              style: TextStyle(
-                                color: blInfo.bkStatus == 'R'
-                                    ? Colors.redAccent
-                                    : Colors.blueAccent,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  blInfo.bkStatus == 'C'
+                                      ? 'approve'.tr()
+                                      : blInfo.bkStatus == 'R'
+                                          ? 'reduce_reject'.tr()
+                                          : 'reduce_request'.tr(),
+                                  style: TextStyle(
+                                    color: blInfo.bkStatus == 'R'
+                                        ? Colors.redAccent
+                                        : Colors.blueAccent,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.file_download_outlined),
+                                  onPressed: () async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    String nacd =
+                                        prefs.getString('userNacd') ?? 'EN';
+                                    String loginToken =
+                                        prefs.getString('login_token') ?? '';
+                                    Print print = await ApiPrint.getPrintData(
+                                        nacd, loginToken, 'NTBK', blInfo.blno);
+
+                                    launchUrl(Uri.parse(
+                                        'https://ebizprt.sinokor.co.kr/?pcom=${print.compcd}&div=${print.div}&bkno=${print.bkno}&pid=${print.pid}&na=${print.na}&seq=${print.seq}&down=Y'));
+                                  },
+                                )
+                              ],
                             ),
                           ),
                         ),
@@ -369,21 +401,41 @@ class BLDetail2Widget extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Center(
-                            child: Text(
-                              blInfo.blStatus == '1'
-                                  ? '-'
-                                  : blInfo.blStatus == '2'
-                                      ? 'write'.tr()
-                                      : blInfo.blStatus == '3'
-                                          ? 'submit'.tr()
-                                          : int.parse(blInfo.blStatus) >= 5
-                                              ? 'confirm'.tr()
-                                              : 'approve'.tr(),
-                              style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  blInfo.blStatus == '1'
+                                      ? '-'
+                                      : blInfo.blStatus == '2'
+                                          ? 'write'.tr()
+                                          : blInfo.blStatus == '3'
+                                              ? 'submit'.tr()
+                                              : int.parse(blInfo.blStatus) >= 5
+                                                  ? 'confirm'.tr()
+                                                  : 'approve'.tr(),
+                                  style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.file_download_outlined),
+                                  onPressed: () async {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+                                    String nacd =
+                                        prefs.getString('userNacd') ?? 'EN';
+                                    String loginToken =
+                                        prefs.getString('login_token') ?? '';
+                                    Print print = await ApiPrint.getPrintData(
+                                        nacd, loginToken, 'CPBL', blInfo.blno);
+
+                                    launchUrl(Uri.parse(
+                                        'https://ebizprt.sinokor.co.kr/?pcom=${print.compcd}&div=${print.div}&bkno=${print.bkno}&pid=${print.pid}&na=${print.na}&seq=${print.seq}&down=Y'));
+                                  },
+                                )
+                              ],
                             ),
                           ),
                         ),
@@ -407,14 +459,27 @@ class BLDetail2Widget extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Center(
-                            child: Text(
-                              blInfo.prtInvoice == 'Y' ? 'issue'.tr() : '',
-                              style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: blInfo.prtInvoice == 'Y'
+                                ? IconButton(
+                                    icon: Icon(Icons.file_download_outlined),
+                                    onPressed: () async {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      String nacd =
+                                          prefs.getString('userNacd') ?? 'EN';
+                                      String loginToken =
+                                          prefs.getString('login_token') ?? '';
+                                      Print print = await ApiPrint.getPrintData(
+                                          nacd,
+                                          loginToken,
+                                          'INVL',
+                                          blInfo.blno);
+
+                                      launchUrl(Uri.parse(
+                                          'https://ebizprt.sinokor.co.kr/?pcom=${print.compcd}&div=${print.div}&bkno=${print.bkno}&pid=${print.pid}&na=${print.na}&seq=${print.seq}&down=Y'));
+                                    },
+                                  )
+                                : Text(''),
                           ),
                         ),
                       ),
@@ -422,16 +487,27 @@ class BLDetail2Widget extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Center(
-                            child: Text(
-                              int.parse(blInfo.lineCertiCnt) > 0
-                                  ? 'issue'.tr()
-                                  : '',
-                              style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: int.parse(blInfo.lineCertiCnt) > 0
+                                ? IconButton(
+                                    icon: Icon(Icons.file_download_outlined),
+                                    onPressed: () async {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      String nacd =
+                                          prefs.getString('userNacd') ?? 'EN';
+                                      String loginToken =
+                                          prefs.getString('login_token') ?? '';
+                                      Print print = await ApiPrint.getPrintData(
+                                          nacd,
+                                          loginToken,
+                                          'LNCT',
+                                          blInfo.blno);
+
+                                      launchUrl(Uri.parse(
+                                          'https://ebizprt.sinokor.co.kr/?pcom=${print.compcd}&div=${print.div}&bkno=${print.bkno}&pid=${print.pid}&na=${print.na}&seq=${print.seq}&down=Y'));
+                                    },
+                                  )
+                                : Text(''),
                           ),
                         ),
                       ),

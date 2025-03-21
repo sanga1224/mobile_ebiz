@@ -106,7 +106,7 @@
     "Deleted_Favorites": "Deleted favorites.",
     "Added_Favorites": "Added favorites.",
     "myschedule": "Favorites(Schedule)",
-    "confirm": "Confirm",
+    "ok": "OK",
     "cancel": "Cancel",
     "No_Input_Blno": "It'll be saved as B/L No. when you don't input.",
     "recentbl": "Recent B/L",
@@ -142,5 +142,8 @@
     "approve": "Approve",
     "reject": "Reject",
     "write": "Write",
-    "submit": "Submit"
+    "submit": "Submit",
+    "print": "Print",
+    "confirm": "Confirm",
+    "document": "Document"
 }

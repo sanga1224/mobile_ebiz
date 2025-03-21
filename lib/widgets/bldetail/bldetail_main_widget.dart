@@ -191,7 +191,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                             TextButton(
                                               onPressed: addFavoriteBL,
                                               child: Text(
-                                                'confirm'.tr(),
+                                                'ok'.tr(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displaySmall,

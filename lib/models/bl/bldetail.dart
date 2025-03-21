@@ -8,7 +8,9 @@ import 'package:mobile_ebiz/models/bl/bl_schedule.dart';
 import 'package:mobile_ebiz/models/bl/bl_tracking.dart';
 
 class BLDetail {
-  String refNo,
+  String blno,
+      hblno,
+      refNo,
       freightNo,
       commodity,
       commodityLocal,
@@ -137,7 +139,9 @@ class BLDetail {
   List<BLFreight> freights = [];
 
   BLDetail.fromJson(Map<String, dynamic> json)
-      : refNo = json['refNo'] ?? '',
+      : blno = json['blno'] ?? '',
+        hblno = json['hblno'] ?? '',
+        refNo = json['refNo'] ?? '',
         freightNo = json['freightNo'] ?? '',
         commodity = json['commodity'] ?? '',
         commodityLocal = json['commodityLocal'] ?? '',

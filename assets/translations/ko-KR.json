@@ -106,7 +106,7 @@
     "Deleted_Favorites": "즐겨찾기가 삭제되었습니다.",
     "Added_Favorites": "즐겨찾기에 추가되었습니다.",
     "myschedule": "즐겨찾기(스케쥴)",
-    "confirm": "확인",
+    "ok": "확인",
     "cancel": "취소",
     "No_Input_Blno": "미입력 시 B/L 번호로 저장",
     "recentbl": "최근 B/L",
@@ -142,5 +142,8 @@
     "approve": "승인",
     "reject": "거절",
     "write": "작성",
-    "submit": "제출"
+    "submit": "제출",
+    "print": "출력",
+    "confirm": "확정",
+    "document": "서류"
 }
